@@ -6,7 +6,7 @@ date_default_timezone_set('Europe/Helsinki');
 
 define('START_TIME', microtime(true));
 define('TOURNAMENT_ID', 'betz');
-define('TOURNAMENT_NAME', 'Betz');
+define('TOURNAMENT_NAME', 'UCL 2012');
 define('HOST', 'betz.fchaps.com');
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
 define('AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
