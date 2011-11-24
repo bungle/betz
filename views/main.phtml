@@ -1,0 +1,32 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<h1>Uutiset</h1>
+<hr />
+<?php
+if(empty($news)) {
+  echo "No news is good news!";
+}
+else  {
+    $bgcolor = '';
+    $fcolor = '';
+    foreach ($news as $new):
+        if($new['level'] > 0) {
+            $bgcolor = '#8F2011';
+            $fcolor = '#E5E5E5';
+        }
+        else {
+            $bgcolor = '#76B737';
+            $fcolor = '';
+        }
+        echo "<div class='block' style='margin-bottom: 10px;'>";
+        echo "<h3 class='ui-corner-top' style='background-color: $bgcolor; color: $fcolor;'>" . $new['title'];
+        if (ADMIN):
+            echo "<a href='" . url('~/admin/news/' . $new['id']) . "'><img style='float: right; padding-left: 3px;' src='" . url('~/img/page_edit.png') . "' alt='Edit' /></a>";
+        endif;
+        echo "<span style='font-size: 0.7em; float: right; color: $fcolor;'>" . date_format(date_create($new['time']), 'd.m.Y k\l\o H:i') . " // " . $new['user'] . "</span>";
+        echo "</h3>";
+        echo "<div class='ui-corner-bottom'>";
+        echo $new['content'];
+        echo "</div>";
+        echo "</div>";
+    endforeach;
+}

@@ -1,0 +1,56 @@
+<?php $layout = 'layouts/layout.login.phtml'; ?>
+<h1 class="ui-corner-top">Kirjaudu sisään <?php echo TOURNAMENT_NAME; ?> -hupilyöntiin</h1>
+<div>
+    <div id="login-wrapper" style="float: left;">
+        <form id="login-form" action="./" method="post">
+            <?php if (isset($invalid)): ?>
+            <div class="notice">
+                Käyttäjätunnus tai salasana on virheellinen, tai et ole vielä <a href="<?php echo url('~/registration'); ?>">rekisteröinyt</a>.
+            </div>
+            <?php endif; ?>
+            <label for="username" class="normal">Käyttäjätunnus:</label><br>
+            <input id="username" name="username" maxlength="15" type="text" value=""><br>
+            <label for="username" class="normal example">Sallitut merkit: a-ö, 0-9, _ ja - (esim. ninja_3)</label><br>
+            <label for="password" class="normal">Salasana:</label><br>
+            <input id="password" name="password" maxlength="20" type="password">
+            <input id="remember" name="remember" type="checkbox"><label for="remember" class="tip" title="Muista minut">m</label><br>
+            <br>
+            <input type="submit" value="Kirjaudu sisään"><?php if (!STARTED): ?> <a href="<?php echo url('~/registration'); ?>">Rekisteröidy</a><?php endif; ?>
+        </form>
+    </div>
+    <div id="login-google-wrapper" style="float: right;">
+        <form id="login-form-google" action="<?php echo url('~/login/google'); ?>" method="post">
+            <input class="tip-google" title="Kirjaudu sisään Google-tunnuksellasi" type="image" src="<?php echo url('~/img/google-openid.png'); ?>">
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+<h3 class="ui-corner-bottom">"m" = muista minut | Voit kirjautua Google-tunnuksellasi klikkaamalla logoa.</h3>
+<?php block($scripts); ?>
+<script>
+$(document).ready(function() {
+    $('#remember').button();
+    $('#username').focus();
+    $('.tip').qtip({
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+            corner: {
+                target: 'topRight',
+                tooltip: 'bottomLeft'
+            }
+        }
+    });
+    $('.tip-google').qtip({
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+            corner: {
+                target: 'topCenter',
+                tooltip: 'bottomCenter'
+            }
+        }
+    });
+});
+</script>
+<?php block(); ?>

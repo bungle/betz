@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<?php if (isset($meta)) echo $meta; ?>
+<title><?php echo isset($title) ? $title . ' - ' . TOURNAMENT_NAME . ' -hupilyönti' : TOURNAMENT_NAME . ' -hupilyönti'; ?></title>
+<link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/typography.css'); ?>">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dark-hive/jquery-ui.css">
+<link rel="stylesheet" href="<?php echo url('~/css/jquery.pnotify.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/flags.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/960.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/menu.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/main.css?') . md5_file('css/main.css'); ?>">
+<?php if (isset($css)) echo $css; ?>
+<?php if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == HOST): ?>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '<?php echo GOOGLE_ANALYTICS_ID; ?>']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<?php endif; ?>
+</head>
+<body id="default">
+<div id="container" class="container_12">
+<div id="container-top">
+    <div id="header">
+        <div style="float: left;">
+            <img id="logo" src="<?php echo url('~/img/logo.png'); ?>">
+            <img id="logo-text" src="<?php echo url('~/img/logo-text.png'); ?>" width="282" height="44" >
+        </div>
+        <div id="user-buttons" style="float: right; text-align: center;">
+            <button id="user-profile"><?php echo username; ?></button>
+            <button id="user-logoff">Kirjaudu ulos</button>
+            <br>
+            <div id="pot" class="success ui-corner-top ui-corner-bottom">
+                <h4><?php echo isset($pot) ? $pot : 0; ?> &euro;</h4>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="navigation">
+        <div id="menu">
+            <ul class="menu">
+                <li<?php if ($menu == 'main') echo ' class="current"' ?>><a href="<?php echo url('~/'); ?>" class="parent"><span>Etusivu</span></a></li>
+                <li<?php if ($menu == 'bets/games') echo ' class="current"' ?>><a href="<?php echo url('~/bets/games'); ?>"><span>Otteluveikkaus</span></a></li>
+                <li<?php if ($menu == 'bets/teams') echo ' class="current"' ?>><a href="<?php echo url('~/bets/teams'); ?>"><span>Kolmen kärki &trade;</span></a></li>
+                <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
+                <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
+                <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
+                <li<?php if ($menu == 'program') echo ' class="current"' ?>><a href="<?php echo url('~/program'); ?>"><span>Otteluohjelma</span></a></li>
+                <li<?php if ($menu == 'rules') echo ' class="current"' ?>><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
+                <li<?php if ($menu == 'chat') echo ' class="current' . (ADMIN ?  '"' : ' last"'); ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
+                <?php if (ADMIN): ?>
+                <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
+                    <a href="<?php echo url('~/admin'); ?>"><span>Ylläpito</span></a>
+                    <div>
+                        <ul>
+                            <li<?php if ($menu == 'admin/news') echo ' class="current"' ?>><a href="<?php echo url('~/admin/news'); ?>"><span>Uutiset</span></a></li>
+                            <li<?php if ($menu == 'admin/games') echo ' class="current"' ?>><a href="<?php echo url('~/admin/games'); ?>"><span>Ottelut</span></a></li>
+                            <li<?php if ($menu == 'admin/teams') echo ' class="current"' ?>><a href="<?php echo url('~/admin/teams'); ?>"><span>Joukkueet</span></a></li>
+                            <li<?php if ($menu == 'admin/scorers') echo ' class="current"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
+                            <li<?php if ($menu == 'admin/users') echo ' class="current"' ?>><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
+                            <li class="<?php if ($menu == 'admin/config') echo 'current"' ?> last"><a href="<?php echo url('~/admin/config'); ?>"><span>Konfiguraatio</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="container-main">
+    <div id="main">
+        <div id="main-left" class="grid_9">
+            <?php echo $view; ?>
+        </div>
+        <div id="main-right" class="grid_3">
+            <?php if (isset($online)): ?>
+            <div class="block">
+                <h3 class="ui-corner-top">Paikalla</h3>
+                <div class="ui-corner-bottom">
+                    <table id="online">
+                    <tr>
+                        <th class="username">Nimi</th>
+                        <th>Sivu</th>
+                        <th class="idle">Poissa</th>
+                    </tr>
+                    <?php foreach($online as $o): $now = date_create(); ?>
+                    <tr>
+                        <td class="username"><?php echo $o['username']; ?></td>
+                        <td><?php echo $o['visited_page']; ?></td>
+                        <td class="idle"><?php echo date_diff($now, date_create($o['visited_time']))->format('%i&nbsp;min&nbsp;%S&nbsp;s'); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    </table>
+                    
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($upcoming)): ?>
+            <div class="block-spacer"></div>
+            <div class="block">
+                <h3 class="ui-corner-top">Seuraavat ottelut</h3>
+                <div class="ui-corner-bottom">
+                    <table>
+                        <?php foreach ($upcoming as $game): $date = date_create($game['time']); ?>
+                            <tr>
+                                <td class="f32" style="width: 32px;">
+                                    <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>">&nbsp;</div>
+                                </td>
+                                <td class="dash">&nbsp;&ndash;&nbsp;</td>
+                                <td class="f32" style="width: 32px;">
+                                    <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>">&nbsp;</div>
+                                </td>
+                                <td><h4 class="upcoming"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n\&\n\b\s\p\;H:i'); ?></h4></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($right)) echo $right; ?>
+            <?php if (!isset($hide_teams) && isset($user) && $user && isset($user['winner']) && isset($user['second']) && isset($user['third'])): ?>
+            <div class="block-spacer"></div>
+            <div class="block">
+                <h3 class="ui-corner-top">Kolmen kärki &trade;</h3>
+                <div class="ui-corner-bottom">
+                    <div class="f32">
+                        <h4 class="flag <?php echo $user['winner_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['winner'] ?></h4>
+                        <h4 class="flag <?php echo $user['second_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['second'] ?></h4>
+                        <h4 class="flag <?php echo $user['third_abbr'] ?>"  style="padding-left: 40px; line-height: 32px;"><?php echo $user['third'] ?></h4>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0)): ?>
+            <div class="block-spacer"></div>
+            <div class="block">
+                <h3 class="ui-corner-top">Maalikuningas</h3>
+                <div class="ui-corner-bottom">
+                    <h4 class="scorer"><?php echo isset($user['scorer']) ? $user['scorer'] : $user['scorer_betted']; ?></h4>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($played)): ?>
+            <div class="block-spacer"></div>
+            <div class="block">
+                <h3 class="ui-corner-top">Otteluiden tulokset</h3>
+                <div class="ui-corner-bottom">
+                    <table style="line-height: 16px;">
+                        <?php foreach ($played as $game): $date = date_create($game['time']); ?>
+                            <tr>
+                                <td><div style="text-align: right; font-size: 0.85em; padding: 0;"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n.'); ?></div></td>
+                                <td>
+                                    <div class="f16" style="width: 16px;">
+                                        <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>" style="padding: 0;">&nbsp;</div>
+                                    </div>
+                                </td>
+                                <td class="dash"><div style="font-size: 0.85em; padding: 0;">&ndash;</div></td>
+                                <td>
+                                    <div class="f16" style="width: 16px;">
+                                        <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>" style="padding: 0;">&nbsp;</div>
+                                    </div>
+                                </td>
+                                <?php if (isset($game['score'])): ?>
+                                <td><div style="font-size: 0.85em; padding: 0;"><?php echo $game['home_goals_total'] . '&ndash;' . $game['road_goals_total'];?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></div></td>        
+                                <?php else: ?>
+                                <td><div style="font-size: 0.85em; padding: 0;">(<?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%)</div></td>
+                                <?php endif; ?>
+                                
+                                
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div class="clear bottom-spacer"></div>
+<div id="container-bottom">
+    <div id="footer">
+        <div class="grid_12">
+            <span>
+                Tekninen toteutus: <a href="http://www.php.net/" target="_blank">PHP</a>, <a href="http://code.google.com/p/web-dot-php/" target="_blank">web.php</a>, <a href="http://www.sqlite.org/" target="_blank">SQLite</a>, <a href="http://jquery.com/" target="_blank">jQuery</a> <a href="http://jqueryui.com/" target="_blank">UI</a>, <a href="http://960.gs/" target="_blank">960 Grid System</a>, <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>, <a href="http://apycom.com/" target="_blank">Apycom Menus</a>
+            </span>
+            <span style="float: right;">
+                Sivun suoritusaika: <span class="time"><?php echo number_format((microtime(true) - START_TIME), 2, ',', ' '); ?></span> sekuntia.
+            </span>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="<?php echo url('~/js/jquery.menu.js'); ?>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+<script src="<?php echo url('~/js/jquery.pnotify.js'); ?>"></script>
+<script src="<?php echo url('~/js/jquery.qtip.js'); ?>"></script>
+<script src="<?php echo url('~/js/main.js?') . md5_file('js/main.js'); ?>"></script>
+<script>
+$("#user-profile").button({
+    icons: {
+        primary: "profile-ui-img"
+    }
+}).click( function() { window.location.href = '<?php echo url('~/points') . '/' . username; ?>'; });
+$("#user-logoff").button({
+    icons: {
+        primary: "logoff-ui-img"
+    }
+}).click( function() { window.location.href = '<?php echo url('~/logoff'); ?>'; });
+$("#user-buttons").buttonset();
+
+<?php if (isset($notices)): $i = 0; foreach($notices as $notice): ?>
+$.pnotify({
+    <?php if (isset($notice['title'])) echo "pnotify_title: '" . $notice['title'] . "',\n"; ?>
+    <?php if (isset($notice['text'])) echo "pnotify_text: '" . $notice['text'] . "',\n"; ?>
+    <?php if (isset($notice['type'])) echo "pnotify_type: '" . $notice['type'] . "',\n"; ?>
+    pnotify_delay: 3000
+});
+<?php $i++; endforeach; endif; ?>
+
+</script>
+<?php if (isset($scripts)) echo $scripts; ?>
+</body>
+</html>

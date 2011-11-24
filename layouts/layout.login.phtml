@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<?php if (isset($meta)) echo $meta; ?>
+<title><?php echo TOURNAMENT_NAME; ?> -hupilyönti</title>
+<link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/typography.css'); ?>">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dark-hive/jquery-ui.css">
+<link rel="stylesheet" href="<?php echo url('~/css/login.css'); ?>">
+<?php if (isset($css)) echo $css; ?>
+<?php if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == HOST): ?>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-468941-5']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<?php endif; ?>
+</head>
+<body id="default">
+<div id="wrapper">
+    <div id="content">
+        <div id="login">
+            <?php echo $view; ?>
+        </div>
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+<script src="<?php echo url('~/js/jquery.qtip.js'); ?>"></script>
+<script src="<?php echo url('~/js/main.js'); ?>"></script>
+<?php if (isset($scripts)) echo $scripts; ?>
+</body>
+</html>

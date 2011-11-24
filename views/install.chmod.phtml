@@ -1,0 +1,17 @@
+<?php $layout = 'layouts/layout.login.phtml'; ?>
+<h1 class="ui-corner-top">Kirjoitus estetty</h1>
+<div>
+    <div class="notice" style="margin-bottom: 0; text-align: center;">
+        Tarkista tiedostojärjestelmän oikeudet. Hakemistoon, data, on oltavat
+				kirjoitusoikeus web-palvelimen tunnuksella, jotta asennus voidaan
+				suorittaa.
+        <br>
+				<br>
+				Esimerkiksi näin:
+				<code>
+chgrp www-data data
+chmod g+w data
+				</code>
+    </div>
+</div>
+<h3 class="ui-corner-bottom">Tietokantaa ei voida luoda puutteellisten käyttöoikeuksien takia.</h3>

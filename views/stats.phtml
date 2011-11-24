@@ -1,0 +1,50 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<div id="chart-container-1" style="width: 700px; height: 600px"></div>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/highcharts/highcharts.js'); ?>"></script>
+<script src="<?php echo url('~/js/highcharts/themes/gray.js'); ?>"></script>
+<script>
+$.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
+    new Highcharts.Chart({
+        chart: {
+            renderTo: 'chart-container-1',
+            defaultSeriesType: 'spline',
+            marginRight: 150,
+            inverted: false
+        },
+        title: {
+            text: 'Ottelupisteiden mukainen sijoitus'
+        },
+        xAxis: {
+            categories: data.categories,
+            reversed: false,
+        },
+        yAxis: {
+            min: 0.5,
+            title: {
+                text: null
+            },
+            tickInterval: 1,
+            showFirstLabel: true,
+            showLastLabel: false,
+            endOnTick: false,
+            startOnTick: false,
+            reversed: true
+        },
+        series: data.series,
+        legend: {
+            floating: true,
+            layout: 'Vertical',
+            verticalAlign: 'middle',
+            align: 'right'
+        },
+        credits: {
+            enabled: false
+        }
+
+    });
+});
+</script>
+<?php block(); ?>

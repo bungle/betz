@@ -1,0 +1,74 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<div class="grid_6 alpha">
+    <h1><?php echo $title; ?></h1>
+</div>
+<div class="grid_3 omega team-bet" id="scorer-bet">
+    <?php if (isset($user['scorer'])): ?>
+        <h4><?php echo $user['scorer']; ?></h4>
+     <?php elseif (isset($user['scorer_betted'])): ?>
+        <h4><?php echo $user['scorer_betted']; ?></h4>
+    <?php endif; ?>
+</div>
+<div class="clear"></div>
+<hr>
+<?php if (STARTED): ?>
+<div class="notice">Maalikuninkuus veikkaus on sulkeutunut, koska turnaus on alkanut.</div>
+<?php endif; ?>
+<?php if (!STARTED && isset($user['scorer_betted'])): ?>
+<div class="notice">Maalikuningasta voi veikata ja sitä voi vaihtaa ennen turnauksen ensimmäistä ottelua.</div>
+<?php endif; ?>
+<?php if (isset($saved)): ?>
+<div class="success">
+    Maalikuningasveikkauksesi on tallennettu.
+</div>
+<?php endif; ?>
+<?php if (isset($error) && !isset($closed)): ?>
+<div class="error">
+    Maalikuninkuusveikkauksesi on virheellinen. Syötä vähintään kolme merkkiä.
+</div>
+<?php endif; ?>
+<?php if (isset($closed)): ?>
+<div class="error">
+    Maalikuninkuusveikkauksesi ei ehditty tallentamaan, koska turnaus ehti jo alkaa.
+</div>
+<?php endif; ?>
+<?php if (!isset($user['scorer_betted'])): ?>
+<div class="notice">
+    Maalikuninkuusveikkaustasi ei ole vielä rekisteröity. Veikkaa maalikuningasta ennen turnauksen alkua! Voit vaihtaa veikkaustasi ennen turnauksen ensimmäistä peliä.
+</div>
+<?php endif; ?>
+<?php if (!STARTED): ?>
+<div id="scorer-form" class="ui-widget">
+    <form id="form" method="POST" action="<?php echo url('~/bets/scorer'); ?>">
+        <div class="grid_2 alpha"><label>Maalikuningas:</label></div>
+        <div class="grid_4"><input id="scorer" name="scorer" type="text" value="<?php echo $form->scorer ?>" style="display: block; width: 100%;" /></div>
+        <div class="grid_3 omega">
+            <?php if ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0)): ?>
+                <input id="send" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Muuta veikkausta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+            <?php else: ?>
+                <input id="send" type="submit" value="&nbsp;Veikkaa maalikuningasta&nbsp;">
+            <?php endif; ?>
+        </div>
+    </form>
+</div>
+<div class="clear"></div>
+<div id="counter" style="display: none;"></div>
+<br>
+<?php endif; ?>
+<?php if (!STARTED): ?>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
+<script>
+$('#scorer').focus();
+$('#counter').countdown({
+    until: new Date(parseInt('<?php echo date_format(date_create($start), 'U'); ?>000')),
+    format: 'dhm',
+    tickInterval: 10,
+    onExpiry: function() {
+        $('#scorer').attr('disabled', 'disabled');
+        $('#send').button('disable');
+    }
+});
+</script>
+<?php block(); ?>
+<?php endif; ?>

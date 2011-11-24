@@ -1,0 +1,34 @@
+<?php $layout = 'layouts/layout.admin.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/jquery.wysiwyg.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr />
+<?php
+if(isset($success)) {
+    echo "<span style='font-size: 1.2em; font-weight: bold; color: #76B737'>$success</span>";
+}
+?>
+<form action="<?php echo url('~/admin/news'); ?>" method="post">
+    <h3>Otsikko</h3>
+    <input name="title" type="text" style="width: 70%" <?php if (isset($news['title'])) echo "value='" . $news['title'] . "'"; ?>/>
+    <h3>Sisältö</h3>
+    <textarea id="newseditor" name="content" rows="20" cols="59">
+        <?php if (isset($news['content'])):
+            echo $news['content'];
+        endif ?>
+    </textarea><br />
+    <input type="checkbox" value="1" name="level" <?php if (isset($news['level']) && ($news['level'] == '1')) echo "checked='checked' ";?>/> Tärkeä
+    <br /><br />
+    <?php if (isset($news['id'])) echo "<input type='hidden' name='id' value='" . $news['id'] . "' />"; ?>
+    <input type="submit" value="Tallenna" />
+</form>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/jquery.wysiwyg.js'); ?>"></script>
+<script>
+$(document).ready(function() {
+    $('#newseditor').wysiwyg();
+});
+</script>
+<?php block(); ?>
+

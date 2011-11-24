@@ -1,0 +1,324 @@
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;    
+    background: url('../img/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
+}
+body {
+    
+}
+#container {
+-moz-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px#888;
+box-shadow: 0 0 5px #888;
+    position: relative;
+    background: #f0f0f0;
+    margin: 0 auto;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
+}
+.block .rules {
+    font-weight: bold;
+    background-color: #3C4145;
+    color: #E5E5E5;
+}
+#header {
+    background: url(../img/header-bg.jpg) #0C0203;
+    padding: 10px 10px;
+    height: 105px;
+    color: white;
+}
+#header #logo {
+    float: left;
+}
+#header #logo-text {
+    float: left;
+    margin: 32px 0 0 32px;
+}
+
+#user-buttons {
+    padding: 0 0 0 0;
+}
+.logoff-ui-img {
+    background-image: url(../img/logoff.png) !important;
+}
+.profile-ui-img {
+    background-image: url(../img/user.png) !important;
+}
+#navigation {
+    background: #4A5155;
+}
+#main {
+    margin: 10px 0;
+}
+#footer {
+    position: absolute;
+    width: 100%;
+    height: 41px;
+    line-height: 41px;
+    font-size: 0.85em;
+    color: #495054;
+    bottom: 0px;
+    background: url(../img/main-bg.png) top repeat-x #e5e5e5;
+}
+#footer a {
+    color: #808385;
+}
+#footer a:hover {
+    color: #f0f0f0;
+}
+#footer .time {
+    color: #808385;
+}
+.block h3 {
+    padding: 6px;
+    margin: 0;
+    background-color: #ccc;
+    font-size: 1.2em;
+}
+.block div {
+    padding: 6px;
+    background: #e5e5e5;
+}
+.block-spacer {
+    height: 10px;
+}
+#chat img {
+    margin-bottom: -4px;
+}
+input#message, input#scorer, input.large {
+    margin-top: 2px;
+    line-height: 23px;
+    font-size: 1.25em;
+    height: 23px;
+}
+input.large {
+    width: 25px;
+}
+select.large {
+    width: 150px;
+    height: 29px;
+}
+.bottom-spacer {
+    height: 51px;
+}
+#chat-wrapper {
+    border: 1px solid #e5e5e5;
+    padding: 5px;
+}
+#chat {
+    font-size: 1.0em;
+    overflow:  hidden !important;
+}
+#chat a {
+    color: #a40000;
+    font-weight: bold;
+}
+#chat .date {
+    color: #BABDB6;
+}
+#chat .nick a {
+    color: #204a87;
+    font-weight:bold;
+}
+#chat .mynick a {
+    color: #ce5c00;
+    font-weight: bold;
+}
+img.smiley {
+    cursor: pointer;
+}
+table#bets {
+    width: 100%;
+    padding: 50px;
+}
+table#bets tr {
+    border-bottom: 1px solid #e5e5e5;
+}
+table#bets tr td {
+    line-height: 32px;
+    height: 32px;
+}
+table#bets tr td.f32 {
+    width: 32px;
+}
+table#bets tr td.weekday {
+    text-align: right;
+    padding: 0 1em 0 0em;
+}
+table#bets tr td.time {
+    text-align: left;
+    padding: 0;
+}
+table#bets tr td.home {
+    text-align: right;
+    padding: 0 1em 0 1em;
+
+}
+table#bets tr td.dash {
+    text-align: center;
+    width: 20px;
+}
+table#bets tr td.road {
+    padding: 0 1em 0 1em;
+}
+table#bets tr td.bet {
+    width: 112px;
+    text-align: right;
+    padding-top: 3px;
+}
+table#bets tr td.countdown {
+    width: 125px;
+    line-height: 18px;
+}
+#scorer-form div label {
+    line-height: 32px;
+    font-family: Georgia, serif;
+    font-size: 1.3em;
+}
+#scorer-bet h4 {
+    margin-top: 4px;
+    line-height: 32px;
+    background: url(../img/scorer.png) no-repeat;
+    padding-left: 40px;
+}
+#points thead th {
+    text-align: center;
+    font-size: 0.85em;
+    line-height: 20px;
+    min-width: 32px;
+}
+#points thead th.left {
+    text-align: left;
+}
+#points thead th img {
+    padding-top: 5px;
+}
+#points tbody td {
+    text-align: center;
+    font-size: 0.85em;
+}
+#points tbody td.position {
+    padding-top: 8px;
+    vertical-align: top;
+}
+#points tbody td.f32 {
+    line-height: 32px;
+    width: 32px;
+}
+h4.upcoming {
+    padding-left: 0.5em;
+    line-height: 32px;
+}
+h4.scorer {
+    background: url(../img/scorer-big.png) no-repeat;
+    padding-left: 40px;
+    line-height: 32px;
+}
+#winner .ui-button,
+#second .ui-button,
+#third .ui-button {
+    width: 44px;
+    height: 40px;
+    margin: 0.5em;
+}
+#winner .ui-icon,
+#second .ui-icon,
+#third .ui-icon {
+    width: 32px;
+    height: 32px;
+}
+#winner .ui-button-icon-only .ui-icon,
+#second .ui-button-icon-only .ui-icon,
+#third .ui-button-icon-only .ui-icon {
+    margin-top: -16px;
+    margin-left: -16px;
+}
+hr.thin {
+    height: 1px;
+}
+.team-bet {
+    align: right;
+    line-height: 50px;
+}
+.team-bet h4 {
+    padding-left: 40px;
+    line-height: 32px;
+}
+div#pot.success {
+    margin: 16px 12px 0 0;
+    float: right;
+    padding: 5px;
+}
+div#pot.success h4 {
+    background: url(../img/coins.png) no-repeat !important;
+    padding: 0 0 0 40px;
+    height: 32px;
+    line-height: 28px;
+    margin: 0;
+}
+#seadragon {
+	width: 700px;
+	height: 450px;
+}
+.file {
+    padding-left: 40px;
+    line-height: 32px;
+}
+.excel {
+    background: url(../img/excel.png) no-repeat;
+}
+.pdf {
+    background: url(../img/pdf.png) no-repeat;
+}
+.link {
+    background: url(../img/link.png) no-repeat;
+}
+.youtube {
+    background: url(../img/youtube.png) no-repeat;
+}
+
+.file a {
+    color: black;
+}
+td.current-user {
+    background-color: #e6efc2 !important;
+    font-weight: bold;
+}
+#online {
+    width: 100%;
+    font-size: 0.85em;
+    text-align: center;
+}
+#online td.username, #online th.username {
+    text-align: left;
+}
+#online td.idle, #online th.idle {
+    text-align: right;
+}
+td.correct {
+    background: #E6EFC2 !important;
+}
+td.wrong {
+    background: #FBE3E4 !important;
+}
+div.strong {
+    font-weight: bold;
+}
+#points a {
+    color: #204a87;
+}
+.error,
+.notice,
+.success    { padding: .8em; margin-bottom: 1em; border: 2px solid #ddd; }
+.error      { background: #FBE3E4; color: #8a1f11; border-color: #FBC2C4; }
+.notice     { background: #FFF6BF; color: #514721; border-color: #FFD324; }
+.success    { background: #E6EFC2; color: #264409; border-color: #C6D880; }
+.error a    { color: #8a1f11; }
+.notice a   { color: #514721; }
+.success a  { color: #264409; }

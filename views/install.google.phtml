@@ -1,0 +1,44 @@
+<?php $layout = 'layouts/layout.login.phtml'; ?>
+<h1 class="ui-corner-top">Vahvista Google-asennuksesi</h1>
+<div>
+    <div id="login-wrapper"  style="float: left;">
+        <form id="login-form" class="registration" action="<?php echo url('~/install/google/confirm'); ?>" method="post">
+            <label for="username" class="normal">Ylläpitotunnus:</label><br>
+            <?php if (!$form->username->valid): ?>
+            <div class="error">
+                Käyttäjätunnus on virheellinen.
+            </div>
+            <?php else: ?>
+            <label for="username" class="normal example">Vaihda tai hyväksy ylläpitotunnuksesi</label><br>
+            <?php endif; ?>
+            <input id="username" name="username" type="text" maxlength="15" value="<?php echo $form->username; ?>"><br>
+            <label for="username" class="normal example">Sallitut merkit: a-ö, 0-9, _ ja - (esim. ninja_3)</label><br>
+            <label for="email" class="normal">Sähköpostiosoite:</label><br>
+            <input id="email" name="email" disabled="true" type="text" value="<?php echo $form->email; ?>"><br>
+            <br>
+            <input type="submit" value="Vahvista"> <a href="<?php echo url('~/'); ?>">Takaisin</a>
+        </form>
+    </div>
+    <div id="login-google-wrapper" style="float: right;">
+        <img src="<?php echo url('~/img/google-openid.png'); ?>">
+    </div>
+    <div class="clear"></div>
+</div>
+<h3 class="ui-corner-bottom">Vahvista Google-asennuksesi.</h3>
+<?php block($scripts); ?>
+<script>
+$(document).ready(function() {
+    $('#username').focus();
+    $('.tip-google').qtip({
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+            corner: {
+                target: 'topCenter',
+                tooltip: 'bottomCenter'
+            }
+        }
+    });
+});
+</script>
+<?php block(); ?>

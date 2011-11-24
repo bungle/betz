@@ -1,0 +1,134 @@
+<?php
+$layout = 'layouts/layout.default.phtml';
+$gcount = count($games);
+?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/countdown.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<div class="notice">Muistathan, että jatkopelejä lisätään järjestelmään, kun otteluparit selviävät. Onnea veikkauksiin!</div>
+<table id="bets" style="display: none;">
+<tr>
+    <th style="text-align: left;">Päivämäärä</th>
+    <th colspan="5">Ottelu</th>
+    <th>H-hetki</th>
+    <th>Veikkaus</th>
+</tr>
+<?php foreach($games as $game): $date = date_create($game['time']); ?>
+<tr>
+    <td class="time"><?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n H:i'); ?></td>
+    <td class="home"><?php echo $game['home']; ?></td>
+    <td class="f32">
+        <div class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
+    </td>
+    <td class="dash">&ndash;</td>
+    <td class="f32">
+        <div class="flag <?php echo $game['road_abbr']; ?>">&nbsp;</div>
+    </td>
+    <td class="road"><?php echo $game['road']; ?></td>
+    <td class="countdown"><span style="font-weight: bold;" class="counter"><?php echo date_format($date, 'U'); ?>000</span></td>
+    <td class="bet" style="text-align: center;">
+        <form method="post" action="<?php echo url('~/bets/games/' . $game['id']); ?>" class="f16">
+            <input  id="home-<?php echo $game['id']; ?>" type="radio" name="score" value="1" <?php if ($game['score'] == '1') echo 'checked'; ?> class="flag <?php echo $game['home_abbr']; ?>">
+            <label for="home-<?php echo $game['id']; ?>"><?php echo $game['home']; ?></label>
+            <?php if ($game['draw'] === 1): ?>
+            <input  id="draw-<?php echo $game['id']; ?>" type="radio" name="score" value="X" <?php if ($game['score'] == 'X') echo 'checked'; ?>>
+            <label for="draw-<?php echo $game['id']; ?>">Tasapeli</label>
+            <?php endif; ?>
+            <input  id="road-<?php echo $game['id']; ?>" type="radio" name="score" value="2" <?php if ($game['score'] == '2') echo 'checked'; ?> class="flag <?php echo $game['road_abbr']; ?>">
+            <label for="road-<?php echo $game['id']; ?>"><?php echo $game['road']; ?></label>
+        </form>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php if ($gcount > 0): ?>
+<?php block($scripts); ?>
+<?php if ($gcount > 34): ?>
+<script src="<?php echo url('~/js/jquery.blockui.js'); ?>"></script>
+<?php endif; ?>
+<script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
+<script>
+<?php if ($gcount > 34): ?>
+$.blockUI({
+    message: '<h2>Ladataan otteluita...</h2>(jQuery UI:n bugi hidastaa lataamista)',
+    css: {
+        border: 'none',
+        padding: '15px',
+        backgroundColor: '#000',
+        '-webkit-border-radius': '10px',
+        '-moz-border-radius': '10px',
+        opacity: .5,
+        color: '#fff'
+    },
+    fadeIn: 0,
+    fadeOut: 200
+});
+setTimeout(initialize, 50);
+<?php else: ?>
+initialize();
+<?php endif; ?>
+function initialize() {
+    $('input:radio').each(function() {
+        var input = $(this);
+        if (input.hasClass('flag')) {
+            input.button({
+                icons: {
+                    primary: input.attr('class')
+                },
+                text: false
+            });
+        } else {
+            input.button({
+                icons: {
+                    primary: 'ui-icon-close'
+                },
+                text: false
+            });
+        }
+        var form = $(this.form);
+        input.click(function() {
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                success: function() {
+                    $.pnotify({
+                        pnotify_title: 'Veikkaus tallennettu',
+                        pnotify_text: 'Veikkaus tallennettiin onnistuneesti.',
+                        pnotify_delay: 3000
+                    });
+                },
+                error: function() {
+                    $.pnotify({
+                        pnotify_title: 'Virhe veikkauksen tallennuksessa',
+                        pnotify_text: 'Veikkauksen tallennuksessa tapahtui virhe.',
+                        pnotify_type: 'error',
+                        pnotify_delay: 3000
+                    });
+                }
+            });
+        });
+    });
+    $('form').buttonset();
+    $('.counter').each(function() {
+        var time = new Date(parseInt($(this).html()));
+        $(this).countdown({
+            until: time,
+            format: 'DHM',
+            tickInterval: 10,
+            onExpiry: function() {
+                $(this).html('<div style="font-weight: normal; text-align: center;">Ottelu on alkanut</div>');
+                $(this).parent().next().find('input:radio').button('disable');
+            }
+        });
+    });
+    $('#bets').toggle();
+    <?php if ($gcount > 34): ?>
+    $.unblockUI();
+    <?php endif; ?>
+}
+</script>
+<?php block(); ?>
+<?php endif ?>

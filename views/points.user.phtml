@@ -1,0 +1,140 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<table id="points" class="tablesorter">
+ <thead>
+   <tr>
+        <th><img src="<?php echo url('~/img/ranking.png'); ?>" width="16" height="16" title="Sijoitus" alt="Sijoitus"></th>
+        <th>Nimi</th>
+        <th><img src="<?php echo url('~/img/coins-small.png'); ?>" width="16" height="16" title="Maksu vastaanotettu" alt="Maksu vastaanotettu"></th>
+        <th><img src="<?php echo url('~/img/medal-gold.png'); ?>" width="16" height="16" title="Voittaja" alt="Voittaja"></th>
+        <th><img src="<?php echo url('~/img/medal-silver.png'); ?>" width="16" height="16" title="Hopeamitalisti" alt="Hopeamitalisti"></th>
+        <th><img src="<?php echo url('~/img/medal-bronze.png'); ?>" width="16" height="16" title="Pronssimitalisti" alt="Pronssimitalisti"></th>
+        <th>Maalikuningas</th>
+        <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <th><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></th>
+        <th><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></th>
+        <th><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($points as $point): ?>
+<tr>
+    <td class="position"><h3><?php echo $point['position']; ?>.</h3></td>
+    <td><?php echo $point['username']; ?></td>
+    <td>
+        <?php if ($point['paid'] === 1): ?>
+        <img style="padding-top: 5px;" src="<?php echo url('~/img/coins-small.png'); ?>" width="16" height="16" title="Maksu vastaanotettu" alt="Maksu vastaanotettu">
+        <?php else: ?>
+        &nbsp;
+        <?php endif; ?>
+    </td>
+    <td class="f32"">
+        <div class="<?php echo isset($point['winner_abbr']) ? "flag " . $point['winner_abbr'] : ''; ?>" title="<?php echo isset($point['winner']) ? $point['winner'] : ''; ?>">&nbsp;</div>
+    </td>
+    <td class="f32">
+        <div class="<?php echo isset($point['second_abbr']) ? "flag " . $point['second_abbr'] : ''; ?>" title="<?php echo isset($point['second']) ? $point['second'] : ''; ?>">&nbsp;</div>
+    </td>
+    <td class="f32">
+        <div class="<?php echo isset($point['third_abbr']) ? "flag " . $point['third_abbr'] : ''; ?>" title="<?php echo isset($point['third']) ? $point['third'] : ''; ?>">&nbsp;</div>
+    </td>
+    <td><?php echo isset($point['scorer']) ? $point['scorer'] : (isset($point['scorer_betted']) ? $point['scorer_betted'] : '&nbsp;') ?></td>
+    <td><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
+    <td><?php echo $point['team_points']; ?></td>
+    <td><?php echo $point['scorer_points']; ?></td>
+    <td><?php echo number_format($point['total_points'], 2, ',', ''); ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<h2><?php echo $title_games; ?></h2>
+<hr class="thin">
+<table id="points" class="tablesorter">
+<thead>
+<tr>
+    <th>Päivämäärä</th>
+    <th>Ottelu</th>
+    <th>Tulos</th>
+    <th>Veikkaus</th>
+    <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($games as $game):
+    $ended = $game['score'] === '1' || $game['score'] === 'X' || $game['score'] === '2';
+    $correct = $game['score'] === $game['bet_score'];
+    $date = date_create($game['time']);
+    $clazz = '';
+    if ($ended) $clazz = $correct ? 'correct' : 'wrong';
+    $team = '';
+    $team_abbr = '';
+    if ($game['bet_score'] === '1') {
+        $team = $game['home'];
+        $team_abbr = $game['home_abbr'];
+    } elseif ($game['bet_score'] === '2') {
+        $team = $game['road'];
+        $team_abbr = $game['road_abbr'];
+    } elseif ($game['bet_score'] === 'X') {
+        $team = 'Tasapeli';
+        $team_abbr = '';
+    }
+?>
+<tr>
+    <td class="<?php echo $clazz; ?> f32"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n\&\n\b\s\p\;H:i'); ?></td>
+    <td class="<?php echo $clazz; ?> f32" style="width: 390px;" nowrap>
+        <div style="width: 155px; float: left; text-align: right"><?php echo $game['home'] . '&nbsp;(' . number_format($game['home_percent'], 2, ',', '') . '&nbsp;%)'; ?>&nbsp;</div>
+        <div style="width: 32px; float: left;" class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
+        <div style="width: 16px; float: left; text-align: center">&ndash;</div>
+        <div style="width: 32px; float: left;" class="flag  <?php echo $game['road_abbr']; ?>">&nbsp;</div>
+        <div style="width: 155px; float: left; text-align: left">&nbsp;<?php echo '(' . number_format($game['road_percent'], 2, ',', '') . '&nbsp;%)&nbsp;' . $game['road'];  ?></div>
+        <div class="clear"></div>
+    </td>
+    <td class="<?php echo $clazz; ?>" nowrap><?php echo $game['home_goals_total'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals_total']; ?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></td>
+    <?php if ($game['bet_score'] === 'X'): ?>
+    <td class="<?php echo $clazz; ?>"><div<?php if ($correct) echo ' class="strong"'; ?>>&nbsp;<?php echo $team . '&nbsp;(' . number_format($game['draw_percent'], 2, ',', '') . '&nbsp;%)&nbsp;'; ?></div></td>
+    <?php elseif ($game['bet_score'] === '1' || $game['bet_score'] === '2'): ?>
+    <td class="<?php echo $clazz; ?>"><div<?php if ($correct) echo ' class="strong"'; ?>><?php echo $team; ?></div></td>
+    <?php else: ?>
+    <td class="<?php echo $clazz; ?>">&nbsp;</td>
+    <?php endif; ?>
+    <td class="<?php echo $clazz; ?>"><?php echo number_format($game['bet_points'], 2, ',', ''); ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php if (count($scorers) > 0): ?>
+<br>
+<h2>Turnauksen maalintekijät</h2>
+<hr>
+<table id="points" class="tablesorter">
+ <thead>
+   <tr>
+        <th><img src="<?php echo url('~/img/ranking.png'); ?>" width="16" height="16" title="Sijoitus" alt="Sijoitus"></th>
+        <th>Pelaaja</th>
+        <th>Joukkue</th>
+        <th>Maalit</th>
+        <th>Veikanneet</th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($scorers as $scorer): ?>
+<tr>
+    <?php if ($scorer['rowspan'] === 0): ?>
+    <td class="position" style="width: 44px;"><h3><?php echo $scorer['position']; ?>.</h3></td>
+    <?php elseif ($scorer['rowspan'] > 0 && $scorer['keyrow']): ?>
+    <td class="position" style="width: 44px;" rowspan="<?php echo $scorer['rowspan']; ?>"><h3><?php echo $scorer['position']; ?>.</h3></td>
+    <?php endif; ?>
+    <td<?php echo in_array($pointsuser, $scorer['users']) ? ' class="current-user"' : ''; ?> style="width: 125px;"><?php echo $scorer['scorer']; ?></td>
+    <td class="f32<?php if (in_array($pointsuser, $scorer['users'])) echo ' current-user'; ?>" style="width: 125px; text-align: left;">
+        <div style="padding-left: 40px;" class="flag <?php echo $scorer['team_abbr']; ?>"><?php echo $scorer['team']; ?></div>
+    </td>
+    <td<?php echo in_array($pointsuser, $scorer['users']) ? ' class="current-user"' : ''; ?> style="width: 44px;"><?php echo $scorer['goals']; ?></td>
+    <td<?php echo in_array($pointsuser, $scorer['users']) ? ' class="current-user"' : ''; ?> style="font-size: 0.85em;"><?php echo implode(', ', $scorer['users']); ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php endif; ?>

@@ -1,0 +1,90 @@
+<?php $layout = 'layouts/layout.admin.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<table id="users" class="tablesorter" style="text-align: center;">
+    <thead>
+    <tr style="height: 32px;">
+        <th>Nimi</th>
+        <th>Sähköposti</th>
+        <th>Ylläpitäjä</th>
+        <th>Aktiivinen</th>
+        <th>Maksanut</th>
+    </tr>
+    </thead>
+    <?php foreach($users as $u): ?>
+    <form method="post" action="<?php echo url('~/admin/users'); ?>">
+    <tr>
+        <td><?php echo $u['username']; ?></td>
+        <td><?php echo $u['email']; ?></td>
+        <td>
+            <input id="admin_<?php echo $u['username']; ?>" type="checkbox" name="admin" <?php if (username == $u['username']) echo "disabled "; ?> <?php if ($u['admin'] == 1) echo "checked"; ?>>
+            <label for="admin_<?php echo $u['username']; ?>" style='width: 30px;'>&nbsp;</label>
+        <td>       
+            <input id="active_<?php echo $u['username']; ?>" type="checkbox" name="active" <?php if (username == $u['username'] || $u['paid'] === 1) echo "disabled "; ?> <?php if ($u['active'] == 1) echo "checked"; ?>>
+            <?php if (username == $u['username'] || $u['paid'] === 1): ?>
+             <input type="hidden" name="active" value="1">
+             <?php endif; ?>
+            <label for="active_<?php echo $u['username']; ?>" style='width: 30px;'>&nbsp;</label>
+        </td>
+        <td>
+            <input id="paid_<?php echo $u['username']; ?>" type="checkbox" name="paid" <?php if ($u['paid'] === 1) echo "checked"; ?>>
+            <label for="paid_<?php echo $u['username']; ?>" style="width: 30px;">&nbsp;</label>
+            <input type="hidden" value="<?php echo $u['username']; ?>" name="user">
+        </td>
+    </tr>
+    </form>
+    <?php endforeach; ?>
+</table>
+<h4 style="float: right; padding-right: 1em;"><?php echo 'Yhteensä ' . count($users) . ' rekisteröitynyttä.'; ?></h4>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/jquery.tablesorter.js'); ?>"></script>
+<script>
+function setimage(input) {
+    if (input.attr('checked')) {
+        input.button({
+            icons: {
+                 primary: 'ui-icon-check'
+            }
+        });
+    } else {
+        input.button({
+            icons: {
+                 primary: ''
+            }
+        });
+    }
+}
+$('input:checkbox').each(function() {
+    var input = $(this);        
+    setimage(input)
+    var form = $(this.form);
+    input.click(function() {
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: form.serialize(),
+            success: function() {
+                $.pnotify({
+                    pnotify_title: 'Käyttäjä tallennettu',
+                    pnotify_text: 'Käyttäjä tallennettiin onnistuneesti.',
+                    pnotify_delay: 3000
+                });
+            },
+            error: function() {
+                $.pnotify({
+                    pnotify_title: 'Virhe käyttäjän tallennuksessa',
+                    pnotify_text: 'Käyttäjän tallennuksessa tapahtui virhe.',
+                    pnotify_type: 'error',
+                    pnotify_delay: 3000
+                });
+            }
+        });        
+        setimage($(this));
+    }); 
+});
+$('#users').tablesorter();
+</script>
+<?php block(); ?>

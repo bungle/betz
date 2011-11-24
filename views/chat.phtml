@@ -1,0 +1,78 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/scroll.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<div id="chat-wrapper">
+    <div id="chat" style="height: 356px; overflow: auto;">
+        <?php if (isset($chat)) echo $chat; ?>
+    </div>
+</div>
+<br>
+<div class="ui-widget">
+    <form id="form" method="POST" action="<?php echo url('~/chat'); ?>" autocomplete="off">
+        <div class="grid_7 alpha"><input id="message" name="message" type="text" style="display: block; width: 100%;" autocomplete="off"></div>
+        <div class="grid_2 omega"><input id="send" type="submit" value="Lähetä viesti" /></div>
+    </form>
+</div>
+<div style='clear: both;'></div>
+<div>
+<?php block($right); ?>
+<div class="block-spacer"></div>
+<div class="block">
+    <h3 class="ui-corner-top">Hymiöt</h3>
+    <div class="ui-corner-bottom">
+    <?php foreach ($smileys as $smiley): ?>
+        <img src="<?php echo url('~/img/smileys') . '/' . $smiley['src']; ?>" class="smiley" title="<?php echo $smiley['keys'][0]; ?>" alt="<?php echo $smiley['title']; ?>" width="19px" height="19px">
+    <?php endforeach; ?>
+    </div>
+</div>
+<?php block(); ?>
+</div>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/jquery.mousewheel.js'); ?>"></script>
+<script src="<?php echo url('~/js/jquery.scroll.js'); ?>"></script>
+<script>
+var chat = $('#chat');
+var form = $('#form');
+var message = $('#message');
+
+message.focus();
+chat.jScrollPane();
+chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
+
+$.ajaxSetup({cache: false});
+
+setInterval(function() {
+    $.get('<?php echo url('~/chat/poll'); ?>', function(data) {
+        if (data.length == 0) return;
+        var scroll = chat.data('jScrollPanePosition') == chat.data('jScrollPaneMaxScroll');
+        chat.append(data).jScrollPane();
+        if (scroll) chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
+    }, 'text');
+}, 1500);
+
+form.submit(function() {
+    $.post('<?php echo url('~/chat'); ?>', { message: message.val() });
+    message.val('').focus();
+    return false;
+});
+
+$('.smiley').live('click', function() {
+    message.val($.trim(message.val().rtrim() + ' ' + $(this).attr('title')) + ' ').focus();
+    return false;
+});
+
+$('img.smiley').qtip({
+    show: 'mouseover',
+    hide: 'mouseout',
+    position: {
+        corner: {
+            target: 'topRight',
+            tooltip: 'bottomLeft'
+        }
+    }
+});
+</script>
+<?php block(); ?>

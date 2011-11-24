@@ -1,0 +1,155 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<?php if (!STARTED): ?>
+<div class="notice">Kolmen kärkeä &trade; voi veikata ja muuttaa ennen turnauksen ensimmäistä ottelua.</div>
+<?php else: ?>
+<div class="notice">Kolmen kärki &trade; veikkaus on sulkeutunut, koska turnaus on alkanut. Alla näet veikkauksesi.</div>
+<?php endif; ?>
+<div class="grid_6 alpha">
+    <h2>Turnauksen voittaja</h2>
+    <?php if (!STARTED): ?>
+    <p>
+        Veikkaa turnauksen voittajaa klikkaamalla joukkueen lippua.
+    </p>
+    <?php endif; ?>
+</div>
+<div class="grid_3 omega team-bet" id="winner-bet">
+    <?php if (isset($user['winner'])): ?>
+    <div class="f32">
+        <h4 class="flag <?php echo $user['winner_abbr']; ?>"><?php echo $user['winner']; ?></h4>
+    </div>
+    <?php endif; ?>
+</div>
+<div class="clear"></div>
+<?php if (!STARTED):?>
+<form id="winner" method="post" action="<?php echo url('~/bets/teams/1'); ?>" style="display: none;" class="f32">
+    <?php foreach($teams as $team): ?>
+    <input  id="winner-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['winner'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
+    <label for="winner-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
+    <?php endforeach; ?>
+</form>
+<?php endif; ?>
+<br>
+<hr class="thin">
+<div class="grid_6 alpha">
+    <h2>Hopeamitalisti</h2>
+    <?php if (!STARTED): ?>
+    <p>
+        Veikkaa turnauksen hopeamitalistia klikkaamalla joukkueen lippua.
+    </p>
+    <?php endif; ?>
+</div>
+<div class="grid_3 omega team-bet" id="second-bet">
+    <?php if (isset($user['second'])): ?>
+    <div class="f32">
+        <h4 class="flag <?php echo $user['second_abbr']; ?>"><?php echo $user['second']; ?></h4>
+    </div>
+    <?php endif; ?>
+</div>
+<div class="clear"></div>
+<?php if(!STARTED): ?>
+<form id="second" method="post" action="<?php echo url('~/bets/teams/2'); ?>" style="display: none;" class="f32">
+    <?php foreach($teams as $team): ?>
+    <input  id="second-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['second'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
+    <label for="second-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
+    <?php endforeach; ?>
+</form>
+<?php endif; ?>
+<br>
+<hr class="thin">
+<div class="grid_6 alpha">
+    <h2>Pronssimitalisti</h2>
+    <?php if (!STARTED): ?>
+    <p>
+        Veikkaa turnauksen pronssimitalisia klikkaamalla joukkueen lippua.
+    </p>
+    <?php endif; ?>
+</div>
+<div class="grid_3 omega team-bet" id="third-bet">
+    <?php if (isset($user['third'])): ?>
+    <div class="f32">
+        <h4 class="flag <?php echo $user['third_abbr']; ?>"><?php echo $user['third']; ?></h4>
+    </div>
+    <?php endif; ?>
+</div>
+<div class="clear"></div>
+<?php if(!STARTED): ?>
+<form id="third" method="post" action="<?php echo url('~/bets/teams/3'); ?>" style="display: none;" class="f32">
+    <?php foreach($teams as $team): ?>
+    <input  id="third-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['third'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
+    <label for="third-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
+    <?php endforeach; ?>
+</form>
+<div id="counter" style="display: none;"></div>
+<?php endif; ?>
+<?php if (!STARTED): ?>
+<?php block($scripts); ?>
+<script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
+<script>
+function posted(data, status) {
+    if (status != 'success') {
+        alert('Kolmen kärki &trade; veikkauksen tallennuksessa tapahtui virhe. Yritä uudelleen.');
+    }
+}
+$('input:radio').each(function() {
+    var input = $(this);
+    input.button({
+        icons: {
+            primary: input.attr('class')
+        },
+        text: false
+    });
+    var form = $(this.form);
+    input.click(function() {
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: form.serialize(),
+            success: function() {
+                $.pnotify({
+                    pnotify_title: 'Kolmen kärki &trade; tallennettu',
+                    pnotify_text: 'Kolmen kärki &trade; tallennettiin onnistuneesti.',
+                    pnotify_delay: 3000
+                });
+            },
+            error: function() {
+                $.pnotify({
+                    pnotify_title: 'Virhe Kolmen kärjen &trade; tallennuksessa',
+                    pnotify_text: 'Kolmen kärjen &trade; tallennuksessa tapahtui virhe.',
+                    pnotify_type: 'error',
+                    pnotify_delay: 3000
+                });
+            }
+        });        
+        if (form.data('value') != input.attr('value')) {
+            $('form:not(#' + form.attr('id') + ') input:radio[value=\'' + input.attr('value') + '\']').button('disable');
+            $('form:not(#' + form.attr('id') + ') input:radio[value=\'' + form.data('value') + '\']').button('enable');
+        }
+        form.data('value', input.attr('value'));
+        $('#' + form.attr('id') + '-bet').html('<div class="f32"><h4 class="flag ' + input.attr('title') + '">' + input.attr('value') + '</h4></div>');
+    });
+});
+$('label').qtip();
+$('form:not(#winner) input:radio[value=\'<?php echo $user['winner']; ?>\']').button('disable');
+$('form:not(#second) input:radio[value=\'<?php echo $user['second']; ?>\']').button('disable');
+$('form:not(#third) input:radio[value=\'<?php echo $user['third']; ?>\']').button('disable');
+$('#winner').data('value', '<?php echo $user['winner']; ?>');
+$('#second').data('value', '<?php echo $user['second']; ?>');
+$('#third').data('value', '<?php echo $user['third']; ?>');
+$('#winner').toggle();
+$('#second').toggle();
+$('#third').toggle();
+$('#counter').countdown({
+    until: new Date(parseInt('<?php echo date_format(date_create($start), 'U'); ?>000')),
+    format: 'dhm',
+    tickInterval: 10,
+    onExpiry: function() {
+        $('#winner input:radio').button('disable');
+        $('#second input:radio').button('disable');
+        $('#third input:radio').button('disable');
+    }
+});
+</script>
+<?php block(); ?>
+<?php endif; ?>

@@ -1,0 +1,81 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<h1><?php echo $title; ?></h1>
+<hr />
+<div class="block">
+    <h3 class="ui-corner-top rules">Otteluveikkaus</h3>
+    <div class="ui-corner-bottom">
+        Kaikissa otteluissa voi veikata voittajaa tai tasapeliä. Veikkaus koskee varsinaisella peliajalla
+        pelattua tulosta (ei siis mahdollista jatko-aikaa tai rangaistuslaukauskilpailua).
+        Jokaisesta oikein veikatusta ottelusta veikkaaja saa kaksi pistettä vähennettynä
+        oman veikkauksensa prosentuaalinen osuus koko veikkausjakaumasta.<br /><br />
+        <span style="font-weight: bold;">Esimerkki:</span><br />
+        60% veikkasi Suomea voittajaksi ja 20% tasapeliä, loput 20% veikkasi Ruotsia. Ruotsi voitti pelin, joten Ruotsia veikanneet saavat 2-0.2 eli 1.8 pistettä.
+        Osuudet lasketaan kahden desimaalin tarkkuudella. Prosentit lasketaan ainoastaan veikatuista äänistä, joten veikkaamatta jättäneet eivät vaikuta "kertoimiin". Tällä kertaa
+        altavastaajia veikkaavia siis palkitaan hieman ruhtinaallisemmin.<br /><br />
+        Väärin veikatuista ei rangaista.<br /><br />
+        <!--
+        Kilpailussa on mukana 32 joukkuetta, jotka on jaettu kahdeksaan lohkoon. Jokaisessa lohkossa pelataan kuusi ottelua. Alkulohkon pelejä on siis yhteensä 48. Jatkoon pääsee 16 joukkuetta
+        ja jatkopelejä on yhteensä 16.<br /><br />
+        -->
+        Pelikohtainen veikkaus sulkeutuu minuuttia ennen ottelun ilmoitettua alkamisajankohtaa. Tämän jälkeen veikkaaminen ei enää onnistu.
+        Veikkaamatta jätetyt ottelut jätetään huomioimatta, eli pelaaja ei saa niistä minkäänlaisia pisteitä.
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Kolmen kärki&trade;</h3>
+    <div class="ui-corner-bottom">
+        Kolmen kärjessä pelaaja veikkaa turnauksen kolmea parasta maata. Pisteet jaetaan sen mukaan onko kyseinen maa kolmen parhaan joukossa turnauksen loputtua.
+        Lisäpisteitä saa oikeasta sijoituksesta. Samaa maata ei voi veikata kuin kerran. Jos veikattu maa on kolmen joukossa, saa pelaaja pisteen. Jos se on myös 
+        oikealla sijalla, saa pelaaja pisteitä seuraavasti: voittajamaa oikein on kolmen pisteen, hopeamaa kahden pisteen ja pronssimaa pisteen arvoinen. 
+        Kolmen kärkeä voi veikata ennen turnauksen ensimmäistä peliä.<br /><br />
+        Jaossa on siis enintään yhdeksän pistettä.<br /><br />
+        <span style="font-weight: bold;">Esimerkki:</span><br />
+        Pelaaja A veikkaa Kolmen kärkeen Venäjää, Kanadaa sekä Suomea tässä järjestyksessä. Näistä maista Venäjä sekä Suomi ovat kolmen joukossa. Pelaaja A saa
+        pisteen per oikea joukkue eli yhteensä kaksi pistettä. Venäjä voitti mestaruuden ja Suomi oli hopealla eli pelaaja A saa kolme lisäpistettä Venäjän oikeasta
+        sijoituksesta. Yhteensä pelaaja A saa siis viisi pistettä. 
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Maalikuninkuus</h3>
+    <div class="ui-corner-bottom">
+        Maalikuninkuudessa veikataan turnauksen parasta maalintekijää. Oikeasta veikkauksesta saa kolme pistettä. Veikata voi ennen turnauksen ensimmäistä peliä. 
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Maksaminen</h3>
+    <div class="ui-corner-bottom">
+        <table>
+         <tr>
+           <td>Saaja:&nbsp;</td><td>XXX XXX</td>
+         </tr>
+         <tr>
+           <td>Tilinunmero:&nbsp;</td><td>XXX-XXX (IBAN: XXX)</td>
+         </tr>
+         <tr>
+           <td>Summa:&nbsp;</td><td>15 &euro;</td>
+         </tr>
+         <tr>
+           <td>Eräpäivä:&nbsp;</td><td>Ennen turnauksen alkua (XXX)</td>
+         </tr>
+         <tr>
+            <td>Viestikenttään:&nbsp;</td><td>Käyttäjätunnuksesi</td>
+         </tr>
+        </table>
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Yhteenveto</h3>
+    <div class="ui-corner-bottom">
+        Jaossa on siis yhdeksän pistettä Kolmen kärjestä&trade;, kolme pistettä Maalikuninkuudesta ja otteluveikkauksista omansa.<br /><br />
+        Viidentoista euron osallistumismaksusta menee 80% voittajalle ja 20% toiseksi tulleelle. Jos voittajia on useampi kuin yksi jaetaan koko potti heidän kesken.
+        Jos toiseksi tulleita on useampi kuin yksi jaetaan toiseksi tulleiden osuus heidän kesken.<br><br>
+        Jos järjestelmässä esiintyy teknisiä ongelmia pyrimme lähtökohtaisesti ratkaisemaan ne mahdollisimman nopeasti, mutta jos veikkaus joudutaan teknisten ongelmien takia
+        keskeyttämään palautetaan rahat takaisin maksaneille.<br><br>
+        Toivottavasti saadaan taas mukavat pelit aikaiseksi
+        ja peli-iloa kaikille. Kisachatissa tavataan!
+    </div>
+</div>
