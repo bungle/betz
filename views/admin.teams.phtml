@@ -5,8 +5,21 @@
 <tr>
     <th style="text-align: left;">Joukkue</th>
     <th style="text-align: center;">Lyhenne</th>
-    <th style="text-align: center;">Sijoitus</th>
+    <th style="text-align: center;">Sijoitus / Toiminnot</th>
 </tr>
+<form method="post" action="<?php echo url('~/admin/teams'); ?>">
+<tr>
+    <td>
+        <input type="text" name="name" class="large" style="width: 365px;">
+    </td>
+    <td style="text-align: center;">
+        <input type="text" name="abbr" class="large" maxlength="3" style="width: 30px;">
+    </td>
+    <td style="text-align: center;">
+        <input type="submit" value="Lisää" style="width: 132px;">
+    </td>
+</tr>
+</form>
 <?php foreach($teams as $team): ?>
 <tr>
     <td class="f32" style="width: 132px; line-height: 32px; ">
@@ -19,7 +32,7 @@
         <tr style="border: none;">
             <td><input type="text" name="ranking" class="large" value="<?php echo $team['ranking']; ?>"></td>
             <td>&nbsp;</td>
-            <td><input type="submit" value="Tallenna"></td>
+            <td><input type="submit" class="team" value="Tallenna"></td>
         </tr>
         </table>
         </form>
@@ -29,7 +42,7 @@
 </table>
 <?php block($scripts); ?>
 <script>
-$('input:submit').each(function() {
+$('input:submit.team').each(function() {
     var input = $(this);
     var form = $(this.form);
     input.click(function() {

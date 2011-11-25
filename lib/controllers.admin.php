@@ -41,6 +41,14 @@ get('/admin/teams', function() {
     $view->teams = db\teams\all();
     die($view);
 });
+post('/admin/teams', function() {
+    if (!ADMIN) redirect('~/unauthorized');
+    $form = new form($_POST);
+    if ($form->validate()) {
+        db\teams\add($form->name->value, $form->abbr->value);
+        redirect('~/admin/teams');
+    }
+});
 post('/admin/teams/%p', function($team) {
     if (!ADMIN) redirect('~/unauthorized');
     $team = urldecode($team);
