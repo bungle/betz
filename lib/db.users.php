@@ -58,7 +58,7 @@ namespace db\users {
         $stm->bindValue(':password', $password, SQLITE3_TEXT);
         $stm->bindValue(':email', $email, SQLITE3_TEXT);
         $stm->bindValue(':active', 1, SQLITE3_INTEGER);
-				$stm->bindValue(':admin', $admin ? 1 : 0, SQLITE3_INTEGER);
+        $stm->bindValue(':admin', $admin ? 1 : 0, SQLITE3_INTEGER);
         $stm->execute();
         $changes = $db->changes();
         $stm->close();
