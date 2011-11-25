@@ -19,7 +19,8 @@ post('/install', function() {
     $view = new view(DIR . '/views/registration.phtml');
     if ($form->validate()) {
 				db\install\schema();
-				db\users\register($form->username->value, \password\hash($form->password1->value), $form->email->value);
+				db\users\register($form->username->value, \password\hash($form->password1->value),
+                                  $form->email->value, true);
 				login($form->username->value, true);
 				redirect('~/');
     }
