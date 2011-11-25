@@ -1,10 +1,10 @@
 <?php
 namespace db\install {
-		function schema() {
-			tables();
-			triggers();
-			views();
-		}
+    function schema() {
+        tables();
+        triggers();
+        views();
+    }
     function tables() {
         $sql =<<<'SQL'
         DROP TABLE IF EXISTS teams;

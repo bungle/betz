@@ -394,24 +394,24 @@ namespace password {
     function check($password, $hash) {
         return crypt($password, $hash) == $hash;
     }
-		function random() {
-			if (function_exists('mcrypt_create_iv')) return mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-			$output = '';
-			if (is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb'))) {
-				$output = fread($fh, 16);
-				fclose($fh);
-			}
-			if (strlen($output) < 16) {
-				$output = '';
-				$state = microtime();
-				for ($i = 0; $i < 16; $i += 16) {
-					$state = md5(microtime() . $state);
-					$output .= pack('H*', md5($state));
-				}
-				$output = substr($output, 0, 16);
-			}
-			return $output;
-		}
+    function random() {
+        if (function_exists('mcrypt_create_iv')) return mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
+        $output = '';
+        if (is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb'))) {
+            $output = fread($fh, 16);
+            fclose($fh);
+        }
+        if (strlen($output) < 16) {
+            $output = '';
+            $state = microtime();
+            for ($i = 0; $i < 16; $i += 16) {
+                $state = md5(microtime() . $state);
+                $output .= pack('H*', md5($state));
+            }
+            $output = substr($output, 0, 16);
+        }
+        return $output;
+    }
 }
 namespace openid {
     function auth($url, array $params = array()) {

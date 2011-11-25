@@ -1,13 +1,13 @@
 <?php
 get('/', function() {
-		if (is_writable(DIR . '/data')) {
-				$view = new view(DIR . '/views/install.phtml');
-				$view->form = new form;
-				die($view);	
-		} else {
-				$view = new view(DIR . '/views/install.chmod.phtml');
-				die($view);	
-		}
+    if (is_writable(DIR . '/data')) {
+        $view = new view(DIR . '/views/install.phtml');
+        $view->form = new form;
+        die($view);
+    } else {
+        $view = new view(DIR . '/views/install.chmod.phtml');
+        die($view);
+    }
 });
 
 post('/install', function() {
@@ -18,17 +18,16 @@ post('/install', function() {
     $form->email->filter('trim', 'email', specialchars());
     $view = new view(DIR . '/views/registration.phtml');
     if ($form->validate()) {
-				db\install\schema();
-				db\users\register($form->username->value, \password\hash($form->password1->value),
-                                  $form->email->value, true);
-				login($form->username->value, true);
-				redirect('~/');
+        db\install\schema();
+        db\users\register($form->username->value, \password\hash($form->password1->value), $form->email->value, true);
+        login($form->username->value, true);
+        redirect('~/');
     }
     $view->form = $form;
     die($view);
 });
 post('/install/google', function() {
-		$_SESSION['login-google'] = 'install';
+    $_SESSION['login-google'] = 'install';
     \openid\auth('https://www.google.com/accounts/o8/id', array(
         'openid.return_to' => url('~/login/google', true),
         'openid.ns.ui' => 'http://specs.openid.net/extensions/ui/1.0',
@@ -42,18 +41,18 @@ post('/install/google', function() {
 });
 
 get('/login/google', function() {
-		$form = new form($_GET);
-		$form->openid_claimed_id->filter('url');
-		$form->openid_op_endpoint->filter('url');
-		$form->openid_ext1_value_email->filter('email');
-		$form->openid_ext1_value_firstname->filter('trim', preglace('/[^a-z0-9åäö_-]/ui', ''));
-		if ($form->validate() && \openid\check($form->openid_op_endpoint)) {
-				$claim = $form->openid_claimed_id;
-				$_SESSION['google-claim'] = \password\hash($claim);
-				$_SESSION['google-fname'] = $form->openid_ext1_value_firstname->value;
-				$_SESSION['google-email'] = $form->openid_ext1_value_email->value;
-				redirect('~/install/google/confirm');
-		}
+    $form = new form($_GET);
+    $form->openid_claimed_id->filter('url');
+    $form->openid_op_endpoint->filter('url');
+    $form->openid_ext1_value_email->filter('email');
+    $form->openid_ext1_value_firstname->filter('trim', preglace('/[^a-z0-9åäö_-]/ui', ''));
+    if ($form->validate() && \openid\check($form->openid_op_endpoint)) {
+        $claim = $form->openid_claimed_id;
+        $_SESSION['google-claim'] = \password\hash($claim);
+        $_SESSION['google-fname'] = $form->openid_ext1_value_firstname->value;
+        $_SESSION['google-email'] = $form->openid_ext1_value_email->value;
+        redirect('~/install/google/confirm');
+    }
     redirect('~/');
 });
 get('/install/google/confirm', function() {
@@ -78,11 +77,11 @@ post('/install/google/confirm', function() {
     $view = new view(DIR . '/views/install.google.phtml');
     $view->form = $form;
     if ($form->validate()) {
-				db\install\schema();
-				db\users\claim($form->username->value, $claim, $form->email->value, true);
-				unset($_SESSION['google-claim'], $_SESSION['google-email']);
-				login($form->username->value, true);
-				redirect('~/');
+        db\install\schema();
+        db\users\claim($form->username->value, $claim, $form->email->value, true);
+        unset($_SESSION['google-claim'], $_SESSION['google-email']);
+        login($form->username->value, true);
+        redirect('~/');
     }
     die($view);
 });
