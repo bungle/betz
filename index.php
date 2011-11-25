@@ -1,18 +1,22 @@
 <?php
+define('START_TIME', microtime(true));
+
 error_reporting(-1);
 
 setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
-define('START_TIME', microtime(true));
+// TODO: Should these be database configurable?
 define('TOURNAMENT_ID', 'betz');
 define('TOURNAMENT_NAME', 'Betz');
-define('HOST', 'betz.fchaps.com');
+define('EMAIL_SUPPORT', 'betz@fchaps.com');
+define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
+
+// Automatic configuration
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
 define('AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 define('DIR', __DIR__);
 define('DATE_SQLITE', 'Y-m-d\TH:i:s');
-define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
 
 set_exception_handler(function(Exception $ex) {
     @log\error(sprintf('%s [%s:%s]', $ex->getMessage(), $ex->getFile(), $ex->getLine()));
