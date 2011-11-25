@@ -28,6 +28,7 @@ set_exception_handler(function(Exception $ex) {
 });
 
 set_error_handler(function($code, $message, $file, $line, $context) {
+		die(sprintf('%s [%s:%s]', $message, $file, $line));
     @log\error(sprintf('%s [%s:%s]', $message, $file, $line));
     while (ob_get_level() > 0) @ob_end_clean();
     status(500);
@@ -49,34 +50,28 @@ if (!file_exists(DATABASE)) {
 	require './lib/db.install.php';
 	require './lib/db.users.php';
 	require './lib/controllers.install.php';
-}
-
-require './lib/db.php';
-
-authenticate();
-
-if (!AJAX) portlets();
-
-require './lib/controllers.login.php';
-
-if (!STARTED) {
-    require './lib/controllers.registration.php';
-}
-
-if (AUTHENTICATED) {
-    if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
-    require './lib/controllers.main.php';
-    require './lib/controllers.bets.php';
-    require './lib/controllers.stats.php';
-}
-
-if (ADMIN) {
-    require './lib/controllers.admin.php';
+} else {
+	require './lib/db.php';
+	authenticate();
+	if (!AJAX) portlets();
+	require './lib/controllers.login.php';
+	if (!STARTED) {
+			require './lib/controllers.registration.php';
+	}
+	if (AUTHENTICATED) {
+			if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
+			require './lib/controllers.main.php';
+			require './lib/controllers.bets.php';
+			require './lib/controllers.stats.php';
+	}
+	if (ADMIN) {
+			require './lib/controllers.admin.php';
+	}
 }
 
 status(404);
 
-if (AUTHENTICATED) {
+if (defined('AUTHENTICATED') && AUTHENTICATED) {
     $view = new view('./views/404.main.phtml');
     $view->title = 'Sivua ei löytynyt';
     $view->menu = '404';
