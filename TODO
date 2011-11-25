@@ -1,0 +1,20 @@
+Highest priority features:
+- Slider Betting (in addition to current 1x2 betting - configurable)
+- Logos for UCL teams
+
+Medium priority features:
+- Better installer (with more configurable options)
+- Forgot a password email system with regenerated password
+- Email notifications of new games added to a system
+- Real-time updating of the who's online box
+- Better administration features (editing / updates / deletions)
+
+Nice to have features:
+- Change DB from SQLite to Redis (probably not worth it)
+- Rebuild UI with Twitter Bootstrap
+- Rebuild the application as a single page web application with Backbone.js,
+  including more real-time web features
+- Start using HTML5 Boilerplate and its ANT build tool
+- New betting types (sub-games, side-bets?)
+- Facebook / Twitter / OpenID etc. login
+- More and better statistics (down / up arrows, more charts)
