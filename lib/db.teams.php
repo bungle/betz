@@ -10,6 +10,17 @@ namespace db\teams {
         $db->close();
         return $teams;
     }
+    function add($name, $abbr) {
+        $games = array();
+        $db = new \SQLite3(DATABASE, SQLITE3_OPEN_READWRITE);
+        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $stm = $db->prepare('INSERT INTO teams (name, abbr) VALUES (:name, :abbr);');
+        $stm->bindValue(':name', $name, SQLITE3_TEXT);
+        $stm->bindValue(':abbr', $abbr, SQLITE3_TEXT);
+        $stm->execute();
+        $stm->close();
+        $db->close();
+    }    
     function exists($name) {
         $db = new \SQLite3(DATABASE, SQLITE3_OPEN_READONLY);
         if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);

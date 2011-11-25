@@ -7,14 +7,14 @@
 <title><?php echo isset($title) ? $title . ' - ' . TOURNAMENT_NAME . ' -hupilyönti' : TOURNAMENT_NAME . ' -hupilyönti'; ?></title>
 <link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/typography.css'); ?>">
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dark-hive/jquery-ui.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/dark-hive/jquery-ui.css">
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.pnotify.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/flags.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/960.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/menu.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/main.css?') . md5_file('css/main.css'); ?>">
 <?php if (isset($css)) echo $css; ?>
-<?php if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == HOST): ?>
+<?php if (defined('GOOGLE_ANALYTICS_ID')): ?>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<?php echo GOOGLE_ANALYTICS_ID; ?>']);
@@ -199,9 +199,9 @@
     </div>
 </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<?php echo url('~/js/jquery.menu.js'); ?>"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script src="<?php echo url('~/js/jquery.pnotify.js'); ?>"></script>
 <script src="<?php echo url('~/js/jquery.qtip.js'); ?>"></script>
 <script src="<?php echo url('~/js/main.js?') . md5_file('js/main.js'); ?>"></script>

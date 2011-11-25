@@ -35,26 +35,28 @@
     </td>
     <td colspan="2" align="right">
         <div style="float: right; text-align: left;">
-        <select name="home" style="width: 150px;">
+        <select name="home" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->home->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
             <?php endforeach; ?>
         </select>
         </div>
     </td>
-    <td class="dash">&ndash;</td>
+    <td class="dash" style="margin-top: 10px;">&ndash;</td>
     <td colspan="2">
+        <div style="float: left; text-align: left;">
         <select name="road" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->road->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
             <?php endforeach; ?>
         </select>
+        </div>
     </td>
     <td align="right">
         <table width="100%">
         <tr style="border: none;">
-            <td style="padding-top: 2px;"><input id="draw" type="checkbox" name="draw" checked><label for="draw" style="width:187px;">Tasapeli</label></td>
-            <td style="padding-top: 2px;" align="right"><input type="submit" value="Lisää" style="width: 90px; height: 31px;"></td>
+            <td style="padding-top: 3px;"><input id="draw" type="checkbox" name="draw" checked><label for="draw" style="width:187px;">Tasapeli</label></td>
+            <td style="padding-top: 3px;" align="right"><input type="submit" value="Lisää" style="width: 90px; height: 31px;"></td>
         </tr>
         </table>
     </td>

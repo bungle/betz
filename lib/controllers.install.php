@@ -16,7 +16,7 @@ post('/install', function() {
     $form->password1->filter(length(6, 20), equal($form->password2->value));
     $form->password2->filter(length(6, 20), equal($form->password1->value));
     $form->email->filter('trim', 'email', specialchars());
-    $view = new view(DIR . '/views/registration.phtml');
+    $view = new view(DIR . '/views/install.phtml');
     if ($form->validate()) {
         db\install\schema();
         db\users\register($form->username->value, \password\hash($form->password1->value), $form->email->value, true);
