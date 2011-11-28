@@ -1,3 +1,4 @@
 /nbproject/private/
 /nbproject/
-/data/betz.sq3
+/data/*.sq3
+/data/*.log

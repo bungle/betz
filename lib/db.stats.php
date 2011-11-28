@@ -46,8 +46,7 @@ namespace db\stats {
                 total_points DESC,
                 LOWER(username) ASC
 SQL;
-        $db = new \SQLite3(DATABASE, \SQLITE3_OPEN_READONLY);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $res = $db->query($sql);
         $i = 0;
         $j = 0;
@@ -76,7 +75,6 @@ SQL;
         $points[$j]['rowspan'] = $rowspan;
         $points[$j]['keyrow'] = true;
         $res->finalize();
-        $db->close();
         return $points;
     }
     function games($user) {
@@ -112,8 +110,7 @@ SQL;
             time DESC
 SQL;
 
-        $db = new \SQLite3(DATABASE, \SQLITE3_OPEN_READONLY);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $stm = $db->prepare($sql);
         $stm->bindValue(':user', $user, SQLITE3_TEXT);
         $stm->bindValue(':time', date_format(date_create(), DATE_SQLITE), SQLITE3_TEXT);
@@ -122,7 +119,6 @@ SQL;
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) $games[] = $row;
         $res->finalize();
         $stm->close();
-        $db->close();
         return $games;
     }
     function scorers() {
@@ -155,8 +151,7 @@ SQL;
             goals DESC, team, scorer
 
 SQL;
-        $db = new \SQLite3(DATABASE, \SQLITE3_OPEN_READONLY);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $res = $db->query($sql);
         $i = 0;
         $j = 0;
@@ -188,7 +183,6 @@ SQL;
             $scorers[$j]['keyrow'] = true;
         }
         $res->finalize();
-        $db->close();
         return $scorers;
     }
     
@@ -203,8 +197,7 @@ SQL;
         ORDER BY day;
 SQL;
         $days = array();
-        $db = new \SQLite3(DATABASE, \SQLITE3_OPEN_READONLY);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $res = $db->query($sql);
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             $days[] = $row['day'];
@@ -272,7 +265,6 @@ SQL;
         }
  
         $stm->close();
-        $db->close();
 
         foreach ($data->series as &$serie) {
             for ($i = 0; $i < count($serie->data); $i++) {

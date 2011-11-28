@@ -51,6 +51,7 @@ require './lib/utils.php';
 require './lib/web.php';
 
 if (!file_exists(DATABASE)) {
+    require './lib/db.connect.php';
 	require './lib/db.install.php';
 	require './lib/db.users.php';
 	require './lib/controllers.install.php';
