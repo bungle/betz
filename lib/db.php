@@ -1,4 +1,5 @@
 <?php
+require DIR . '/lib/db.connect.php';
 require DIR . '/lib/db.news.php';
 require DIR . '/lib/db.chat.php';
 require DIR . '/lib/db.bets.php';

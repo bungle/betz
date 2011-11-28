@@ -128,10 +128,8 @@ namespace db\install {
             CONSTRAINT fk_users         FOREIGN KEY (user) REFERENCES users (username)
         );
 SQL;
-        $db = new \SQLite3(DATABASE, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $db->exec($sql);
-        $db->close();
     }
     function triggers() {
         $sql =<<< 'SQL'
@@ -290,10 +288,8 @@ SQL;
             );
         END;
 SQL;
-        $db = new \SQLite3(DATABASE, SQLITE3_OPEN_READWRITE);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $db->exec($sql);
-        $db->close();
     }
     function views() {
         $sql =<<<'SQL'
@@ -382,9 +378,7 @@ SQL;
         ON
             s.team = t4.name;
 SQL;
-        $db = new \SQLite3(DATABASE, SQLITE3_OPEN_READWRITE);
-        if (method_exists($db, 'busyTimeout')) $db->busyTimeout(10000);
+        $db = \db\connect();
         $db->exec($sql);
-        $db->close();
     }
 }
