@@ -3,6 +3,7 @@ Highest priority features:
 - Logos for UCL teams
 
 Medium priority features:
+- Mobile version of the betz with jQuery Mobile for example
 - Better installer (with more configurable options)
 - Forgot a password email system with regenerated password
 - Email notifications of new games added to a system
