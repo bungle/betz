@@ -17,6 +17,7 @@ define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
 define('AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 define('DIR', __DIR__);
 define('DATE_SQLITE', 'Y-m-d\TH:i:s');
+define('ENV', 'dev');
 
 set_exception_handler(function(Exception $ex) {
     @log\error(sprintf('%s [%s:%s]', $ex->getMessage(), $ex->getFile(), $ex->getLine()));
@@ -49,6 +50,18 @@ session_start();
 
 require './lib/utils.php';
 require './lib/web.php';
+require './lib/log.php';
+require './lib/password.php';
+require './lib/openid.php';
+
+if (ENV === 'dev') {
+    require './lib/ext/ChromePhp.php';
+    \log\appenders(
+        \log\chromephp(LOG_DEBUG),
+        \log\file(__DIR__ . '/data/' . date_create()->format('Y-m-d') . '.log', LOG_DEBUG));
+} else {
+    \log\appenders(\log\file(__DIR__ . '/data/' . date_create()->format('Y-m-d') . '.log', LOG_WARNING));
+}
 
 if (!file_exists(DATABASE)) {
     require './lib/db.connect.php';
@@ -61,16 +74,16 @@ if (!file_exists(DATABASE)) {
 	if (!AJAX) portlets();
 	require './lib/controllers.login.php';
 	if (!STARTED) {
-			require './lib/controllers.registration.php';
+        require './lib/controllers.registration.php';
 	}
 	if (AUTHENTICATED) {
-			if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
-			require './lib/controllers.main.php';
-			require './lib/controllers.bets.php';
-			require './lib/controllers.stats.php';
+        if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
+        require './lib/controllers.main.php';
+        require './lib/controllers.bets.php';
+        require './lib/controllers.stats.php';
 	}
 	if (ADMIN) {
-			require './lib/controllers.admin.php';
+        require './lib/controllers.admin.php';
 	}
 }
 
