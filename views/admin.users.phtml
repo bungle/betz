@@ -2,9 +2,13 @@
 <?php block($css); ?>
 <link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
 <?php block(); ?>
-<h1><?php echo $title; ?></h1>
-<hr>
-<table id="users" class="tablesorter" style="text-align: center;">
+<div class="page-header">
+<h1>
+    <?php echo $title; ?>
+    <small>Muokkaa käyttäjien tietoja</small>
+</h1>
+</div>
+<table id="users">
     <thead>
     <tr style="height: 32px;">
         <th>Nimi</th>
@@ -38,10 +42,11 @@
     </form>
     <?php endforeach; ?>
 </table>
-<h4 style="float: right; padding-right: 1em;"><?php echo 'Yhteensä ' . count($users) . ' rekisteröitynyttä.'; ?></h4>
+<h5 style="float: right; padding-right: 1em;"><?php echo 'Yhteensä ' . count($users) . ' rekisteröitynyttä.'; ?></h4>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/jquery.tablesorter.js'); ?>"></script>
 <script>
+
 function setimage(input) {
     if (input.attr('checked')) {
         input.button({
@@ -57,6 +62,7 @@ function setimage(input) {
         });
     }
 }
+
 $('input:checkbox').each(function() {
     var input = $(this);        
     setimage(input)

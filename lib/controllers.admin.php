@@ -11,6 +11,7 @@ get('/admin/news', function() {
     $view = new view(DIR . '/views/admin.news.phtml');
     $view->title = 'Uutiset';
     $view->menu = 'admin/news';
+    $view->form = db\news\edit(2);
     die($view);
 });
 post('/admin/news', function() {
@@ -18,26 +19,33 @@ post('/admin/news', function() {
     $form = new form($_POST);
     $form->slug($form->title->value)->filter('slug');
     $form->content->filter('trim', minlength(1), 'links', 'smileys');
+    $form->title->filter(minlength(1));
     $form->level->filter('intval');
     if (!isset($form->id->value)) $form->id->value = null; 
     if($form->validate()) {
         db\news\add($form->id->value, $form->title->value, $form->content->value, $form->level->value, username, $form->slug->value);
         redirect('~/');
     }
+    $view = new view(DIR . '/views/admin.news.phtml');
+    $view->title = 'Uutiset - korjaus';
+    $view->error = true;
+    $view->form = $form;
+    $view->menu = 'admin/news';
+    die($view);
 });
 get('/admin/news/%d', function($id) {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.news.phtml');
     $view->title = 'Uutinen';
     $view->menu = 'admin/news';
-    $view->news = db\news\edit($id);
+    $view->form = new form(db\news\edit($id));
     die($view);
 });
 get('/admin/teams', function() {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.teams.phtml');
     $view->title = 'Joukkueet';
-    $view->menu = 'admin/news';
+    $view->menu = 'admin/teams';
     $view->teams = db\teams\all();
     die($view);
 });
