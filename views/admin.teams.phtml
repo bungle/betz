@@ -1,45 +1,46 @@
 <?php $layout = 'layouts/layout.admin.phtml'; ?>
-<h1>Joukkueet</h1>
-<hr>
-<table id="bets" class="tablesorter">
-<tr>
-    <th style="text-align: left;">Joukkue</th>
-    <th style="text-align: center;">Lyhenne</th>
-    <th style="text-align: center;">Sijoitus / Toiminnot</th>
-</tr>
+<div class="page-header">
+<h1>
+    Joukkueet
+    <small>Lisää ja muokkaa joukkueita</small>
+</h1>
+</div>
+
+<div class="row">
+    <div class="span8"><h5>Joukkue</h5></div>
+    <div class="span2" style="text-align: center;"><h5>Lyhenne</h5></div>
+    <div class="span4" style="text-align: center;"><h5>Sijoitus/Toiminnot</h5></div>
+</div>
 <form method="post" action="<?php echo url('~/admin/teams'); ?>">
-<tr>
-    <td>
+<div class="row">
+    <div class="span8">
         <input type="text" name="name" class="large" style="width: 365px;">
-    </td>
-    <td style="text-align: center;">
+    </div>
+    <div class="span2" style="text-align: center;">
         <input type="text" name="abbr" class="large" maxlength="3" style="width: 30px;">
-    </td>
-    <td style="text-align: center;">
-        <input type="submit" value="Lisää" style="width: 132px;">
-    </td>
-</tr>
+    </div>
+    <div class="span4" style="text-align: center;">
+        <input class="btn primary" type="submit" value="Lisää" style="width: 132px;">
+    </div>
+</div>
 </form>
+
 <?php foreach($teams as $team): ?>
-<tr>
-    <td class="f32" style="width: 132px; line-height: 32px; ">
-        <div class="flag <?php echo $team['abbr']; ?>" style="padding-left: 40px;"><?php echo $team['name']; ?></div>
-    </td>
-    <td style="text-align: center;"><?php echo $team['abbr']; ?></td>
-    <td class="bet">
-        <form method="post" action="<?php echo url('~/admin/teams/' . urlencode($team['name'])); ?>">
-        <table>
-        <tr style="border: none;">
-            <td><input type="text" name="ranking" class="large" value="<?php echo $team['ranking']; ?>"></td>
-            <td>&nbsp;</td>
-            <td><input type="submit" class="team" value="Tallenna"></td>
-        </tr>
-        </table>
+<div class="row">
+    <div class="span8 f32">
+        <div class="flag <?php echo $team['abbr']; ?>" style="padding-left: 40px; height: 32px; line-height: 32px;"><?php echo $team['name']; ?></div>
+    </div>
+    <div class="span2" style="text-align: center; line-height: 32px;">
+        <?php echo $team['abbr']; ?>
+    </div>
+    <div class="span4" style="text-align: center;">
+            <?php echo $team['ranking']; ?>
+            
         </form>
-    </td>
-</tr>
+    </div>
+</div>
 <?php endforeach; ?>
-</table>
+
 <?php block($scripts); ?>
 <script>
 $('input:submit.team').each(function() {

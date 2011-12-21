@@ -2,9 +2,14 @@
 <?php block($css); ?>
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.selectmenu.css'); ?>">
 <?php block(); ?>
-<h1><?php echo $title; ?></h1>
-<hr>
-<table id="bets" class="tablesorter">
+<div class="page-header">
+  <h1>
+    <?php echo $title; ?>
+    <small>&quot;Kultainen kenkä&quot;</small>
+  </h1>
+</div>
+
+<table id="bets">
 <tr>
     <th style="text-align: left;">Pelaaja</th>
     <th style="text-align: center;">Joukkue</th>
@@ -21,17 +26,12 @@
         </select>
     </td>
     <td>
-        <table width="100%">
-        <tr style="border: none;">
-            <td>&nbsp;</td>
-            <td><input type="text" name="goals" class="large"></td>
-            <td>&nbsp;</td>
-            <td style="text-align: right;"><input style="width: 87px;" type="submit" value="Lisää"></td>
-        </tr>
-        </table>
+            <input type="text" name="goals" class="large">
+            <input style="width: 87px;" type="submit" value="Lisää">
     </td>
 </tr>
 </form>
+</tr>
 <?php foreach($scorers as $scorer): ?>
 <tr>
     <td class="f32" style="width: 32px; line-height: 32px;" colspan="2">
@@ -39,23 +39,16 @@
     </td>
     <td class="bet">
         <form method="post" action="<?php echo url('~/admin/scorers/' . urlencode($scorer['name'])); ?>">
-        <table>
-        <tr style="border: none;">
-            <td>&nbsp;</td>
-            <td><input type="text" name="goals" class="large" value="<?php echo $scorer['goals']; ?>"></td>
-            <td>&nbsp;</td>
-            <td><input class="goal" type="submit" value="Tallenna"></td>
-        </tr>
-        </table>
+            <input type="text" name="goals" class="large" value="<?php echo $scorer['goals']; ?>">
+            <input class="goal" type="submit" value="Tallenna">
         </form>
     </td>
 </tr>
 <?php endforeach; ?>
 </table>
-<br>
+
 <h2>Veikkaajien maalintekijät</h2>
-<hr class="thin">
-<table id="bets" class="tablesorter">
+<table id="betters">
 <tr>
     <th style="text-align: left;">Veikkaus</th>
     <th style="text-align: center;">Pelaaja</th>
