@@ -7,8 +7,8 @@ setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
-define('TOURNAMENT_ID', 'betz');
-define('TOURNAMENT_NAME', 'Betz');
+define('TOURNAMENT_ID', 'mm2012');
+define('TOURNAMENT_NAME', 'MM 2012 -hupilyönti');
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
 define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
 
