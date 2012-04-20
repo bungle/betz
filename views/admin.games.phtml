@@ -107,6 +107,7 @@
 $('select').selectmenu();
 $('#draw').button();
 $("#date").datepicker({ dateFormat: 'yy-mm-dd', showAnim: 'fadeIn' });
+$("#date").datepicker($.datepicker.regional['sv']);
 $('input:submit.game').each(function() {
     var input = $(this);
     var form = $(this.form);

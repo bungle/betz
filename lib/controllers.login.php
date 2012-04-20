@@ -1,12 +1,13 @@
 <?php
 get('/', function() {
     if (AUTHENTICATED) {
-        $view = new view(DIR . '/views/main.phtml');
-        $view->title = 'Etusivu';
-        $view->menu = 'main';
-        $view->news = db\news\all();
-        $view->online = db\users\visited(username, 'Etusivu');
-        die($view);
+        redirect('~/chat');
+        //$view = new view(DIR . '/views/main.phtml');
+        //$view->title = 'Etusivu';
+        //$view->menu = 'main';
+        //$view->news = db\news\all();
+        //$view->online = db\users\visited(username, 'Etusivu');
+        //die($view);
     }
     die(new view(DIR . '/views/login.phtml'));
 });

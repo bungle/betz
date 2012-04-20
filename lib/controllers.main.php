@@ -40,7 +40,10 @@ get('/chat/poll', function() {
     if (!AUTHENTICATED) return;
     $last = isset($_SESSION['last-chat-message-id']) ? $_SESSION['last-chat-message-id'] : 0;
     $messages = db\chat\poll($last);
-    if (count($messages) === 0) return status(304);
+    if (count($messages) === 0) {
+        status(304);
+        die;
+    }
     $_SESSION['last-chat-message-id'] = $last;
     $view = new view(DIR . '/views/chat.messages.phtml');
     $view->messages = $messages;

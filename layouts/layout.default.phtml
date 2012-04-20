@@ -44,26 +44,23 @@
     <div id="navigation">
         <div id="menu">
             <ul class="menu">
-                <li<?php if ($menu == 'main') echo ' class="current"' ?>><a href="<?php echo url('~/'); ?>" class="parent"><span>Etusivu</span></a></li>
+                <li<?php if ($menu == 'chat') echo ' class="current' . (ADMIN ?  '"' : ' last"'); ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
                 <li<?php if ($menu == 'bets/games') echo ' class="current"' ?>><a href="<?php echo url('~/bets/games'); ?>"><span>Otteluveikkaus</span></a></li>
                 <li<?php if ($menu == 'bets/teams') echo ' class="current"' ?>><a href="<?php echo url('~/bets/teams'); ?>"><span>Kolmen kärki &trade;</span></a></li>
                 <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
-                <li<?php if ($menu == 'program') echo ' class="current"' ?>><a href="<?php echo url('~/program'); ?>"><span>Otteluohjelma</span></a></li>
                 <li<?php if ($menu == 'rules') echo ' class="current"' ?>><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
-                <li<?php if ($menu == 'chat') echo ' class="current' . (ADMIN ?  '"' : ' last"'); ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
                 <?php if (ADMIN): ?>
                 <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
-                    <a href="<?php echo url('~/admin'); ?>"><span>Ylläpito</span></a>
+                    <a name="admin"><span>Ylläpito</span></a>
                     <div>
                         <ul>
-                            <li<?php if ($menu == 'admin/news') echo ' class="current"' ?>><a href="<?php echo url('~/admin/news'); ?>"><span>Uutiset</span></a></li>
                             <li<?php if ($menu == 'admin/games') echo ' class="current"' ?>><a href="<?php echo url('~/admin/games'); ?>"><span>Ottelut</span></a></li>
                             <li<?php if ($menu == 'admin/teams') echo ' class="current"' ?>><a href="<?php echo url('~/admin/teams'); ?>"><span>Joukkueet</span></a></li>
                             <li<?php if ($menu == 'admin/scorers') echo ' class="current"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
                             <li<?php if ($menu == 'admin/users') echo ' class="current"' ?>><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
-                            <li class="<?php if ($menu == 'admin/config') echo 'current"' ?> last"><a href="<?php echo url('~/admin/config'); ?>"><span>Konfiguraatio</span></a></li>
+                            <!-- <li class="<?php if ($menu == 'admin/config') echo 'current"' ?> last"><a href="<?php echo url('~/admin/config'); ?>"><span>Konfiguraatio</span></a></li> -->
                         </ul>
                     </div>
                 </li>
@@ -145,7 +142,7 @@
                 </div>
             </div>
             <?php endif; ?>
-            <?php if (isset($played)): ?>
+            <?php if (isset($played) && count($played) > 0): ?>
             <div class="block-spacer"></div>
             <div class="block">
                 <h3 class="ui-corner-top">Otteluiden tulokset</h3>
@@ -170,8 +167,6 @@
                                 <?php else: ?>
                                 <td><div style="font-size: 0.85em; padding: 0;">(<?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%)</div></td>
                                 <?php endif; ?>
-                                
-                                
                             </tr>
                         <?php endforeach; ?>
                     </table>
