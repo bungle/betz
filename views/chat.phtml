@@ -1,11 +1,11 @@
 <?php $layout = 'layouts/layout.default.phtml'; ?>
 <?php block($css); ?>
-<link rel="stylesheet" href="<?php echo url('~/css/scroll.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/jscrollpane.css'); ?>">
 <?php block(); ?>
 <h1><?php echo $title; ?></h1>
 <hr>
 <div id="chat-wrapper">
-    <div id="chat" style="height: 356px; overflow: auto;">
+    <div id="chat" style="height: 356px;">
         <?php if (isset($chat)) echo $chat; ?>
     </div>
 </div>
@@ -32,24 +32,28 @@
 </div>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/jquery.mousewheel.js'); ?>"></script>
-<script src="<?php echo url('~/js/jquery.scroll.js'); ?>"></script>
+<script src="<?php echo url('~/js/jquery.jscrollpane.js'); ?>"></script>
 <script>
 var chat = $('#chat');
 var form = $('#form');
 var message = $('#message');
 
 message.focus();
-chat.jScrollPane();
-chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
+//
+chat.jScrollPane({ stickToBottom: true });
+
+var api = chat.data('jsp');
+
+api.scrollToBottom(false);
+//chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
 
 $.ajaxSetup({cache: false});
 
 setInterval(function() {
     $.get('<?php echo url('~/chat/poll'); ?>', function(data) {
-        if (data.length == 0) return;
-        var scroll = chat.data('jScrollPanePosition') == chat.data('jScrollPaneMaxScroll');
-        chat.append(data).jScrollPane();
-        if (scroll) chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
+        if (data == undefined || data.length == 0) return;
+        $('#chat .jspPane').append(data);
+        api.reinitialise();
     }, 'text');
 }, 1500);
 

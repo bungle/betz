@@ -1,10 +1,15 @@
 <?php $layout = 'layouts/layout.default.phtml'; ?>
 <h1><?php echo $title; ?></h1>
 <hr>
+<?php if (!STARTED): ?>
+<div class="notice">Turnaus ei ole vielä alkanut tai tuloksia ei ole vielä syötetty järjestelmään.</div>
+<?php else: ?>
 <div id="chart-container-1" style="width: 700px; height: 600px"></div>
+<?php endif; ?>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/highcharts/highcharts.js'); ?>"></script>
 <script src="<?php echo url('~/js/highcharts/themes/gray.js'); ?>"></script>
+<?php if (STARTED): ?>
 <script>
 $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
     new Highcharts.Chart({
@@ -19,7 +24,7 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
         },
         xAxis: {
             categories: data.categories,
-            reversed: false,
+            reversed: false
         },
         yAxis: {
             min: 0.5,
@@ -47,4 +52,5 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
     });
 });
 </script>
+<?php endif; ?>
 <?php block(); ?>
