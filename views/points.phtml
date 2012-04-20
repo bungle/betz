@@ -4,6 +4,9 @@
 <?php block(); ?>
 <h1><?php echo $title; ?></h1>
 <hr>
+<?php if (!STARTED): ?>
+<div class="notice">Turnaus ei ole vielä alkanut, joten pistetaulukkoa ei vielä näytetä.</div>
+<?php else: ?>
 <table id="points" class="tablesorter">
  <thead>
    <tr>
@@ -86,4 +89,5 @@
 <?php endforeach; ?>
 </tbody>
 </table>
+<?php endif; ?>
 <?php endif; ?>

@@ -4,6 +4,9 @@
 <?php block(); ?>
 <h1><?php echo $title; ?></h1>
 <hr>
+<?php if (!STARTED && username !== $pointsuser): ?>
+<div class="notice">Turnaus ei ole vielä alkanut, joten et voi vielä katsoa muiden tuloksia.</div>
+<?php else: ?>
 <table id="points" class="tablesorter">
  <thead>
    <tr>
@@ -137,4 +140,5 @@
 <?php endforeach; ?>
 </tbody>
 </table>
+<?php endif; ?>
 <?php endif; ?>
