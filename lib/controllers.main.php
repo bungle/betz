@@ -5,6 +5,7 @@ get('/rules', function() {
     $view->title = 'Säännöt';
     $view->menu = 'rules';
     $view->online = db\users\visited(username, 'Säännöt');
+    $view->start = db\games\start();
     die($view);
 });
 get('/chat', function() {
