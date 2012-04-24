@@ -45,12 +45,12 @@ $gcount = count($games);
 </table>
 <?php if ($gcount > 0): ?>
 <?php block($scripts); ?>
-<?php if ($gcount > 34): ?>
+<?php if ($gcount > 100): ?>
 <script src="<?php echo url('~/js/jquery.blockui.js'); ?>"></script>
 <?php endif; ?>
 <script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
 <script>
-<?php if ($gcount > 34): ?>
+<?php if ($gcount > 100): ?>
 $.blockUI({
     message: '<h2>Ladataan otteluita...</h2>(jQuery UI:n bugi hidastaa lataamista)',
     css: {
@@ -125,7 +125,7 @@ function initialize() {
         });
     });
     $('#bets').toggle();
-    <?php if ($gcount > 34): ?>
+    <?php if ($gcount > 100): ?>
     $.unblockUI();
     <?php endif; ?>
 }
