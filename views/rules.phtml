@@ -40,7 +40,8 @@
 <div class="block">
     <h3 class="ui-corner-top rules">Maalikuninkuus</h3>
     <div class="ui-corner-bottom">
-        Maalikuninkuudessa veikataan turnauksen parasta maalintekijää. Oikeasta veikkauksesta saa kolme pistettä. Veikata voi ennen turnauksen ensimmäistä peliä. 
+        Maalikuninkuudessa veikataan turnauksen parasta maalintekijää. Oikeasta veikkauksesta saa kolme pistettä. Veikata voi ennen turnauksen ensimmäistä peliä.
+        Jos kukaan ei arvaa parasta maalintekijää, niin kolme pistettä saavat ne, jotka arvasivat tämän veikkauksen sisällä eniten maaleja tehnyttä.
     </div>
 </div>
 <br />
@@ -49,16 +50,16 @@
     <div class="ui-corner-bottom">
         <table>
          <tr>
-           <td>Saaja:&nbsp;</td><td>XXX XXX</td>
+           <td>Saaja:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT_HOLDER') ? BANK_ACCOUNT_HOLDER : 'Xxx Xxx'; ?></td>
          </tr>
          <tr>
-           <td>Tilinunmero:&nbsp;</td><td>XXX-XXX (IBAN: XXX)</td>
+           <td>Tilinunmero:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT') ? BANK_ACCOUNT : 'XXX'; ?> (IBAN: <?php echo defined('BANK_ACCOUNT_IBAN') ? BANK_ACCOUNT_IBAN : 'XXX'; ?>)</td>
          </tr>
          <tr>
            <td>Summa:&nbsp;</td><td>15 &euro;</td>
          </tr>
          <tr>
-           <td>Eräpäivä:&nbsp;</td><td>Ennen turnauksen alkua (XXX)</td>
+           <td>Eräpäivä:&nbsp;</td><td>Ennen turnauksen alkua (<?php echo date_format(date_create($start), 'j.n.Y \k\l\o G.i'); ?>)</td>
          </tr>
          <tr>
             <td>Viestikenttään:&nbsp;</td><td>Käyttäjätunnuksesi</td>

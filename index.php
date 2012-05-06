@@ -8,16 +8,18 @@ date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
 define('TOURNAMENT_ID', 'mm2012');
-define('TOURNAMENT_NAME', 'MM 2012 -hupilyönti');
+define('TOURNAMENT_NAME', 'MM 2012');
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
-define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
+//define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
 
 // Automatic configuration
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
 define('AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 define('DIR', __DIR__);
 define('DATE_SQLITE', 'Y-m-d\TH:i:s');
-define('ENV', 'dev');
+define('ENV', 'prod');
+
+if (is_readable(DIR . '/config.php')) include DIR . '/config.php';
 
 set_exception_handler(function(Exception $ex) {
     @log\error(sprintf('%s [%s:%s]', $ex->getMessage(), $ex->getFile(), $ex->getLine()));
@@ -33,7 +35,6 @@ set_exception_handler(function(Exception $ex) {
 });
 
 set_error_handler(function($code, $message, $file, $line, $context) {
-		die(sprintf('%s [%s:%s]', $message, $file, $line));
     @log\error(sprintf('%s [%s:%s]', $message, $file, $line));
     while (ob_get_level() > 0) @ob_end_clean();
     status(500);
@@ -65,26 +66,26 @@ if (ENV === 'dev') {
 
 if (!file_exists(DATABASE)) {
     require './lib/db.connect.php';
-	require './lib/db.install.php';
-	require './lib/db.users.php';
-	require './lib/controllers.install.php';
+    require './lib/db.install.php';
+    require './lib/db.users.php';
+    require './lib/controllers.install.php';
 } else {
-	require './lib/db.php';
-	authenticate();
-	if (!AJAX) portlets();
-	require './lib/controllers.login.php';
-	if (!STARTED) {
+    require './lib/db.php';
+    authenticate();
+    if (!AJAX) portlets();
+    require './lib/controllers.login.php';
+    if (!STARTED) {
         require './lib/controllers.registration.php';
-	}
-	if (AUTHENTICATED) {
+    }
+    if (AUTHENTICATED) {
         if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
         require './lib/controllers.main.php';
         require './lib/controllers.bets.php';
         require './lib/controllers.stats.php';
-	}
-	if (ADMIN) {
+    }
+    if (ADMIN) {
         require './lib/controllers.admin.php';
-	}
+    }
 }
 
 status(404);
