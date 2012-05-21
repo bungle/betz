@@ -50,7 +50,7 @@
                 <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
-                <li class="<?php if ($menu == 'rules') echo 'current'; ?> last"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
+                <li class="<?php if ($menu == 'rules') echo 'current'; ?><?php if (!ADMIN): ?> last<?php endif; ?>"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
                 <?php if (ADMIN): ?>
                 <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
                     <a name="admin"><span>Ylläpito</span></a>
@@ -93,11 +93,10 @@
                     </tr>
                     <?php endforeach; ?>
                     </table>
-                    
                 </div>
             </div>
             <?php endif; ?>
-            <?php if (isset($upcoming)): ?>
+            <?php if (isset($upcoming) && count($upcoming) > 0): ?>
             <div class="block-spacer"></div>
             <div class="block">
                 <h3 class="ui-corner-top">Seuraavat ottelut</h3>
@@ -208,7 +207,6 @@ $("#user-logoff").button({
     }
 }).click( function() { window.location.href = '<?php echo url('~/logoff'); ?>'; });
 $("#user-buttons").buttonset();
-
 <?php if (isset($notices)): $i = 0; foreach($notices as $notice): ?>
 $.pnotify({
     <?php if (isset($notice['title'])) echo "pnotify_title: '" . $notice['title'] . "',\n"; ?>
@@ -217,7 +215,6 @@ $.pnotify({
     pnotify_delay: 3000
 });
 <?php $i++; endforeach; endif; ?>
-
 </script>
 <?php if (isset($scripts)) echo $scripts; ?>
 </body>

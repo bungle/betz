@@ -10,7 +10,6 @@ date_default_timezone_set('Europe/Helsinki');
 define('TOURNAMENT_ID', 'mm2012');
 define('TOURNAMENT_NAME', 'MM 2012');
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
-//define('GOOGLE_ANALYTICS_ID', 'UAXXXXXXXX1');
 
 // Automatic configuration
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
