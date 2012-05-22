@@ -428,7 +428,7 @@
 .f32 .pg{background-position:0 -5760px;}
 .f32 .ph{background-position:0 -5792px;}
 .f32 .pk{background-position:0 -5824px;}
-.f32 .pl{background-position:0 -5856px;}
+.f32 .pl,.f32 .POL{background-position:0 -5856px;}
 .f32 .pr{background-position:0 -5888px;}
 .f32 .ps{background-position:0 -5920px;}
 .f32 .pt,.f32 .POR{background-position:0 -5952px;}
