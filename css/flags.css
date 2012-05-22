@@ -101,7 +101,7 @@
 .f16 .gn{background-position:0 -1568px;}
 .f16 .gp{background-position:0 -1584px;}
 .f16 .gq{background-position:0 -1600px;}
-.f16 .gr,.f16 .GRE{background-position:0 -1616px;}
+.f16 .gr,.f16 .GRE,.f16 .GRC{background-position:0 -1616px;}
 .f16 .gt{background-position:0 -1632px;}
 .f16 .gu{background-position:0 -1648px;}
 .f16 .gw{background-position:0 -1664px;}
@@ -345,7 +345,7 @@
 .f32 .gn{background-position:0 -3136px;}
 .f32 .gp{background-position:0 -3168px;}
 .f32 .gq{background-position:0 -3200px;}
-.f32 .gr,.f32 .GRE{background-position:0 -3232px;}
+.f32 .gr,.f32 .GRE,.f32 .GRC{background-position:0 -3232px;}
 .f32 .gt{background-position:0 -3264px;}
 .f32 .gu{background-position:0 -3296px;}
 .f32 .gw{background-position:0 -3328px;}
