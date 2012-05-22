@@ -113,7 +113,7 @@
 .f16 .hu{background-position:0 -1760px;}
 .f16 .id{background-position:0 -1776px;}
 .f32 .mc{background-position:0 -1776px;}
-.f16 .ie{background-position:0 -1792px;}
+.f16 .ie,.f16 .IRL{background-position:0 -1792px;}
 .f16 .il{background-position:0 -1808px;}
 .f16 .im{background-position:0 -1824px;}
 .f16 .in{background-position:0 -1840px;}
@@ -357,7 +357,7 @@
 .f32 .hu{background-position:0 -3520px;}
 .f32 .id{background-position:0 -3552px;}
 .f32 .mc{background-position:0 -3552px;}
-.f32 .ie{background-position:0 -3584px;}
+.f32 .ie,.f32 .IRL{background-position:0 -3584px;}
 .f32 .il{background-position:0 -3616px;}
 .f32 .im{background-position:0 -3648px;}
 .f32 .in{background-position:0 -3680px;}
