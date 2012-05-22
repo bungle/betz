@@ -187,7 +187,7 @@
 .f16 .pl,.f16 .POL{background-position:0 -2928px;}
 .f16 .pr{background-position:0 -2944px;}
 .f16 .ps{background-position:0 -2960px;}
-.f16 .pt,.f16 .POR{background-position:0 -2976px;}
+.f16 .pt,.f16 .POR,.f16 .PRT{background-position:0 -2976px;}
 .f16 .pw{background-position:0 -2992px;}
 .f16 .py,.f16 .PAR{background-position:0 -3008px;}
 .f16 .qa{background-position:0 -3024px;}
@@ -431,7 +431,7 @@
 .f32 .pl,.f32 .POL{background-position:0 -5856px;}
 .f32 .pr{background-position:0 -5888px;}
 .f32 .ps{background-position:0 -5920px;}
-.f32 .pt,.f32 .POR{background-position:0 -5952px;}
+.f32 .pt,.f32 .POR,.f32 .PRT{background-position:0 -5952px;}
 .f32 .pw{background-position:0 -5984px;}
 .f32 .py,.f32 .PAR{background-position:0 -6016px;}
 .f32 .qa{background-position:0 -6048px;}
