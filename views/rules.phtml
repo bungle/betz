@@ -13,10 +13,6 @@
         Osuudet lasketaan kahden desimaalin tarkkuudella. Prosentit lasketaan ainoastaan veikatuista äänistä, joten veikkaamatta jättäneet eivät vaikuta "kertoimiin". Tällä kertaa
         altavastaajia veikkaavia siis palkitaan hieman ruhtinaallisemmin.<br /><br />
         Väärin veikatuista ei rangaista.<br /><br />
-        <!--
-        Kilpailussa on mukana 32 joukkuetta, jotka on jaettu kahdeksaan lohkoon. Jokaisessa lohkossa pelataan kuusi ottelua. Alkulohkon pelejä on siis yhteensä 48. Jatkoon pääsee 16 joukkuetta
-        ja jatkopelejä on yhteensä 16.<br /><br />
-        -->
         Pelikohtainen veikkaus sulkeutuu minuuttia ennen ottelun ilmoitettua alkamisajankohtaa. Tämän jälkeen veikkaaminen ei enää onnistu.
         Veikkaamatta jätetyt ottelut jätetään huomioimatta, eli pelaaja ei saa niistä minkäänlaisia pisteitä.
     </div>
@@ -33,9 +29,11 @@
         <span style="font-weight: bold;">Esimerkki:</span><br />
         Pelaaja A veikkaa Kolmen kärkeen Venäjää, Kanadaa sekä Suomea tässä järjestyksessä. Näistä maista Venäjä sekä Suomi ovat kolmen joukossa. Pelaaja A saa
         pisteen per oikea joukkue eli yhteensä kaksi pistettä. Venäjä voitti mestaruuden ja Suomi oli hopealla eli pelaaja A saa kolme lisäpistettä Venäjän oikeasta
-        sijoituksesta. Yhteensä pelaaja A saa siis viisi pistettä. 
+        sijoituksesta. Yhteensä pelaaja A saa siis viisi pistettä.<br /><br />
+        Jos turnauksessa ei pelata pronssipeliä, oikeaksi vastaukseksi pronssijoukkueeksi käy finaalipelistä pudonneet joukkueet.
     </div>
 </div>
+<?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
 <br />
 <div class="block">
     <h3 class="ui-corner-top rules">Maalikuninkuus</h3>
@@ -44,6 +42,7 @@
         Jos kukaan ei arvaa parasta maalintekijää, niin kolme pistettä saavat ne, jotka arvasivat tämän veikkauksen sisällä eniten maaleja tehnyttä.
     </div>
 </div>
+<?php endif; ?>
 <br />
 <div class="block">
     <h3 class="ui-corner-top rules">Maksaminen</h3>
@@ -71,12 +70,13 @@
 <div class="block">
     <h3 class="ui-corner-top rules">Yhteenveto</h3>
     <div class="ui-corner-bottom">
-        Jaossa on siis yhdeksän pistettä Kolmen kärjestä&trade;, kolme pistettä Maalikuninkuudesta ja otteluveikkauksista omansa.<br /><br />
-        Viidentoista euron osallistumismaksusta menee 80% voittajalle ja 20% toiseksi tulleelle. Jos voittajia on useampi kuin yksi jaetaan koko potti heidän kesken.
-        Jos toiseksi tulleita on useampi kuin yksi jaetaan toiseksi tulleiden osuus heidän kesken.<br><br>
+        Jaossa on siis yhdeksän pistettä Kolmen kärjestä&trade;<?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>, kolme pistettä Maalikuninkuudesta<?php endif; ?> ja otteluveikkauksista omansa.
+        <br /><br />
+        Viidentoista euron osallistumismaksusta menee 80% voittajalle ja 20% toiseksi tulleelle. Jos voittajia on useampi kuin yksi jaetaan koko potti (100%) heidän kesken.
+        <br><br>
         Jos järjestelmässä esiintyy teknisiä ongelmia pyrimme lähtökohtaisesti ratkaisemaan ne mahdollisimman nopeasti, mutta jos veikkaus joudutaan teknisten ongelmien takia
-        keskeyttämään palautetaan rahat takaisin maksaneille.<br><br>
-        Toivottavasti saadaan taas mukavat pelit aikaiseksi
-        ja peli-iloa kaikille. Kisachatissa tavataan!
+        keskeyttämään palautetaan rahat takaisin maksaneille.
+        <br><br>
+        Toivottavasti saadaan taas mukavat pelit aikaiseksi ja peli-iloa kaikille. Kisachatissa tavataan!
     </div>
 </div>

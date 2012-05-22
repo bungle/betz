@@ -35,17 +35,14 @@ post('/registration/google', function() {
         'openid.ui.icon' => 'true',
         'openid.ns.ax' => 'http://openid.net/srv/ax/1.0',
         'openid.ax.mode' => 'fetch_request',
-        'openid.ax.required' => 'firstname,email',
-        'openid.ax.type.email' => 'http://axschema.org/contact/email',
-        'openid.ax.type.firstname' => 'http://axschema.org/namePerson/first'
+        'openid.ax.required' => 'email',
+        'openid.ax.type.email' => 'http://axschema.org/contact/email'
     ));
 });
 get('/registration/google/confirm', function() {
-    if (isset($_SESSION['google-claim']) && isset($_SESSION['google-fname']) && isset($_SESSION['google-email'])) {
+    if (isset($_SESSION['google-claim']) && isset($_SESSION['google-email'])) {
         $form = new form($_GET);
-        $form->username = $_SESSION['google-fname'];
         $form->email = $_SESSION['google-email'];
-        unset($_SESSION['google-fname']);
         $view = new view(DIR . '/views/registration.google.phtml');
         $view->form = $form;
         if (db\users\email_taken($form->email)) $view->email_taken = true;

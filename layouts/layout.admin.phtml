@@ -7,7 +7,7 @@
 <title><?php echo isset($title) ? $title . ' - ' . TOURNAMENT_NAME . ' -hupilyönti' : TOURNAMENT_NAME . ' -hupilyönti'; ?></title>
 <link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/typography.css'); ?>">
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/dark-hive/jquery-ui.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/dark-hive/jquery-ui.css">
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.pnotify.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/flags.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/960.css'); ?>">
@@ -35,7 +35,9 @@
                 <li<?php if ($menu == 'chat') echo ' class="current' . (ADMIN ?  '"' : ' last"'); ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
                 <li<?php if ($menu == 'bets/games') echo ' class="current"' ?>><a href="<?php echo url('~/bets/games'); ?>"><span>Otteluveikkaus</span></a></li>
                 <li<?php if ($menu == 'bets/teams') echo ' class="current"' ?>><a href="<?php echo url('~/bets/teams'); ?>"><span>Kolmen kärki &trade;</span></a></li>
+                <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
                 <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
+                <?php endif; ?>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
                 <li<?php if ($menu == 'rules') echo ' class="current"' ?>><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
@@ -46,9 +48,10 @@
                         <ul>
                             <li<?php if ($menu == 'admin/games') echo ' class="current"' ?>><a href="<?php echo url('~/admin/games'); ?>"><span>Ottelut</span></a></li>
                             <li<?php if ($menu == 'admin/teams') echo ' class="current"' ?>><a href="<?php echo url('~/admin/teams'); ?>"><span>Joukkueet</span></a></li>
+                            <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
                             <li<?php if ($menu == 'admin/scorers') echo ' class="current"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
+                            <?php endif; ?>
                             <li class="<?php if ($menu == 'admin/users') echo 'current"' ?> last"><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
-                            <!-- <li class="<?php if ($menu == 'admin/config') echo 'current"' ?> last"><a href="<?php echo url('~/admin/config'); ?>"><span>Konfiguraatio</span></a></li> -->
                         </ul>
                     </div>
                 </li>
@@ -78,10 +81,10 @@
     </div>
 </div>
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="<?php echo url('~/js/jquery.menu.js'); ?>"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-fi.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/i18n/jquery.ui.datepicker-fi.min.js"></script>
 <script src="<?php echo url('~/js/jquery.pnotify.js'); ?>"></script>
 <script src="<?php echo url('~/js/jquery.qtip.js'); ?>"></script>
 <script src="<?php echo url('~/js/main.js?') . md5_file('js/main.js'); ?>"></script>

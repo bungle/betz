@@ -16,10 +16,20 @@
         <th><img src="<?php echo url('~/img/medal-gold.png'); ?>" width="16" height="16" title="Voittaja" alt="Voittaja"></th>
         <th><img src="<?php echo url('~/img/medal-silver.png'); ?>" width="16" height="16" title="Hopeamitalisti" alt="Hopeamitalisti"></th>
         <th><img src="<?php echo url('~/img/medal-bronze.png'); ?>" width="16" height="16" title="Pronssimitalisti" alt="Pronssimitalisti"></th>
+        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
         <th>Maalikuningas</th>
+        <?php endif; ?>
+        <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
         <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
+        <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php else: ?>
+        <th><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php endif; ?>
         <th><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></th>
+        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
         <th><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></th>
+        <?php endif; ?>
         <th><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></th>
     </tr>
 </thead>
@@ -44,10 +54,14 @@
     <td class="f32">
         <div class="<?php echo isset($point['third_abbr']) ? "flag " . $point['third_abbr'] : ''; ?>" title="<?php echo isset($point['third']) ? $point['third'] : ''; ?>">&nbsp;</div>
     </td>
+    <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
     <td><?php echo isset($point['scorer']) ? $point['scorer'] : (isset($point['scorer_betted']) ? $point['scorer_betted'] : '&nbsp;') ?></td>
+    <?php endif; ?>
     <td><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
     <td><?php echo $point['team_points']; ?></td>
+    <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
     <td><?php echo $point['scorer_points']; ?></td>
+    <?php endif; ?>
     <td><?php echo number_format($point['total_points'], 2, ',', ''); ?></td>
 </tr>
 <?php endforeach; ?>
@@ -62,7 +76,13 @@
     <th>Ottelu</th>
     <th>Tulos</th>
     <th>Veikkaus</th>
+    <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
     <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
+    <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php else: ?>    
+    <th><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php endif; ?>
 </tr>
 </thead>
 <tbody>

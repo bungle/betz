@@ -160,7 +160,12 @@ function smileys_array() {
     $smileys[] = array('src' => 'thumbs.gif', 'title' => 'thumb', 'keys' => array('(y)', '(Y)'));
     $smileys[] = array('src' => 'thumbs_down.gif', 'title' => 'thumbs down', 'keys' => array('(n)', '(N)'));
     $smileys[] = array('src' => 'fingerscrossed.png', 'title' => 'fingers crossed', 'keys' => array(':x:', ':X:'));
-    $smileys[] = array('src' => 'puck.gif', 'title' => 'puck', 'keys' => array(':puck:'));
+    if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey') {
+        $smileys[] = array('src' => 'puck.gif', 'title' => 'puck', 'keys' => array(':puck:'));
+    }
+    if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer') {
+        $smileys[] = array('src' => 'soccer.gif', 'title' => 'ball', 'keys' => array(':ball:'));
+    }
     $smileys[] = array('src' => 'beer.gif', 'title' => 'beer', 'keys' => array('(b)', '(B)'));
     $smileys[] = array('src' => 'champagne.gif', 'title' => 'champagne', 'keys' => array(':c:', ':C:'));
     $smileys[] = array('src' => 'stars.gif', 'title' => 'stars', 'keys' => array(':*:'));
