@@ -172,7 +172,7 @@
 .f16 .ne{background-position:0 -2688px;}
 .f16 .ng,.f16 .NGA{background-position:0 -2704px;}
 .f16 .ni{background-position:0 -2720px;}
-.f16 .nl,.f16 .NED{background-position:0 -2736px;}
+.f16 .nl,.f16 .NED,.f16 .NLD{background-position:0 -2736px;}
 .f16 .no,.f16 .NOR{background-position:0 -2752px;}
 .f16 .np{background-position:0 -2768px;}
 .f16 .nr{background-position:0 -2784px;}
@@ -416,7 +416,7 @@
 .f32 .ne{background-position:0 -5376px;}
 .f32 .ng,.f32 .NGA{background-position:0 -5408px;}
 .f32 .ni{background-position:0 -5440px;}
-.f32 .nl,.f32 .NED{background-position:0 -5472px;}
+.f32 .nl,.f32 .NED,.f32 .NLD{background-position:0 -5472px;}
 .f32 .no,.f32 .NOR{background-position:0 -5504px;}
 .f32 .np{background-position:0 -5536px;}
 .f32 .nr{background-position:0 -5568px;}
