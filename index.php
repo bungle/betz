@@ -12,7 +12,7 @@ define('TOURNAMENT_NAME', 'Euro 2012');
 define('TOURNAMENT_TYPE', 'soccer');
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
 define('ENABLE_SCORER', false);
-
+define('GAME_POINTS_STRATEGY', 'exp');
 
 // Automatic configuration
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');

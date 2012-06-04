@@ -4,19 +4,38 @@
 <div class="block">
     <h3 class="ui-corner-top rules">Otteluveikkaus</h3>
     <div class="ui-corner-bottom">
-	<strong>Huom! ottelupisteiden laskentakaavaa saatetaan vielä muuttaa ennen turnauksen alkua. Pyritään luomaan pisteiden lasku tällä viikolla valmiiksi.</strong>
-	<br /><br />
-        Kaikissa otteluissa voi veikata voittajaa tai tasapeliä. Veikkaus koskee varsinaisella peliajalla
-        pelattua tulosta (ei siis mahdollista jatko-aikaa tai rangaistuslaukauskilpailua).
-        Jokaisesta oikein veikatusta ottelusta veikkaaja saa kaksi pistettä vähennettynä
-        oman veikkauksensa prosentuaalinen osuus koko veikkausjakaumasta.<br /><br />
-        <span style="font-weight: bold;">Esimerkki:</span><br />
-        60% veikkasi Suomea voittajaksi ja 20% tasapeliä, loput 20% veikkasi Ruotsia. Ruotsi voitti pelin, joten Ruotsia veikanneet saavat 2 - 0,2 eli 1,8 pistettä.
-        Osuudet lasketaan kahden desimaalin tarkkuudella. Prosentit lasketaan ainoastaan veikatuista äänistä, joten veikkaamatta jättäneet eivät vaikuta "kertoimiin". Tällä kertaa
-        altavastaajia veikkaavia siis palkitaan hieman ruhtinaallisemmin.<br /><br />
-        Väärin veikatuista ei rangaista.<br /><br />
-        Pelikohtainen veikkaus sulkeutuu minuuttia ennen ottelun ilmoitettua alkamisajankohtaa. Tämän jälkeen veikkaaminen ei enää onnistu.
-        Veikkaamatta jätetyt ottelut jätetään huomioimatta, eli pelaaja ei saa niistä minkäänlaisia pisteitä.
+        <?php if (defined('GAME_POINTS_STRATEGY') && GAME_POINTS_STRATEGY === 'exp'): ?>
+            Kaikissa otteluissa voi veikata voittajaa tai tasapeliä (1X2-periaatteella).
+            Veikkaus koskee varsinaisella peliajalla pelattua tulosta (ei siis mahdollista jatko-aikaa tai rangaistuslaukauskilpailua).
+            Jokaisesta oikein veikatusta ottelusta veikkaaja saa pisteitä seuraavan kaavan mukaan: e ^ (1 - veikkausprosentti) [e = ~2,72].
+            <br /><br />
+            <span style="font-weight: bold;">Esimerkki:</span><br />
+            60% veikkasi Suomea voittajaksi ja 20% tasapeliä, loput 20% veikkasi Ruotsia. Ruotsi voitti pelin, joten Ruotsia veikanneet saavat e ^ (1 - 0,2) eli 2,23 pistettä.
+            Osuudet lasketaan kahden desimaalin tarkkuudella. Prosentit lasketaan ainoastaan veikatuista äänistä, joten veikkaamatta jättäneet eivät vaikuta "kertoimiin"..<br /><br />
+            Väärin veikatuista ei rangaista. Mitä suuremman riskin ottaa ja siinä onnistuu, sen ruhtinaallisemmin veikkaajaa palkitaan.<br /><br />
+            Pelikohtainen veikkaus sulkeutuu minuuttia ennen ottelun ilmoitettua alkamisajankohtaa. Tämän jälkeen veikkaaminen ei enää onnistu.
+            Veikkaamatta jätetyt ottelut jätetään huomioimatta, eli pelaaja ei saa niistä minkäänlaisia pisteitä.
+            <br /><br />
+            <span style="font-weight: bold;">Riski suhteessa pisteisiin:</span><br />
+            &nbsp;0,01 % veikkaajista veikkasi oikein, joten he saavat 2,69 pistettä.<br />
+            &nbsp;5,00 % veikkaajista veikkasi oikein, joten he saavat 2,59 pistettä.<br />
+            25,00 % veikkaajista veikkasi oikein, joten he saavat 2,12 pistettä.<br />
+            50,00 % veikkaajista veikkasi oikein, joten he saavat 1,65 pistettä.<br />
+            75,00 % veikkaajista veikkasi oikein, joten he saavat 1,28 pistettä.<br />
+            95,00 % veikkaajista veikkasi oikein, joten he saavat 1,05 pistettä.<br />
+            99,99 % veikkaajista veikkasi oikein, joten he saavat 1,01 pistettä.<br />
+        <?php else: ?>
+            Kaikissa otteluissa voi veikata voittajaa tai tasapeliä (1X2-periaatteella).
+            Veikkaus koskee varsinaisella peliajalla pelattua tulosta (ei siis mahdollista jatko-aikaa tai rangaistuslaukauskilpailua).
+            Jokaisesta oikein veikatusta ottelusta veikkaaja saa kaksi pistettä vähennettynä
+            oman veikkauksensa prosentuaalinen osuus koko veikkausjakaumasta.<br /><br />
+            <span style="font-weight: bold;">Esimerkki:</span><br />
+            60% veikkasi Suomea voittajaksi ja 20% tasapeliä, loput 20% veikkasi Ruotsia. Ruotsi voitti pelin, joten Ruotsia veikanneet saavat 2 - 0,2 eli 1,8 pistettä.
+            Osuudet lasketaan kahden desimaalin tarkkuudella. Prosentit lasketaan ainoastaan veikatuista äänistä, joten veikkaamatta jättäneet eivät vaikuta "kertoimiin"..<br /><br />
+            Väärin veikatuista ei rangaista.<br /><br />
+            Pelikohtainen veikkaus sulkeutuu minuuttia ennen ottelun ilmoitettua alkamisajankohtaa. Tämän jälkeen veikkaaminen ei enää onnistu.
+            Veikkaamatta jätetyt ottelut jätetään huomioimatta, eli pelaaja ei saa niistä minkäänlaisia pisteitä.
+        <?php endif; ?>
     </div>
 </div>
 <br />
