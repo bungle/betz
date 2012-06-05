@@ -52,6 +52,7 @@
                 <?php endif; ?>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
+                <li<?php if ($menu == 'program') echo ' class="current"' ?>><a href="<?php echo url('~/program'); ?>"><span>Otteluohjelma</span></a></li>
                 <li class="<?php if ($menu == 'rules') echo 'current'; ?><?php if (!ADMIN): ?> last<?php endif; ?>"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
                 <?php if (ADMIN): ?>
                 <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
@@ -73,112 +74,120 @@
     </div>
 </div>
 <div id="container-main">
-    <div id="main">
-        <div id="main-left" class="grid_9">
-            <?php echo $view; ?>
-        </div>
-        <div id="main-right" class="grid_3">
-            <?php if (isset($online)): ?>
-            <div class="block">
-                <h3 class="ui-corner-top">Paikalla</h3>
-                <div class="ui-corner-bottom">
-                    <table id="online">
-                    <tr>
-                        <th class="username">Nimi</th>
-                        <th>Sivu</th>
-                        <th class="idle">Poissa</th>
-                    </tr>
-                    <?php foreach($online as $o): $now = date_create(); ?>
-                    <tr>
-                        <td class="username"><?php echo $o['username']; ?></td>
-                        <td><?php echo $o['visited_page']; ?></td>
-                        <td class="idle"><?php echo date_diff($now, date_create($o['visited_time']))->format('%i&nbsp;min&nbsp;%S&nbsp;s'); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                    </table>
-                </div>
+    <?php if (isset($fullpage) && $fullpage): ?>
+        <?php echo $view; ?>
+    <?php else: ?>
+        <div id="main">
+            <div id="main-left" class="grid_9">
+                <?php echo $view; ?>
             </div>
-            <?php endif; ?>
-            <?php if (isset($upcoming) && count($upcoming) > 0): ?>
-            <div class="block-spacer"></div>
-            <div class="block">
-                <h3 class="ui-corner-top">Seuraavat ottelut</h3>
-                <div class="ui-corner-bottom">
-                    <table>
-                        <?php foreach ($upcoming as $game): $date = date_create($game['time']); ?>
-                            <tr>
-                                <td class="f32" style="width: 32px;">
-                                    <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>">&nbsp;</div>
-                                </td>
-                                <td class="dash">&nbsp;&ndash;&nbsp;</td>
-                                <td class="f32" style="width: 32px;">
-                                    <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>">&nbsp;</div>
-                                </td>
-                                <td><h4 class="upcoming"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n\&\n\b\s\p\;H:i'); ?></h4></td>
-                            </tr>
+            <div id="main-right" class="grid_3">
+                <?php if (isset($online)): ?>
+                <div class="block">
+                    <h3 class="ui-corner-top">Paikalla</h3>
+                    <div class="ui-corner-bottom">
+                        <table id="online">
+                        <tr>
+                            <th class="username">Nimi</th>
+                            <th>Sivu</th>
+                            <th class="idle">Poissa</th>
+                        </tr>
+                        <?php foreach($online as $o): $now = date_create(); ?>
+                        <tr>
+                            <td class="username"><?php echo $o['username']; ?></td>
+                            <td><?php echo $o['visited_page']; ?></td>
+                            <td class="idle"><?php echo date_diff($now, date_create($o['visited_time']))->format('%i&nbsp;min&nbsp;%S&nbsp;s'); ?></td>
+                        </tr>
                         <?php endforeach; ?>
-                    </table>
-                </div>
-            </div>
-            <?php endif; ?>
-            <?php if (isset($right)) echo $right; ?>
-            <?php if (!isset($hide_teams) && isset($user) && $user && isset($user['winner']) && isset($user['second']) && isset($user['third'])): ?>
-            <div class="block-spacer"></div>
-            <div class="block">
-                <h3 class="ui-corner-top">Kolmen kärki &trade;</h3>
-                <div class="ui-corner-bottom">
-                    <div class="f32">
-                        <h4 class="flag <?php echo $user['winner_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['winner'] ?></h4>
-                        <h4 class="flag <?php echo $user['second_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['second'] ?></h4>
-                        <h4 class="flag <?php echo $user['third_abbr'] ?>"  style="padding-left: 40px; line-height: 32px;"><?php echo $user['third'] ?></h4>
+                        </table>
                     </div>
                 </div>
-            </div>
-            <?php endif; ?>
-            <?php if ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0)): ?>
-            <div class="block-spacer"></div>
-            <div class="block">
-                <h3 class="ui-corner-top">Maalikuningas</h3>
-                <div class="ui-corner-bottom">
-                    <h4 class="scorer"><?php echo isset($user['scorer']) ? $user['scorer'] : $user['scorer_betted']; ?></h4>
+                <?php endif; ?>
+                <?php if (isset($upcoming) && count($upcoming) > 0): ?>
+                <div class="block-spacer"></div>
+                <div class="block">
+                    <h3 class="ui-corner-top">Seuraavat ottelut</h3>
+                    <div class="ui-corner-bottom">
+                        <table>
+                            <?php foreach ($upcoming as $game): $date = date_create($game['time']); ?>
+                                <tr>
+                                    <td class="f32" style="width: 32px;">
+                                        <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>">&nbsp;</div>
+                                    </td>
+                                    <td class="dash">&nbsp;&ndash;&nbsp;</td>
+                                    <td class="f32" style="width: 32px;">
+                                        <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>">&nbsp;</div>
+                                    </td>
+                                    <td><h4 class="upcoming"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n\&\n\b\s\p\;H:i'); ?></h4></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <?php endif; ?>
-            <?php if (isset($played) && count($played) > 0): ?>
-            <div class="block-spacer"></div>
-            <div class="block">
-                <h3 class="ui-corner-top">Otteluiden tulokset</h3>
-                <div class="ui-corner-bottom">
-                    <table style="line-height: 16px;">
-                        <?php foreach ($played as $game): $date = date_create($game['time']); ?>
-                            <tr>
-                                <td><div style="text-align: right; font-size: 0.85em; padding: 0;"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n.'); ?></div></td>
-                                <td>
-                                    <div class="f16" style="width: 16px;">
-                                        <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>" style="padding: 0;">&nbsp;</div>
-                                    </div>
-                                </td>
-                                <td class="dash"><div style="font-size: 0.85em; padding: 0;">&ndash;</div></td>
-                                <td>
-                                    <div class="f16" style="width: 16px;">
-                                        <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>" style="padding: 0;">&nbsp;</div>
-                                    </div>
-                                </td>
-                                <?php if (isset($game['score'])): ?>
-                                <td><div style="font-size: 0.85em; padding: 0;"><?php echo $game['home_goals_total'] . '&ndash;' . $game['road_goals_total'];?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></div></td>        
-                                <?php else: ?>
-                                <td><div style="font-size: 0.85em; padding: 0;">(<?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%)</div></td>
-                                <?php endif; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
+                <?php endif; ?>
+                <?php if (isset($right)) echo $right; ?>
+                <?php if (!isset($hide_teams) && isset($user) && $user && isset($user['winner']) && isset($user['second']) && isset($user['third'])): ?>
+                <div class="block-spacer"></div>
+                <div class="block">
+                    <h3 class="ui-corner-top">Kolmen kärki &trade;</h3>
+                    <div class="ui-corner-bottom">
+                        <div class="f32">
+                            <h4 class="flag <?php echo $user['winner_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['winner'] ?></h4>
+                            <h4 class="flag <?php echo $user['second_abbr'] ?>" style="padding-left: 40px; line-height: 32px;"><?php echo $user['second'] ?></h4>
+                            <h4 class="flag <?php echo $user['third_abbr'] ?>"  style="padding-left: 40px; line-height: 32px;"><?php echo $user['third'] ?></h4>
+                        </div>
+                    </div>
                 </div>
+                <?php endif; ?>
+                <?php if ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0)): ?>
+                <div class="block-spacer"></div>
+                <div class="block">
+                    <h3 class="ui-corner-top">Maalikuningas</h3>
+                    <div class="ui-corner-bottom">
+                        <h4 class="scorer"><?php echo isset($user['scorer']) ? $user['scorer'] : $user['scorer_betted']; ?></h4>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if (isset($played) && count($played) > 0): ?>
+                <div class="block-spacer"></div>
+                <div class="block">
+                    <h3 class="ui-corner-top">Otteluiden tulokset</h3>
+                    <div class="ui-corner-bottom">
+                        <table style="line-height: 16px;">
+                            <?php foreach ($played as $game): $date = date_create($game['time']); ?>
+                                <tr>
+                                    <td><div style="text-align: right; font-size: 0.85em; padding: 0;"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n.'); ?></div></td>
+                                    <td>
+                                        <div class="f16" style="width: 16px;">
+                                            <div class="flag <?php echo $game['home_abbr']; ?>" title="<?php echo $game['home'];?>" style="padding: 0;">&nbsp;</div>
+                                        </div>
+                                    </td>
+                                    <td class="dash"><div style="font-size: 0.85em; padding: 0;">&ndash;</div></td>
+                                    <td>
+                                        <div class="f16" style="width: 16px;">
+                                            <div class="flag <?php echo $game['road_abbr']; ?>" title="<?php echo $game['road'];?>" style="padding: 0;">&nbsp;</div>
+                                        </div>
+                                    </td>
+                                    <?php if (isset($game['score'])): ?>
+                                    <td><div style="font-size: 0.85em; padding: 0;"><?php echo $game['home_goals_total'] . '&ndash;' . $game['road_goals_total'];?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></div></td>        
+                                    <?php else: ?>
+                                    <td><div style="font-size: 0.85em; padding: 0;">(<?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%)</div></td>
+                                    <?php endif; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
-<div class="clear bottom-spacer"></div>
+<?php if (isset($fullpage) && $fullpage): ?>
+    <div class="clear bottom-spacer" style="height: 35px;"></div>
+<?php else: ?>
+    <div class="clear bottom-spacer"></div>
+<?php endif; ?>
 <div id="container-bottom">
     <div id="footer">
         <div class="grid_12">
