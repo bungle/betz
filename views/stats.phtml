@@ -16,7 +16,6 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
         chart: {
             renderTo: 'chart-container-1',
             defaultSeriesType: 'spline',
-            marginRight: 150,
             inverted: false
         },
         title: {
@@ -39,12 +38,7 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
             reversed: true
         },
         series: data.series,
-        legend: {
-            floating: true,
-            layout: 'Vertical',
-            verticalAlign: 'middle',
-            align: 'right'
-        },
+
         credits: {
             enabled: false
         }

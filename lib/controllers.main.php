@@ -8,6 +8,22 @@ get('/rules', function() {
     $view->start = db\games\start();
     die($view);
 });
+get('/chat/backlog', function() {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $last = 0;
+    $messages = db\chat\backlog();
+    $view = new view(DIR . '/views/chat.backlog.phtml');
+    $view->title = 'Kisachat Backlog';
+    $view->menu = 'chat';
+    $view->online = db\users\visited(username, 'Kisachat Backlog');
+    if (count($messages) > 0) {
+        $chat = new view(DIR . '/views/chat.messages.phtml');
+        $chat->messages = $messages;
+        $chat->backlog = true;
+        $view->chat = $chat;
+    }
+    die($view);
+});
 get('/chat', function() {
     if (!AUTHENTICATED) redirect('~/unauthorized');
     $last = 0;

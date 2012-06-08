@@ -27,6 +27,17 @@ namespace db\chat {
         $stm->close();
         return array_reverse($messages);
     }
+    function backlog() {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT * FROM chat ORDER BY id ASC');
+        $res = $stm->execute();
+        $messages = array();
+        $first = true;
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $messages[] = $row;
+        $res->finalize();
+        $stm->close();
+        return $messages;
+    }    
     function poll(&$last) {
         $db = \db\connect();
         $stm = $db->prepare('SELECT * FROM chat WHERE id > :id ORDER BY id');

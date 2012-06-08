@@ -125,14 +125,27 @@ select.large {
 #chat .nick a {
     color: #204a87;
     font-weight:bold;
+    white-space: nowrap;
 }
 #chat .mynick a {
     color: #ce5c00;
     font-weight: bold;
+    white-space: nowrap;
 }
 img.smiley {
     cursor: pointer;
 }
+.backlog {
+    float: right;
+    font-size: 14px;
+}
+.backlog a {
+    
+    line-height: 40px;
+    color: #204a87;
+    font-weight:bold;
+}
+
 table#bets {
     width: 100%;
     padding: 50px;
