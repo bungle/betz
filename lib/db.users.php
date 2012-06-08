@@ -172,7 +172,7 @@ namespace db\users {
                 SELECT user FROM gamebets WHERE game IN (
                     SELECT id FROM games WHERE time > :time ORDER BY time LIMIT 1
                 )
-            );
+            ) ORDER BY email
 SQL;
         $db = \db\connect();
         $stm = $db->prepare($sql);
