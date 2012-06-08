@@ -202,3 +202,12 @@ post('/admin/users', function() {
     }
     die();
 });
+get('/admin/email', function() {
+    if (!ADMIN) redirect('~/unauthorized');
+    $view = new view(DIR . '/views/admin.email.phtml');
+    $view->title = 'Sähköpostiosoitteet';
+    $view->menu = 'admin/email';
+    $view->team_emails = db\users\teams_not_betted();
+    $view->game_emails = db\users\games_not_betted();
+    die($view);
+});

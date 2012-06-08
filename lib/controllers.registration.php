@@ -1,4 +1,10 @@
 <?php
+/*
+get('/mobile', function() {
+    mobile();
+    redirect('~/');
+});
+*/
 get('/registration', function() {
     $view = new view(DIR . '/views/registration.phtml');
     if (isset($_SESSION['google-not-registered'])) $view->google_not_registered = true;

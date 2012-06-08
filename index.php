@@ -74,20 +74,26 @@ if (!file_exists(DATABASE)) {
 } else {
     require './lib/db.php';
     authenticate();
-    if (!AJAX) portlets();
-    require './lib/controllers.login.php';
-    if (!STARTED) {
-        require './lib/controllers.registration.php';
-    }
-    if (AUTHENTICATED) {
-        if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
-        require './lib/controllers.main.php';
-        require './lib/controllers.bets.php';
-        require './lib/controllers.stats.php';
-    }
-    if (ADMIN) {
-        require './lib/controllers.admin.php';
-    }
+    /*
+    if (is_mobile()) {
+        require './lib/controllers.mobile.php';
+    } else {
+    */
+        if (!AJAX) portlets();
+        require './lib/controllers.login.php';
+        if (!STARTED) {
+            require './lib/controllers.registration.php';
+        }
+        if (AUTHENTICATED) {
+            if (\db\bets\notbetted(username)) notify('Otteluita on veikkaamatta', 'Muista veikata otteluita ennen niiden alkua.');
+            require './lib/controllers.main.php';
+            require './lib/controllers.bets.php';
+            require './lib/controllers.stats.php';
+        }
+        if (ADMIN) {
+            require './lib/controllers.admin.php';
+        }
+    //}
 }
 
 status(404);

@@ -156,4 +156,33 @@ namespace db\users {
         $stm->close();
         return $users;
     }
+    function teams_not_betted() {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT email FROM users WHERE winner IS NULL OR second IS NULL OR third IS NULL ORDER BY email');
+        $res = $stm->execute();
+        $emails = array();
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $emails[] = $row;
+        $res->finalize();
+        $stm->close();
+        return $emails;
+    }
+    function games_not_betted() {
+        $sql = <<<'SQL'
+            SELECT email FROM users WHERE username NOT IN (
+                SELECT user FROM gamebets WHERE game IN (
+                    SELECT id FROM games WHERE time > :time ORDER BY time LIMIT 1
+                )
+            );
+SQL;
+        $db = \db\connect();
+        $stm = $db->prepare($sql);
+        $stm->bindValue(':time', date_format(date_create(), DATE_SQLITE), SQLITE3_TEXT);
+        $res = $stm->execute();
+        $emails = array();
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $emails[] = $row;
+        $res->finalize();
+        $stm->close();
+        return $emails;        
+    }
+    
 }

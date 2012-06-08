@@ -28,7 +28,7 @@ function logoff() {
             $key = $parts[1];
             db\users\forget($username, $key);
         }
-        setcookie ('logged-in-cookie', '', $expire, '/', '', false, true);
+        setcookie('logged-in-cookie', '', $expire, '/', '', false, true);
     }
 }
 function authenticate() {
@@ -63,6 +63,21 @@ function authenticate() {
     define('AUTHENTICATED', false);
     define('ADMIN', false);
     define('username', 'anonymous');
+}
+function desktop() {
+    unset($_SESSION['mobile-on']);
+    if (isset($_COOKIE['mobile-on-cookie'])) {
+        $expire = date_timestamp_get(date_modify(date_create(), '-1 day'));
+        setcookie('mobile-on-cookie', '', $expire, '/', '', false, true);
+    }
+}
+function mobile() {
+    $_SESSION['mobile-on'] = true;
+    $expire = date_modify(date_create(), '+40 day');
+    setcookie ('mobile-on-cookie', 'on', date_timestamp_get($expire), '/', '', false, true);
+}
+function is_mobile() {
+    return (isset($_SESSION['mobile-on']) || isset($_COOKIE['mobile-on-cookie']));
 }
 function checkbox(&$value) {
     $value = isset($value);

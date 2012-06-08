@@ -64,7 +64,8 @@
                             <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
                             <li<?php if ($menu == 'admin/scorers') echo ' class="current"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
                             <?php endif; ?>
-                            <li<?php if ($menu == 'admin/users') echo ' class="current"' ?>><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
+                            <li class="<?php if ($menu == 'admin/users') echo 'current"' ?>"><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
+                            <li class="<?php if ($menu == 'admin/email') echo 'current"' ?> last"><a href="<?php echo url('~/admin/email'); ?>"><span>Sähköpostiosoitteet</span></a></li>
                         </ul>
                     </div>
                 </li>
