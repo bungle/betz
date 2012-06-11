@@ -130,14 +130,14 @@ select.large {
 }
 #chat .user {
     float: left;
-    padding: 0 0.5em;
+    padding: 0 5px;
 }
 #chat .leader {
     background-image: url(../img/leader.png);
     background-repeat: no-repeat;
-    background-position-x: 0.5em;
+    background-position-x: 5px;
     background-position-y: 1px;
-    padding-left: 1.8em;
+    padding-left: 24px;
 }
 
 #chat .nick a {
