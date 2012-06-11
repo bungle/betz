@@ -122,6 +122,24 @@ select.large {
 #chat .date {
     color: #BABDB6;
 }
+#chat .time {
+    float: left;
+}
+#chat .message {
+    overflow: hidden;
+}
+#chat .user {
+    float: left;
+    padding: 0 0.5em;
+}
+#chat .leader {
+    background-image: url(../img/leader.png);
+    background-repeat: no-repeat;
+    background-position-x: 0.5em;
+    background-position-y: 1px;
+    padding-left: 1.8em;
+}
+
 #chat .nick a {
     color: #204a87;
     font-weight:bold;
@@ -140,12 +158,10 @@ img.smiley {
     font-size: 14px;
 }
 .backlog a {
-    
     line-height: 40px;
     color: #204a87;
     font-weight:bold;
 }
-
 table#bets {
     width: 100%;
     padding: 50px;

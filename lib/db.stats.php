@@ -273,4 +273,17 @@ SQL;
         }
         return $data;
     }
+    function leaders($max = 1) {
+        $points = cache_fetch(TOURNAMENT_ID . ':points');
+        if ($points === false) {
+            $points = points();
+            cache_store(TOURNAMENT_ID . ':points', $points);
+        }
+        $leaders = array();
+        foreach($points as $point) {
+            if ($point['position'] > $max) break;
+            $leaders[$point['username']] = $point['position'];
+        }
+        return $leaders;
+    }
 }

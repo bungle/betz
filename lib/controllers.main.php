@@ -19,6 +19,7 @@ get('/chat/backlog', function() {
     if (count($messages) > 0) {
         $chat = new view(DIR . '/views/chat.messages.phtml');
         $chat->messages = $messages;
+        $chat->leaders = db\stats\leaders();
         $chat->backlog = true;
         $view->chat = $chat;
     }
@@ -37,6 +38,7 @@ get('/chat', function() {
     if (count($messages) > 0) {
         $chat = new view(DIR . '/views/chat.messages.phtml');
         $chat->messages = $messages;
+        $chat->leaders = db\stats\leaders();
         $view->chat = $chat;
     }
     die($view);
@@ -64,6 +66,7 @@ get('/chat/poll', function() {
     $_SESSION['last-chat-message-id'] = $last;
     $view = new view(DIR . '/views/chat.messages.phtml');
     $view->messages = $messages;
+    $view->leaders = db\stats\leaders();
     die($view);
 });
 get('/program', function() {
