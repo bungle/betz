@@ -1,4 +1,7 @@
 <?php $layout = 'layouts/layout.default.phtml'; ?>
+<?php if (STARTED): ?>
+<div id="stats-buttons" style="float:right; margin-right: 0px;"><button id="stats-hide">Piilota kaikki</button><button id="stats-show">Näytä kaikki</button></div>
+<?php endif; ?>
 <h1><?php echo $title; ?></h1>
 <hr>
 <?php if (!STARTED): ?>
@@ -10,13 +13,14 @@
 <script src="<?php echo url('~/js/highcharts/highcharts.js'); ?>"></script>
 <script src="<?php echo url('~/js/highcharts/themes/gray.js'); ?>"></script>
 <?php if (STARTED): ?>
-<script>
+<script>    
 $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
-    new Highcharts.Chart({
+    var chart = new Highcharts.Chart({
         chart: {
             renderTo: 'chart-container-1',
             defaultSeriesType: 'spline',
-            inverted: false
+            inverted: false,
+            ignoreHiddenSeries: false
         },
         title: {
             text: 'Ottelupisteiden mukainen sijoitus'
@@ -44,6 +48,9 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
         }
 
     });
+    $("#stats-hide").button().click(function() { $(chart.series).each(function() { this.hide(); }) });
+    $("#stats-show").button().click(function() { $(chart.series).each(function() { this.show(); }) });
+    $("#stats-buttons").buttonset();
 });
 </script>
 <?php endif; ?>
