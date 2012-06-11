@@ -158,7 +158,8 @@ namespace db\users {
     }
     function teams_not_betted() {
         $db = \db\connect();
-        $stm = $db->prepare('SELECT email FROM users WHERE winner IS NULL OR second IS NULL OR third IS NULL ORDER BY email');
+        $stm = $db->prepare('SELECT email FROM users WHERE active = :active AND (winner IS NULL OR second IS NULL OR third IS NULL) ORDER BY email');
+        $stm->bindValue(':active', 1, SQLITE3_INTEGER);
         $res = $stm->execute();
         $emails = array();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) $emails[] = $row;
@@ -168,7 +169,7 @@ namespace db\users {
     }
     function games_not_betted() {
         $sql = <<<'SQL'
-            SELECT email FROM users WHERE username NOT IN (
+            SELECT email FROM users WHERE active = :active AND username NOT IN (
                 SELECT user FROM gamebets WHERE game IN (
                     SELECT id FROM games WHERE time > :time ORDER BY time LIMIT 1
                 )
@@ -177,6 +178,7 @@ SQL;
         $db = \db\connect();
         $stm = $db->prepare($sql);
         $stm->bindValue(':time', date_format(date_create(), DATE_SQLITE), SQLITE3_TEXT);
+        $stm->bindValue(':active', 1, SQLITE3_INTEGER);
         $res = $stm->execute();
         $emails = array();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) $emails[] = $row;
@@ -184,5 +186,16 @@ SQL;
         $stm->close();
         return $emails;        
     }
+    function emails() {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT email FROM users WHERE active = :active');
+        $stm->bindValue(':active', 1, SQLITE3_INTEGER);
+        $res = $stm->execute();
+        $emails = array();
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $emails[] = $row;
+        $res->finalize();
+        $stm->close();
+        return $emails;
+    }    
     
 }

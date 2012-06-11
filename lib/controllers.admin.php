@@ -209,5 +209,6 @@ get('/admin/email', function() {
     $view->menu = 'admin/email';
     $view->team_emails = db\users\teams_not_betted();
     $view->game_emails = db\users\games_not_betted();
+    $view->emails = db\users\emails();
     die($view);
 });
