@@ -19,7 +19,13 @@
         <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
         <th>Maalikuningas</th>
         <?php endif; ?>
+        <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
         <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
+        <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php else: ?>
+        <th><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <?php endif; ?>
         <th><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></th>
         <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
         <th><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></th>
