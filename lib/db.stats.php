@@ -65,7 +65,7 @@ SQL;
                 $j = $i;
                 $rowspan = 1;
             } else {
-                $points[$i]['position'] = $position;
+                $points[$i]['position'] = $position - $rowspan;
                 $points[$i]['rowspan'] = $rowspan;
                 $points[$i]['keyrow'] = false;
                 $rowspan++;
