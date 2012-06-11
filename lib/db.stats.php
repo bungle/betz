@@ -57,20 +57,21 @@ SQL;
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             $points[$i] = $row;
             if ($total != $row['total_points']) {
+                
                 $total = $row['total_points'];
                 $points[$j]['keyrow'] = true;
                 $points[$j]['rowspan'] = $rowspan;
                 $points[$i]['position'] = $position;
                 $j = $i;
                 $rowspan = 1;
-                $position++;
             } else {
-                $points[$i]['position'] = $position - 1;
+                $points[$i]['position'] = $position;
                 $points[$i]['rowspan'] = $rowspan;
                 $points[$i]['keyrow'] = false;
                 $rowspan++;
             }
             $i++;
+            $position++;
         }
         $points[$j]['rowspan'] = $rowspan;
         $points[$j]['keyrow'] = true;
