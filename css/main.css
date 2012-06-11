@@ -119,7 +119,7 @@ select.large {
     color: #a40000;
     font-weight: bold;
 }
-#chat .date {
+#chat .time {
     color: #BABDB6;
 }
 #chat .time {
@@ -130,14 +130,13 @@ select.large {
 }
 #chat .user {
     float: left;
-    padding: 0 5px;
+    padding: 0 6px;
 }
 #chat .leader {
     background-image: url(../img/leader.png);
     background-repeat: no-repeat;
-    background-position-x: 5px;
-    background-position-y: 1px;
-    padding-left: 24px;
+    background-position: 5px 0px;
+    padding-left: 26px;
 }
 
 #chat .nick a {
