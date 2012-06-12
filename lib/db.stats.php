@@ -240,7 +240,7 @@ SQL;
             $prev = -1;
             while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
                 if ($prev !== $row['points']) $position = $i;
-                $user = $row['user'];
+                $user = mb_strtolower($row['user'], 'UTF-8');
                 if (!isset($data->series[$user])) {
                     $data->series[$user] = new \stdClass();
                     $data->series[$user]->name = $row['user'];
@@ -252,6 +252,7 @@ SQL;
             }
             $res->finalize();
         }
+        ksort($data->series);
         $data->series = array_values($data->series);
         return $data;
     }
