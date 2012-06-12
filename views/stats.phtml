@@ -7,7 +7,7 @@
 <?php if (!STARTED): ?>
 <div class="notice">Turnaus ei ole vielä alkanut tai tuloksia ei ole vielä syötetty järjestelmään.</div>
 <?php else: ?>
-<div id="chart-container-1" style="width: 700px; height: 600px"></div>
+<div id="chart-container-1" style="width: 700px; height: 613px"></div>
 <?php endif; ?>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/highcharts/highcharts.js'); ?>"></script>
@@ -23,23 +23,27 @@ $.getJSON('<?php echo url('~/stats/history'); ?>', function(data) {
             ignoreHiddenSeries: false
         },
         title: {
-            text: 'Ottelupisteiden mukainen sijoitus'
+            text: 'Ottelupisteiden mukaisen sijoituksen kehittyminen'
         },
         xAxis: {
             categories: data.categories,
-            reversed: false
+            reversed: false,
+            title: {
+                text: 'Päivämäärä'
+            }
         },
         yAxis: {
-            min: 0.5,
+            min: 1,
             title: {
-                text: null
+                text: 'Sijoitus'
             },
-            tickInterval: 1,
-            showFirstLabel: true,
+            tickInterval: 5,
+            showFirstLabel: false,
             showLastLabel: false,
-            endOnTick: false,
-            startOnTick: false,
-            reversed: true
+            endOnTick: true,
+            startOnTick: true,
+            reversed: true,
+            allowDecimals: false,
         },
         series: data.series,
 
