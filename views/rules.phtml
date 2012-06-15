@@ -77,7 +77,7 @@
            <td>Tilinunmero:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT') ? BANK_ACCOUNT : 'XXX'; ?> (IBAN: <?php echo defined('BANK_ACCOUNT_IBAN') ? BANK_ACCOUNT_IBAN : 'XXX'; ?>)</td>
          </tr>
          <tr>
-           <td>Summa:&nbsp;</td><td>15 &euro;</td>
+           <td>Summa:&nbsp;</td><td><?php echo defined('ENTRY_FEE') ? ENTRY_FEE : '15'; ?> &euro;</td>
          </tr>
          <tr>
            <td>Eräpäivä:&nbsp;</td><td>Ennen turnauksen alkua (<?php echo date_format(date_create($start), 'j.n.Y \k\l\o G.i'); ?>)</td>

@@ -90,7 +90,10 @@ function preglace($pattern, $replacement) {
 }
 function portlets() {
     view::register('user', \db\bets\single(username));
-    view::register('pot', \db\users\paid() * 15);
+    $fee = defined('ENTRY_FEE') ? ENTRY_FEE : 15;
+    $pot = \db\users\paid() * ENTRY_FEE;
+    if (defined('POT_ADJUSTMENT')) $pot += POT_ADJUSTMENT;
+    view::register('pot', $pot);
     view::register('upcoming', \db\bets\games(username, 2));
     view::register('played', \db\games\played());
 }
