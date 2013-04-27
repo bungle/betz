@@ -7,15 +7,14 @@ setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
-define('TOURNAMENT_ID', 'euro2012');
-define('TOURNAMENT_NAME', 'Euro 2012');
-define('TOURNAMENT_TYPE', 'soccer');
+define('TOURNAMENT_ID', 'mm2013');
+define('TOURNAMENT_NAME', 'MM 2012');
+define('TOURNAMENT_TYPE', 'hockey'); //hockey or soccer
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
 define('ENABLE_SCORER', false);
 define('GAME_POINTS_STRATEGY', 'exp');
 define('ENTRY_FEE', 15);
-define('POT_ADJUSTMENT', 5);
-
+define('POT_ADJUSTMENT', 0);
 
 // Automatic configuration
 define('DATABASE', __DIR__ . '/data/' . TOURNAMENT_ID . '.sq3');
