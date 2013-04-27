@@ -76,7 +76,7 @@ if (!file_exists(DATABASE)) {
 } else {
     require './lib/db.php';
     authenticate();
-    /*
+    /* Not yet done
     if (is_mobile()) {
         require './lib/controllers.mobile.php';
     } else {
