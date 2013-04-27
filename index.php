@@ -8,7 +8,7 @@ date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
 define('TOURNAMENT_ID', 'mm2013');
-define('TOURNAMENT_NAME', 'MM 2012');
+define('TOURNAMENT_NAME', 'MM 2013');
 define('TOURNAMENT_TYPE', 'hockey'); //hockey or soccer
 define('EMAIL_SUPPORT', 'betz@fchaps.com');
 define('ENABLE_SCORER', false);
