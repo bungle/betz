@@ -51,7 +51,6 @@
                 <?php endif; ?>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
-                <li<?php if ($menu == 'program') echo ' class="current"' ?>><a href="<?php echo url('~/program'); ?>"><span>Otteluohjelma</span></a></li>
                 <li class="<?php if ($menu == 'rules') echo 'current'; ?><?php if (!ADMIN): ?> last<?php endif; ?>"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
                 <?php if (ADMIN): ?>
                 <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
