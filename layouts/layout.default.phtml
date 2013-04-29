@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<?php echo url('~/css/menu.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/main.css?') . md5_file('css/main.css'); ?>">
 <?php if (isset($css)) echo $css; ?>
-<?php endif; ?>
+
 </head>
 <body id="default">
 <?php if (defined('GOOGLE_ANALYTICS_ID')): ?>
@@ -25,6 +25,7 @@
     ga('create', '<?php echo GOOGLE_ANALYTICS_ID ?>', 'fchaps.com');
     ga('send', 'pageview');
 </script>
+<?php endif; ?>
 <div id="container" class="container_12">
 <div id="container-top">
     <div id="header">
