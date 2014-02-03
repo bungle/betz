@@ -71,7 +71,7 @@ $times  = array(
 </form>
 <?php $now = date_create(); foreach($games as $game): $date = date_create($game['time']); ?>
 <tr>
-    <td class="time" style="text-align: left;">&nbsp;<?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n H:i'); ?></td>
+    <td class="time" style="text-align: left;">&nbsp;<?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n. H:i'); ?></td>
     <td class="home"><?php echo $game['home']; ?></td>
     <td class="f32">
         <div class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
