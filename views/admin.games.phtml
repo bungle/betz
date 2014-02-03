@@ -1,19 +1,11 @@
 <?php
 $layout = 'layouts/layout.admin.phtml';
 $times  = array(
-    '12:15:00',
-    '13:00:00',
-    '13:15:00',
-    '15:45:00',
-    '16:00:00',
-    '16:15:00',
+    '10:00:00',
+    '14:00:00',
+    '14:30:00',
     '17:00:00',
-    '17:15:00',
-    '18:30:00',
-    '20:00:00',
-    '20:15:00',
-    '21:15:00',
-    '21:30:00',
+    '19:00:00'
 );
 ?>
 <?php block($css); ?>
@@ -36,10 +28,10 @@ $times  = array(
 <tr>
     <td align="left">
         <table>
-        <tr style="border: none;">
-            <td><input id="date" name="date" type="text" class="large" style="width: 90px; font-size: 1em;" /></td>
-            <td>
-                <select name="time" class="large" style="width: 90px;">
+        <tr style="vertical-align: middle; border: none;">
+            <td><input id="date" name="date" type="text" class="large" style="width: 100px; margin-right: 5px;" /></td>
+            <td style=" padding-top: 9px;">
+                <select name="time" class="large" style="width: 120px;">
                     <?php foreach ($times as $t): ?>
                     <option value="<?php echo $t; ?>"<?php if ($form->time->value == $t) echo ' selected'; ?>><?php echo substr($t, 0, 5); ?></option>
                     <?php endforeach; ?>
@@ -49,7 +41,7 @@ $times  = array(
         </table>
     </td>
     <td colspan="2" align="right">
-        <div style="float: right; text-align: left;">
+        <div style="float: right; text-align: left; margin-top: 9px;">
         <select name="home" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->home->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
@@ -57,9 +49,9 @@ $times  = array(
         </select>
         </div>
     </td>
-    <td class="dash" style="margin-top: 10px;">&ndash;</td>
+    <td class="dash" style="margin-top: 9px;">&ndash;</td>
     <td colspan="2">
-        <div style="float: left; text-align: left;">
+        <div style="float: left; text-align: left; margin-top: 9px;">
         <select name="road" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->road->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
@@ -70,8 +62,8 @@ $times  = array(
     <td align="right">
         <table width="100%">
         <tr style="border: none;">
-            <td style="padding-top: 3px;"><input id="draw" type="checkbox" name="draw" checked><label for="draw" style="width:187px;">Tasapeli</label></td>
-            <td style="padding-top: 3px;" align="right"><input type="submit" value="Lisää" style="width: 90px; height: 31px;"></td>
+            <td style="padding-top: 11px;"><input id="draw" type="checkbox" name="draw" checked><label for="draw" style="width:187px; height: 29px;">Tasapeli</label></td>
+            <td style="padding-top: 2px;" align="right"><input type="submit" value="Lisää" style="width: 90px; height: 31px;"></td>
         </tr>
         </table>
     </td>

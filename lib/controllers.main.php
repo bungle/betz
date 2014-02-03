@@ -77,3 +77,11 @@ get('/program', function() {
     $view->online = db\users\visited(username, 'Otteluohjelma');
     die($view);
 });
+get('/forums', function() {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $view = new view(DIR . '/views/forums.phtml');
+    $view->title = 'Keskustelut';
+    $view->menu = 'forums';
+    $view->online = db\users\visited(username, 'Keskustelut');
+    die($view);
+});
