@@ -28,7 +28,7 @@ $gcount = count($games);
     </td>
     <td class="road"><?php echo $game['road']; ?></td>
     <td class="countdown"><span style="font-weight: bold;" class="counter"><?php echo date_format($date, 'U'); ?>000</span></td>
-    <td class="bet" style="text-align: center; padding-top: 11px;">
+    <td class="bet" style="text-align: center;">
         <form method="post" action="<?php echo url('~/bets/games/' . $game['id']); ?>" class="f16">
             <input  id="home-<?php echo $game['id']; ?>" type="radio" name="score" value="1" <?php if ($game['score'] == '1') echo 'checked'; ?> class="flag <?php echo $game['home_abbr']; ?>">
             <label for="home-<?php echo $game['id']; ?>"><?php echo $game['home']; ?></label>
