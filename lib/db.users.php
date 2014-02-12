@@ -171,7 +171,7 @@ namespace db\users {
         $sql = <<<'SQL'
             SELECT email FROM users WHERE active = :active AND username NOT IN (
                 SELECT user FROM gamebets WHERE game IN (
-                    SELECT id FROM games WHERE time = (SELECT MIN(time) FROM games WHERE time  > :time)
+                    SELECT id FROM games WHERE time = (SELECT MIN(time) FROM games WHERE time > :time)
                 )
             ) ORDER BY email
 SQL;
