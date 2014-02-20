@@ -88,12 +88,14 @@ function initialize() {
             });
         }
         var form = $(this.form);
-        input.click(function() {
+        input.click(function(e) {
+            e.preventDefault()
             $.ajax({
                 url: form.attr('action'),
                 type: 'POST',
                 data: form.serialize(),
                 success: function() {
+                    input.prop('checked', true).button("refresh");
                     $.pnotify({
                         pnotify_title: 'Veikkaus tallennettu',
                         pnotify_text: 'Veikkaus tallennettiin onnistuneesti.',
@@ -101,6 +103,7 @@ function initialize() {
                     });
                 },
                 error: function() {
+                    input.prop('checked', false).button("refresh");
                     $.pnotify({
                         pnotify_title: 'Virhe veikkauksen tallennuksessa',
                         pnotify_text: 'Veikkauksen tallennuksessa tapahtui virhe.',
@@ -109,6 +112,7 @@ function initialize() {
                     });
                 }
             });
+            return false;
         });
     });
     $('form').buttonset();
