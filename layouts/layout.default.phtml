@@ -80,6 +80,7 @@
                 <?php echo $view; ?>
             </div>
             <div id="main-right" class="grid_3">
+                <?php if ($menu !== 'bets/game'): ?>
                 <?php if (isset($online)): ?>
                 <div class="block">
                     <h3 class="ui-corner-top">Paikalla</h3>
@@ -145,6 +146,7 @@
                         <h4 class="scorer"><?php echo isset($user['scorer']) ? $user['scorer'] : $user['scorer_betted']; ?></h4>
                     </div>
                 </div>
+                <?php endif; ?>
                 <?php endif; ?>
                 <?php if (isset($played) && count($played) > 0): ?>
                 <div class="block-spacer"></div>
