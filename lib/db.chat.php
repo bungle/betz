@@ -32,7 +32,6 @@ namespace db\chat {
         $stm = $db->prepare('SELECT * FROM chat ORDER BY id ASC');
         $res = $stm->execute();
         $messages = array();
-        $first = true;
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) $messages[] = $row;
         $res->finalize();
         $stm->close();

@@ -9,7 +9,6 @@ namespace db\teams {
         return $teams;
     }
     function add($name, $abbr) {
-        $games = array();
         $db = \db\connect();
         $stm = $db->prepare('INSERT INTO teams (name, abbr) VALUES (:name, :abbr);');
         $stm->bindValue(':name', $name, SQLITE3_TEXT);

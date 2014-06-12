@@ -8,6 +8,18 @@ get('/bets/games', function() {
     $view->online = db\users\visited(username, 'Otteluveikkaus');
     die($view);
 });
+get('/bets/games/%d', function($id) {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $view = new view(DIR . '/views/bets.game.phtml');
+    $game = \db\games\find($id);
+    $game['started'] = \db\games\started($id);
+    $view->game = $game;
+    $view->bets = \db\games\bets($id);;
+    $view->title = "{$game["home"]} - {$game["road"]}";
+    $view->menu = 'bets/game';
+    $view->online = db\users\visited(username, "{$game["home_abbr"]} - {$game["road_abbr"]}");
+    die($view);
+});
 post('/bets/games/%d', function($game) {
     if (!AUTHENTICATED) return status(401);
     $form = new form($_POST);

@@ -1,0 +1,80 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<?php if (!$game['started']): ?>
+<div class="notice">Ottelu ei ole vielä alkanut, joten et voi vielä katsoa muiden veikkauksia.</div>
+<?php else: ?>
+<table id="points" class="tablesorter">
+<thead>
+<tr>
+    <th>Päivämäärä</th>
+    <th>Ottelu</th>
+    <th>Tulos</th>
+    <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
+    <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
+    <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php else: ?>    
+    <th><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+    <?php endif; ?>
+</tr>
+</thead>
+<tbody>
+<?php
+    $ended = $game['score'] === '1' || $game['score'] === 'X' || $game['score'] === '2';
+    $date = date_create($game['time']);
+?>
+<tr>
+    <td class="f32"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n.\&\n\b\s\p\;H:i'); ?></td>
+    <td class="f32" style="width: 390px;" nowrap>
+        <div style="width: 154px; float: left; text-align: right"><?php echo $game['home'] . '&nbsp;(' . number_format($game['home_percent'], 2, ',', '') . '&nbsp;%)'; ?>&nbsp;</div>
+        <div style="width: 32px; float: left;" class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
+        <div style="width: 16px; float: left; text-align: center">&ndash;</div>
+        <div style="width: 32px; float: left;" class="flag  <?php echo $game['road_abbr']; ?>">&nbsp;</div>
+        <div style="width: 154px; float: left; text-align: left">&nbsp;<?php echo '(' . number_format($game['road_percent'], 2, ',', '') . '&nbsp;%)&nbsp;' . $game['road'];  ?></div>
+        <div class="clear"></div>
+    </td>
+    <td nowrap><?php echo $game['home_goals_total'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals_total']; ?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></td>
+    <td><?php echo number_format($game['points'], 2, ',', ''); ?></td>
+</tr>
+</tbody>
+</table>
+<br>
+<h2>Veikkaukset</h2>
+<hr class="thin">
+<table id="points" class="tablesorter">
+    <thead>
+    <tr>
+        <th width="100%" style="text-align: left; line-height: 32px;">&nbsp;Nimi</th>
+        <th nowrap="nowrap" style="line-height: 32px;">Veikkaus</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($bets as $bet): $clazz = $bet['score'] === $game['score'] ? 'correct' : 'wrong'; ?>
+        <tr>
+            <td style="text-align: left;" class="<?= $clazz ?>">&nbsp;<?php if ($bet['user'] === username): ?><a href="<?php echo url('~/points') . '/' . urlencode($bet['user']); ?>"><strong><?php echo $bet['user']; ?></strong></a><?php else: ?><a href="<?php echo url('~/points') . '/' . urlencode($bet['user']); ?>"><?php echo $bet['user']; ?></a><?php endif; ?></td></td>
+            <?php if ($bet["score"] === '1' || $bet["score"] === '2'): ?>
+            <td class="f32 <?= $clazz ?>" style="width: 111px;" nowrap>
+                <table style="width: 100%; padding: 0 !important; margin: 0 !important; border: none !important;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="width: 40px; padding: 0; border: none;" class="<?= $clazz ?>">&nbsp;</td>
+                        <?php if ($bet["score"] === '1'): ?>
+                        <td class="f32 <?= $clazz ?>" style="width: 32px; padding: 0; border: none;" nowrap><div style="width: 32px;" class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div></td>
+                        <?php else: ?>
+                        <td class="f32 <?= $clazz ?>" style="width: 32px; padding: 0; border: none;" nowrap><div style="width: 32px;" class="flag <?php echo $game['road_abbr']; ?>">&nbsp;</div></td>
+                        <?php endif; ?>
+                        <td style="width: 39px; padding: 0; border: none;" class="<?= $clazz ?>">&nbsp;</td>
+                    </tr>
+                </table>
+            <?php else: ?>
+            <td class="f32 <?= $clazz ?>" style="width: 111px; text-align: center;" nowrap>Tasapeli</td>
+            <?php endif; ?>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php endif; ?>

@@ -1,5 +1,25 @@
 <?php
 namespace db\games {
+    function find($id) {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT * FROM view_games WHERE id = :id');
+        $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+        $res = $stm->execute();
+        $row = $res->fetchArray(SQLITE3_ASSOC);
+        $res->finalize();
+        $stm->close();
+        return $row;
+    }
+    function bets($id) {
+        $bets = array();
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT * FROM gamebets WHERE game = :id ORDER BY LOWER(user)');
+        $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+        $res = $stm->execute();
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $bets[] = $row;
+        $res->finalize();
+        return $bets;
+    }
     function all() {
         $games = array();
         $db = \db\connect();
@@ -9,7 +29,6 @@ namespace db\games {
         return $games;
     }
     function add($time, $home, $road, $draw) {
-        $games = array();
         $db = \db\connect();
         $stm = $db->prepare('INSERT INTO games (home, road, draw, time) VALUES (:home, :road, :draw, :time)');
         $stm->bindValue(':home', $home, SQLITE3_TEXT);
