@@ -59,36 +59,88 @@ SQL;
     }    
     function score($id, $home_goals, $road_goals, $home_goals_total, $road_goals_total) {
         $db = \db\connect();
-        if ($home_goals === $road_goals) {
-            $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - draw_percent) / 100.0 WHERE id = :id');
-            $stm->bindValue(':id', $id, SQLITE3_INTEGER);
-            $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':score', 'X', SQLITE3_TEXT);
-            $stm->execute();
-            $stm->close();
-        } elseif ($home_goals > $road_goals) {
-            $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - home_percent) / 100.0 WHERE id = :id');
-            $stm->bindValue(':id', $id, SQLITE3_INTEGER);
-            $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':score', '1', SQLITE3_TEXT);
-            $stm->execute();
-            $stm->close();
+        if (defined('GAME_POINTS_STRATEGY') && GAME_POINTS_STRATEGY === 'exp') {
+            $percents = percents($id);
+            if ($home_goals === $road_goals) {
+                $points = exp(1.0 - (float) $percents['draw_percent'] / 100.0);
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = :points WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', 'X', SQLITE3_TEXT);
+                $stm->bindValue(':points', $points, SQLITE3_FLOAT);
+                $stm->execute();
+                $stm->close();
+            } elseif ($home_goals > $road_goals) {
+                $points = exp(1.0 - (float) $percents['home_percent'] / 100.0);
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = :points WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', '1', SQLITE3_TEXT);
+                $stm->bindValue(':points', $points, SQLITE3_FLOAT);
+                $stm->execute();
+                $stm->close();
+            } else {
+                $points = exp(1.0 - (float) $percents['road_percent'] / 100.0);
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = :points WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', '2', SQLITE3_TEXT);
+                $stm->bindValue(':points', $points, SQLITE3_FLOAT);
+                $stm->execute();
+                $stm->close();
+            }            
         } else {
-            $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - road_percent) / 100.0 WHERE id = :id');
-            $stm->bindValue(':id', $id, SQLITE3_INTEGER);
-            $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
-            $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
-            $stm->bindValue(':score', '2', SQLITE3_TEXT);
-            $stm->execute();
-            $stm->close();
+            if ($home_goals === $road_goals) {
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - draw_percent) / 100.0 WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', 'X', SQLITE3_TEXT);
+                $stm->execute();
+                $stm->close();
+            } elseif ($home_goals > $road_goals) {
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - home_percent) / 100.0 WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', '1', SQLITE3_TEXT);
+                $stm->execute();
+                $stm->close();
+            } else {
+                $stm = $db->prepare('UPDATE games SET home_goals = :home, home_goals_total = :home_goals_total, road_goals = :road, road_goals_total = :road_goals_total, score = :score, points = (200.0 - road_percent) / 100.0 WHERE id = :id');
+                $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+                $stm->bindValue(':home', $home_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':home_goals_total', $home_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':road', $road_goals, SQLITE3_INTEGER);
+                $stm->bindValue(':road_goals_total', $road_goals_total, SQLITE3_INTEGER);
+                $stm->bindValue(':score', '2', SQLITE3_TEXT);
+                $stm->execute();
+                $stm->close();
+            }            
         }
+
+    }
+    function percents($id) {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT home_percent, draw_percent, road_percent FROM games WHERE id = :id');
+        $stm->bindValue(':id', $id, SQLITE3_INTEGER);
+        $res = $stm->execute();
+        $row = $res->fetchArray(SQLITE3_ASSOC);
+        $res->finalize();
+        $stm->close();
+        return $row;
     }
 }

@@ -28,7 +28,7 @@ function logoff() {
             $key = $parts[1];
             db\users\forget($username, $key);
         }
-        setcookie ('logged-in-cookie', '', $expire, '/', '', false, true);
+        setcookie('logged-in-cookie', '', $expire, '/', '', false, true);
     }
 }
 function authenticate() {
@@ -64,6 +64,21 @@ function authenticate() {
     define('ADMIN', false);
     define('username', 'anonymous');
 }
+function desktop() {
+    unset($_SESSION['mobile-on']);
+    if (isset($_COOKIE['mobile-on-cookie'])) {
+        $expire = date_timestamp_get(date_modify(date_create(), '-1 day'));
+        setcookie('mobile-on-cookie', '', $expire, '/', '', false, true);
+    }
+}
+function mobile() {
+    $_SESSION['mobile-on'] = true;
+    $expire = date_modify(date_create(), '+40 day');
+    setcookie ('mobile-on-cookie', 'on', date_timestamp_get($expire), '/', '', false, true);
+}
+function is_mobile() {
+    return (isset($_SESSION['mobile-on']) || isset($_COOKIE['mobile-on-cookie']));
+}
 function checkbox(&$value) {
     $value = isset($value);
     return true;
@@ -75,7 +90,10 @@ function preglace($pattern, $replacement) {
 }
 function portlets() {
     view::register('user', \db\bets\single(username));
-    view::register('pot', \db\users\paid() * 15);
+    $fee = defined('ENTRY_FEE') ? ENTRY_FEE : 15;
+    $pot = \db\users\paid() * ENTRY_FEE;
+    if (defined('POT_ADJUSTMENT')) $pot += POT_ADJUSTMENT;
+    view::register('pot', $pot);
     view::register('upcoming', \db\bets\games(username, 2));
     view::register('played', \db\games\played());
 }
@@ -160,7 +178,12 @@ function smileys_array() {
     $smileys[] = array('src' => 'thumbs.gif', 'title' => 'thumb', 'keys' => array('(y)', '(Y)'));
     $smileys[] = array('src' => 'thumbs_down.gif', 'title' => 'thumbs down', 'keys' => array('(n)', '(N)'));
     $smileys[] = array('src' => 'fingerscrossed.png', 'title' => 'fingers crossed', 'keys' => array(':x:', ':X:'));
-    $smileys[] = array('src' => 'puck.gif', 'title' => 'puck', 'keys' => array(':puck:'));
+    if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey') {
+        $smileys[] = array('src' => 'puck.gif', 'title' => 'puck', 'keys' => array(':puck:'));
+    }
+    if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer') {
+        $smileys[] = array('src' => 'soccer.gif', 'title' => 'ball', 'keys' => array(':ball:'));
+    }
     $smileys[] = array('src' => 'beer.gif', 'title' => 'beer', 'keys' => array('(b)', '(B)'));
     $smileys[] = array('src' => 'champagne.gif', 'title' => 'champagne', 'keys' => array(':c:', ':C:'));
     $smileys[] = array('src' => 'stars.gif', 'title' => 'stars', 'keys' => array(':*:'));

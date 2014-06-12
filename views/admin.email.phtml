@@ -1,0 +1,23 @@
+<?php $layout = 'layouts/layout.admin.phtml'; ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<div class="block">
+    <h3 class="ui-corner-top rules">Kolmen kärki&trade; -veikkaus on puutteellinen seuraavilla:</h3>
+    <div class="ui-corner-bottom">
+        <?php foreach($team_emails as $email): ?><?php echo $email['email'] . '; '; ?><?php endforeach; ?>
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Seuraavan ottelun veikkaus on puuttuu seuraavilta:</h3>
+    <div class="ui-corner-bottom">
+        <?php foreach($game_emails as $email): ?><?php echo $email['email'] . '; '; ?><?php endforeach; ?>
+    </div>
+</div>
+<br />
+<div class="block">
+    <h3 class="ui-corner-top rules">Kaikkien aktiivisten veikkaajien sähköpostiosoitteet:</h3>
+    <div class="ui-corner-bottom">
+        <?php foreach($emails as $email): ?><?php echo $email['email'] . '; '; ?><?php endforeach; ?>
+    </div>
+</div>

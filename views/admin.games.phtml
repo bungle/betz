@@ -1,90 +1,117 @@
-<?php $layout = 'layouts/layout.admin.phtml'; ?>
+<?php
+$layout = 'layouts/layout.admin.phtml';
+$times  = array(
+    '19:00:00',
+    '22:00:00',
+    '23:00:00',
+    '01:00:00',
+    '04:00:00',
+);
+?>
 <?php block($css); ?>
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.selectmenu.css'); ?>">
 <?php block(); ?>
-<div class="page-header">
-    <h1>
-	<?php echo $title; ?>
-	<small>Lisää ja muokkaa otteluita</small>
-    </h1>
-</div>
-
+<h1><?php echo $title; ?></h1>
+<hr>
 <?php if (isset($error)): ?>
-<div class="alert-message error">
+<div class="error">
     Ottelun tiedot ovat virheelliset. Tarkista lomake.
 </div>
 <?php endif; ?>
-<div class="row">
-    <div class="span4"><h5>Päivämäärä</h5></div>
-    <div class="span6"><h5>Ottelu</h5></div>
-    <div class="span4"><h5>Tulos / Toiminnot</h5></div>
-</div>
-
-<form method="post"  action="<?php echo url('~/admin/games'); ?>">
-<div class="row">
-   <div class="span4">
-            <input id="date" name="date" type="text" style="float: left; line-height: 1em; padding: 0.5em 1em;width: 90px;" />&nbsp;
-                <select name="time" class="large" style="width: 90px;">
-                    <option value="13:15:00"<?php if ($form->time->value == '13:15:00') echo ' selected'; ?>>13:15</option>
-                    <option value="17:00:00"<?php if ($form->time->value == '17:00:00') echo ' selected'; ?>>17:00</option>
-                    <option value="17:15:00"<?php if ($form->time->value == '17:15:00') echo ' selected'; ?>>17:15</option>
-                    <option value="21:15:00"<?php if ($form->time->value == '21:15:00') echo ' selected'; ?>>21:15</option>
-                    <option value="21:30:00"<?php if ($form->time->value == '21:30:00') echo ' selected'; ?>>21:30</option>
+<table id="bets">
+<tr>
+    <th align="left">Päivämäärä</th>
+    <th colspan="5">Ottelu</th>
+    <th>Tulos / Toiminnot</th>
+</tr>
+<form method="post" action="<?php echo url('~/admin/games'); ?>">
+<tr>
+    <td align="left">
+        <table>
+        <tr style="vertical-align: middle; border: none;">
+            <td><input id="date" name="date" type="text" class="large" style="width: 100px; margin-right: 5px;" /></td>
+            <td style=" padding-top: 9px;">
+                <select name="time" class="large" style="width: 120px;">
+                    <?php foreach ($times as $t): ?>
+                    <option value="<?php echo $t; ?>"<?php if ($form->time->value == $t) echo ' selected'; ?>><?php echo substr($t, 0, 5); ?></option>
+                    <?php endforeach; ?>
                 </select>
-    </div>
-    <div class="span6">
-        <div class="span3" style="float: left;">
-        <select name="home" style="width: 165px;">
+            </td>
+        </tr>
+        </table>
+    </td>
+    <td colspan="2" align="right">
+        <div style="float: right; text-align: left; margin-top: 9px;">
+        <select name="home" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->home->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
             <?php endforeach; ?>
         </select>
         </div>
-        <div class="span3" style="float: left;">
-        <select name="road" style="width: 165px;">
+    </td>
+    <td class="dash" style="margin-top: 9px;">&ndash;</td>
+    <td colspan="2">
+        <div style="float: left; text-align: left; margin-top: 9px;">
+        <select name="road" style="width: 170px;">
             <?php foreach ($teams as $team): ?>
                 <option value="<?php echo $team['name']; ?>"<?php if ($form->road->value == $team['name']) echo ' selected'; ?>><?php echo $team['name'] ?></option>
             <?php endforeach; ?>
         </select>
         </div>
-    </div>
-    <div class="span5">
-            <input id="draw" type="checkbox" name="draw" checked /><label for="draw">Tasapeli</label>
-            <input type="submit" value="Lisää" style="width: 70px; height: 31px;" />
-    </div>
-</div>
+    </td>
+    <td align="right">
+        <table width="100%">
+        <tr style="border: none;">
+            <td style="padding-top: 3px;"><input id="draw" type="checkbox" name="draw" checked><label for="draw" style="width:187px; height: 29px;">Tasapeli</label></td>
+            <td style="padding-top: 2px;" align="right"><input type="submit" value="Lisää" style="width: 90px; height: 31px;"></td>
+        </tr>
+        </table>
+    </td>
+</tr>
 </form>
-
 <?php $now = date_create(); foreach($games as $game): $date = date_create($game['time']); ?>
-
-<div class="row">
-    <div class="span4" style="line-height: 32px;">&nbsp;<?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n H:i'); ?></div>
-    <div class="span6" style="height: 32px; line-height: 32px;">
-            <div class="f32 span3" style="float: left;">
-              <div style="text-align: right; padding-right: 40px; background-position: right;" class="flag <?php echo $game['home_abbr']; ?>"><?php echo $game['home']; ?></div>
-            </div>
-        <div class="f32 span3" style="float: left;">
-             <div style="padding-left: 40px;" class="flag <?php echo $game['road_abbr']; ?>"><?php echo $game['road']; ?></div>
-        </div>
-        
-    </div>
-    <div class="span5">
+<tr>
+    <td class="time" style="text-align: left;">&nbsp;<?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n. H:i'); ?></td>
+    <td class="home"><?php echo $game['home']; ?></td>
+    <td class="f32">
+        <div class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
+    </td>
+    <td class="dash">&ndash;</td>
+    <td class="f32">
+        <div class="flag <?php echo $game['road_abbr']; ?>">&nbsp;</div>
+    </td>
+    <td class="road" align="left"><?php echo $game['road']; ?></td>
+    <td class="bet" align="right">
         <form method="post" action="<?php echo url('~/admin/games/' . $game['id']); ?>">
-            <input style="width: 30px;" type="text" class="large" name="home_goals_total" value="<?php echo $game['home_goals_total']; ?>"<?php if ($now < $date) echo ' disabled'; ?>>
-            <input style="width: 30px;" type="text" class="large" name="road_goals_total" value="<?php echo $game['road_goals_total']; ?>"<?php if ($now < $date) echo ' disabled'; ?>>
-            <input style="width: 30px;" type="text" class="large" name="home_goals" value="<?php echo $game['home_goals']; ?>"<?php if ($now < $date) echo ' disabled'; ?>>
-            <input style="width: 30px;" type="text" class="large" name="road_goals" value="<?php echo $game['road_goals']; ?>"<?php if ($now < $date) echo ' disabled'; ?>>
-            <input type="submit" class="game" value="Tallenna" style="width: 90px;"<?php if ($now < $date) echo ' disabled'; ?>>
+        <table width="100%">
+        <tr style="border: none;">
+            <td><input type="text" class="large" name="home_goals_total" value="<?php echo $game['home_goals_total']; ?>"<?php if ($now < $date) echo ' disabled'; ?>></td>
+            <td>&nbsp;</td>
+            <td>&ndash;</td>
+            <td>&nbsp;</td>
+            <td><input type="text" class="large" name="road_goals_total" value="<?php echo $game['road_goals_total']; ?>"<?php if ($now < $date) echo ' disabled'; ?>></td>
+            <td>&nbsp;(</td>
+            <td><input type="text" class="large" name="home_goals" value="<?php echo $game['home_goals']; ?>"<?php if ($now < $date) echo ' disabled'; ?>></td>
+            <td>&nbsp;</td>
+            <td>&ndash;</td>
+            <td>&nbsp;</td>
+            <td><input type="text" class="large" name="road_goals" value="<?php echo $game['road_goals']; ?>"<?php if ($now < $date) echo ' disabled'; ?>></td>
+            <td>)&nbsp;</td>            
+            <td style="text-align: right;"><input type="submit" class="game" value="Tallenna" style="width: 90px;"<?php if ($now < $date) echo ' disabled'; ?></td>
+        </tr>
+        </table>
         </form>
-    </div>
-</div>
+    </td>
+</tr>
 <?php endforeach; ?>
+</table>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/jquery.selectmenu.js'); ?>"></script>
 <script>
 $('select').selectmenu();
 $('#draw').button();
 $("#date").datepicker({ dateFormat: 'yy-mm-dd', showAnim: 'fadeIn' });
+$("#date").datepicker($.datepicker.regional['sv']);
 $('input:submit.game').each(function() {
     var input = $(this);
     var form = $(this.form);

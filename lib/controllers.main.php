@@ -5,6 +5,24 @@ get('/rules', function() {
     $view->title = 'Säännöt';
     $view->menu = 'rules';
     $view->online = db\users\visited(username, 'Säännöt');
+    $view->start = db\games\start();
+    die($view);
+});
+get('/chat/backlog', function() {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $last = 0;
+    $messages = db\chat\backlog();
+    $view = new view(DIR . '/views/chat.backlog.phtml');
+    $view->title = 'Kisachat Backlog';
+    $view->menu = 'chat';
+    $view->online = db\users\visited(username, 'Kisachat Backlog');
+    if (count($messages) > 0) {
+        $chat = new view(DIR . '/views/chat.messages.phtml');
+        $chat->messages = $messages;
+        $chat->leaders = db\stats\leaders();
+        $chat->backlog = true;
+        $view->chat = $chat;
+    }
     die($view);
 });
 get('/chat', function() {
@@ -20,6 +38,7 @@ get('/chat', function() {
     if (count($messages) > 0) {
         $chat = new view(DIR . '/views/chat.messages.phtml');
         $chat->messages = $messages;
+        $chat->leaders = db\stats\leaders();
         $view->chat = $chat;
     }
     die($view);
@@ -40,10 +59,14 @@ get('/chat/poll', function() {
     if (!AUTHENTICATED) return;
     $last = isset($_SESSION['last-chat-message-id']) ? $_SESSION['last-chat-message-id'] : 0;
     $messages = db\chat\poll($last);
-    if (count($messages) === 0) return status(304);
+    if (count($messages) === 0) {
+        status(304);
+        die;
+    }
     $_SESSION['last-chat-message-id'] = $last;
     $view = new view(DIR . '/views/chat.messages.phtml');
     $view->messages = $messages;
+    $view->leaders = db\stats\leaders();
     die($view);
 });
 get('/program', function() {
@@ -52,5 +75,13 @@ get('/program', function() {
     $view->title = 'Otteluohjelma';
     $view->menu = 'program';
     $view->online = db\users\visited(username, 'Otteluohjelma');
+    die($view);
+});
+get('/forums', function() {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $view = new view(DIR . '/views/forums.phtml');
+    $view->title = 'Keskustelut';
+    $view->menu = 'forums';
+    $view->online = db\users\visited(username, 'Keskustelut');
     die($view);
 });

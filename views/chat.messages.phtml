@@ -1,9 +1,9 @@
+<?php $fmt = isset($backlog) && $backlog ? 'j.n. \k\l\o H:i' : 'H:i'; ?>
 <?php foreach($messages as $message): ?>
 <div>
-    <div class="time" style="float: left;"><span class="date">[<?php echo date_format(date_create($message['time']), 'H:i'); ?>]</span></div>
-    <div class="user" style="float: left; padding: 0 0.5em;">&lt;<span class="<?php echo username == $message['user'] ? "mynick" : "nick"; ?>"><a href="<?php echo url('~/points') . '/' . urlencode($message['user']); ?>" target="_blank"><?php echo $message['user']; ?></a></span>&gt;
-    </div>
-    <div class="message" style="overflow:hidden;"><?php echo $message['message']; ?></div>
+    <div class="time""><span class="date">[<?php echo date_format(date_create($message['time']), $fmt); ?>]</span></div>
+    <div class="user<?php echo STARTED && isset($leaders[$message['user']]) ? ' leader' : ''; ?>">&lt;<span class="<?php echo username == $message['user'] ? "mynick" : "nick"; ?>"><a href="<?php echo url('~/points') . '/' . urlencode($message['user']); ?>"><?php echo $message['user']; ?></a></span>&gt;</div>
+    <div class="message"><?php echo $message['message']; ?></div>
 </div>
 <div class="clear"></div>
 <?php endforeach; ?>

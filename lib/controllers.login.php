@@ -1,12 +1,7 @@
 <?php
 get('/', function() {
     if (AUTHENTICATED) {
-        $view = new view(DIR . '/views/main.phtml');
-        $view->title = 'Etusivu';
-        $view->menu = 'main';
-        $view->news = db\news\all();
-        $view->online = db\users\visited(username, 'Etusivu');
-        die($view);
+        redirect('~/chat');
     }
     die(new view(DIR . '/views/login.phtml'));
 });
@@ -30,9 +25,8 @@ post('/login/google', function() {
         'openid.ui.icon' => 'true',
         'openid.ns.ax' => 'http://openid.net/srv/ax/1.0',
         'openid.ax.mode' => 'fetch_request',
-        'openid.ax.required' => 'firstname,email',
-        'openid.ax.type.email' => 'http://axschema.org/contact/email',
-        'openid.ax.type.firstname' => 'http://axschema.org/namePerson/first'
+        'openid.ax.required' => 'email',
+        'openid.ax.type.email' => 'http://axschema.org/contact/email'
     ));
 });
 get('/login/google', function() {
@@ -43,7 +37,6 @@ get('/login/google', function() {
         $form->openid_claimed_id->filter('url');
         $form->openid_op_endpoint->filter('url');
         $form->openid_ext1_value_email->filter('email');
-        $form->openid_ext1_value_firstname->filter('trim', preglace('/[^a-z0-9åäö_-]/ui', ''));
         if ($form->validate() && \openid\check($form->openid_op_endpoint)) {
             $claim = $form->openid_claimed_id;
             $username = db\users\claimed($claim, $form->openid_ext1_value_email->value);
@@ -52,7 +45,6 @@ get('/login/google', function() {
                 redirect('~/');
             }
             $_SESSION['google-claim'] = \password\hash($claim);
-            $_SESSION['google-fname'] = $form->openid_ext1_value_firstname->value;
             $_SESSION['google-email'] = $form->openid_ext1_value_email->value;
             redirect('~/registration/google/confirm');
         } elseif ($login == 'registration') {

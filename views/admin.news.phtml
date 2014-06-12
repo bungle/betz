@@ -2,37 +2,26 @@
 <?php block($css); ?>
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.wysiwyg.css'); ?>">
 <?php block(); ?>
-<div class="page-header">
-  <h1>
-    <?php echo $title; ?>
-    <small>No news is good news!</small>
-  </h1>
-</div>
+<h1><?php echo $title; ?></h1>
+<hr />
 <?php
-if(isset($error)) {
-    echo "<div class='alert-message error span14'>Korjaa virheet, validaatio epäonnistui.</div>";
+if(isset($success)) {
+    echo "<span style='font-size: 1.2em; font-weight: bold; color: #76B737'>$success</span>";
 }
 ?>
 <form action="<?php echo url('~/admin/news'); ?>" method="post">
     <h3>Otsikko</h3>
-    <input name="title" type="text" class="span14" style="font-size: 1.5em;" <?php if (isset($form->title->value)) echo "value='" . $form->title->value . "'"; ?>/>
+    <input name="title" type="text" style="width: 70%" <?php if (isset($news['title'])) echo "value='" . $news['title'] . "'"; ?>/>
     <h3>Sisältö</h3>
-    <textarea id="newseditor" name="content" rows="20" class="span14">
-        <?php if (isset($form->content->value)):
-            echo $form->content->value;
+    <textarea id="newseditor" name="content" rows="20" cols="59">
+        <?php if (isset($news['content'])):
+            echo $news['content'];
         endif ?>
     </textarea><br />
-    <ul class="inputs-list">
-    <li>
-    <label>
-      <input type="checkbox" value="1" name="level" <?php if (isset($form->level->value) && ($form->level->value == '1')) echo "checked='checked' ";?>/>
-      <span>Tärkeä</span>
-    </label>
-    </li>
-    </ul>
+    <input type="checkbox" value="1" name="level" <?php if (isset($news['level']) && ($news['level'] == '1')) echo "checked='checked' ";?>/> Tärkeä
     <br /><br />
-    <?php if (isset($form->id->value)) echo "<input type='hidden' name='id' value='" . $form->id->value . "' />"; ?>
-    <input type="submit" class="btn primary" value="Tallenna" />
+    <?php if (isset($news['id'])) echo "<input type='hidden' name='id' value='" . $news['id'] . "' />"; ?>
+    <input type="submit" value="Tallenna" />
 </form>
 <?php block($scripts); ?>
 <script src="<?php echo url('~/js/jquery.wysiwyg.js'); ?>"></script>

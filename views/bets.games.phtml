@@ -17,8 +17,8 @@ $gcount = count($games);
 </tr>
 <?php foreach($games as $game): $date = date_create($game['time']); ?>
 <tr>
-    <td class="time"><?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n H:i'); ?></td>
-    <td class="home"><?php echo $game['home']; ?></td>
+    <td class="time"><?php echo weekday($date, 2) . ' ' . date_format($date, 'j.n. H:i'); ?></td>
+    <td class="home"><?php echo $game['home'] === 'Bosnia ja Hertsegovina' ? 'Bosnia ja H.' : $game['home']; ?></td>
     <td class="f32">
         <div class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
     </td>
@@ -26,7 +26,7 @@ $gcount = count($games);
     <td class="f32">
         <div class="flag <?php echo $game['road_abbr']; ?>">&nbsp;</div>
     </td>
-    <td class="road"><?php echo $game['road']; ?></td>
+    <td class="road"><?php echo $game['road'] === 'Bosnia ja Hertsegovina' ? 'Bosnia ja H.' : $game['road']; ?></td>
     <td class="countdown"><span style="font-weight: bold;" class="counter"><?php echo date_format($date, 'U'); ?>000</span></td>
     <td class="bet" style="text-align: center;">
         <form method="post" action="<?php echo url('~/bets/games/' . $game['id']); ?>" class="f16">
@@ -45,12 +45,12 @@ $gcount = count($games);
 </table>
 <?php if ($gcount > 0): ?>
 <?php block($scripts); ?>
-<?php if ($gcount > 34): ?>
+<?php if ($gcount > 100): ?>
 <script src="<?php echo url('~/js/jquery.blockui.js'); ?>"></script>
 <?php endif; ?>
 <script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
 <script>
-<?php if ($gcount > 34): ?>
+<?php if ($gcount > 100): ?>
 $.blockUI({
     message: '<h2>Ladataan otteluita...</h2>(jQuery UI:n bugi hidastaa lataamista)',
     css: {
@@ -88,12 +88,14 @@ function initialize() {
             });
         }
         var form = $(this.form);
-        input.click(function() {
+        input.click(function(e) {
+            e.preventDefault()
             $.ajax({
                 url: form.attr('action'),
                 type: 'POST',
                 data: form.serialize(),
                 success: function() {
+                    input.prop('checked', true).button("refresh");
                     $.pnotify({
                         pnotify_title: 'Veikkaus tallennettu',
                         pnotify_text: 'Veikkaus tallennettiin onnistuneesti.',
@@ -101,6 +103,7 @@ function initialize() {
                     });
                 },
                 error: function() {
+                    input.prop('checked', false).button("refresh");
                     $.pnotify({
                         pnotify_title: 'Virhe veikkauksen tallennuksessa',
                         pnotify_text: 'Veikkauksen tallennuksessa tapahtui virhe.',
@@ -109,6 +112,7 @@ function initialize() {
                     });
                 }
             });
+            return false;
         });
     });
     $('form').buttonset();
@@ -125,7 +129,7 @@ function initialize() {
         });
     });
     $('#bets').toggle();
-    <?php if ($gcount > 34): ?>
+    <?php if ($gcount > 100): ?>
     $.unblockUI();
     <?php endif; ?>
 }

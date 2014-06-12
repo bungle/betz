@@ -6,12 +6,12 @@ get('/admin', function() {
     $view->menu = 'admin';
     die($view);
 });
+/*
 get('/admin/news', function() {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.news.phtml');
     $view->title = 'Uutiset';
     $view->menu = 'admin/news';
-    $view->form = db\news\edit(2);
     die($view);
 });
 post('/admin/news', function() {
@@ -19,33 +19,27 @@ post('/admin/news', function() {
     $form = new form($_POST);
     $form->slug($form->title->value)->filter('slug');
     $form->content->filter('trim', minlength(1), 'links', 'smileys');
-    $form->title->filter(minlength(1));
     $form->level->filter('intval');
     if (!isset($form->id->value)) $form->id->value = null; 
     if($form->validate()) {
         db\news\add($form->id->value, $form->title->value, $form->content->value, $form->level->value, username, $form->slug->value);
         redirect('~/');
     }
-    $view = new view(DIR . '/views/admin.news.phtml');
-    $view->title = 'Uutiset - korjaus';
-    $view->error = true;
-    $view->form = $form;
-    $view->menu = 'admin/news';
-    die($view);
 });
 get('/admin/news/%d', function($id) {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.news.phtml');
     $view->title = 'Uutinen';
     $view->menu = 'admin/news';
-    $view->form = new form(db\news\edit($id));
+    $view->news = db\news\edit($id);
     die($view);
 });
+*/
 get('/admin/teams', function() {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.teams.phtml');
     $view->title = 'Joukkueet';
-    $view->menu = 'admin/teams';
+    $view->menu = 'admin/news';
     $view->teams = db\teams\all();
     die($view);
 });
@@ -119,70 +113,72 @@ post('/admin/games/%d', function($id) {
     }
     die();
 });
-get('/admin/scorers', function() {
-    if (!ADMIN) redirect('~/unauthorized');
-    $view = new view(DIR . '/views/admin.scorers.phtml');
-    $view->title = 'Maalintekijät';
-    $view->menu = 'admin/scorers';
-    $view->teams = db\teams\all();
-    $view->scorers = db\scorers\all();
-    $view->userscorers = db\scorers\users();
-    die($view);
-});
-post('/admin/scorers', function() {
-    if (!ADMIN) redirect('~/unauthorized');
-    $form = new form($_POST);
-    $form->scorer->filter('trim', specialchars(), minlength(3));
-    $form->team->filter('db\teams\exists');
-    $form->goals->filter('int', 'intval');
-    if ($form->validate()) {
-        $changes = db\scorers\add($form->scorer->value, $form->team->value, $form->goals->value);
-        if ($changes > 0) {
+if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
+    get('/admin/scorers', function() {
+        if (!ADMIN) redirect('~/unauthorized');
+        $view = new view(DIR . '/views/admin.scorers.phtml');
+        $view->title = 'Maalintekijät';
+        $view->menu = 'admin/scorers';
+        $view->teams = db\teams\all();
+        $view->scorers = db\scorers\all();
+        $view->userscorers = db\scorers\users();
+        die($view);
+    });
+    post('/admin/scorers', function() {
+        if (!ADMIN) redirect('~/unauthorized');
+        $form = new form($_POST);
+        $form->scorer->filter('trim', specialchars(), minlength(3));
+        $form->team->filter('db\teams\exists');
+        $form->goals->filter('int', 'intval');
+        if ($form->validate()) {
+            $changes = db\scorers\add($form->scorer->value, $form->team->value, $form->goals->value);
+            if ($changes > 0) {
+                cache_delete(TOURNAMENT_ID . ':points');
+                cache_delete(TOURNAMENT_ID . ':points:history');
+                cache_delete(TOURNAMENT_ID . ':scorers');
+                redirect('~/admin/scorers');
+            }
+        }
+        $view = new view(DIR . '/views/admin.scorers.phtml');
+        $view->error = true;
+        $view->title = 'Maalintekijät';
+        $view->menu = 'admin/scorers';
+        $view->teams = db\teams\all();
+        $view->scorers = db\scorers\all();
+        $view->userscorers = db\scorers\users();
+        die($view);
+    });
+    post('/admin/scorers/map', function() {
+        if (!ADMIN) redirect('~/unauthorized');
+        $form = new form($_POST);
+        $form->scorer->filter('trim', specialchars(), minlength(3));
+        $form->betted->filter('trim', specialchars(), minlength(3));
+        if ($form->validate()) {
+            db\scorers\map($form->scorer->value, $form->betted->value);
             cache_delete(TOURNAMENT_ID . ':points');
             cache_delete(TOURNAMENT_ID . ':points:history');
             cache_delete(TOURNAMENT_ID . ':scorers');
-            redirect('~/admin/scorers');
+        } else {
+            status(500);
         }
-    }
-    $view = new view(DIR . '/views/admin.scorers.phtml');
-    $view->error = true;
-    $view->title = 'Maalintekijät';
-    $view->menu = 'admin/scorers';
-    $view->teams = db\teams\all();
-    $view->scorers = db\scorers\all();
-    $view->userscorers = db\scorers\users();
-    die($view);
-});
-post('/admin/scorers/map', function() {
-    if (!ADMIN) redirect('~/unauthorized');
-    $form = new form($_POST);
-    $form->scorer->filter('trim', specialchars(), minlength(3));
-    $form->betted->filter('trim', specialchars(), minlength(3));
-    if ($form->validate()) {
-        db\scorers\map($form->scorer->value, $form->betted->value);
-        cache_delete(TOURNAMENT_ID . ':points');
-        cache_delete(TOURNAMENT_ID . ':points:history');
-        cache_delete(TOURNAMENT_ID . ':scorers');
-    } else {
-        status(500);
-    }
-    die();
-});
-post('/admin/scorers/%p', function($scorer) {
-    if (!ADMIN) redirect('~/unauthorized');
-    $scorer = urldecode($scorer);
-    $form = new form($_POST);
-    $form->goals->filter('int', 'intval');
-    if ($form->validate()) {
-        db\scorers\goals($scorer, $form->goals->value);
-        cache_delete(TOURNAMENT_ID . ':points');
-        cache_delete(TOURNAMENT_ID . ':points:history');
-        cache_delete(TOURNAMENT_ID . ':scorers');
-    } else {
-        status(500);
-    }
-    die();
-});
+        die();
+    });
+    post('/admin/scorers/%p', function($scorer) {
+        if (!ADMIN) redirect('~/unauthorized');
+        $scorer = urldecode($scorer);
+        $form = new form($_POST);
+        $form->goals->filter('int', 'intval');
+        if ($form->validate()) {
+            db\scorers\goals($scorer, $form->goals->value);
+            cache_delete(TOURNAMENT_ID . ':points');
+            cache_delete(TOURNAMENT_ID . ':points:history');
+            cache_delete(TOURNAMENT_ID . ':scorers');
+        } else {
+            status(500);
+        }
+        die();
+    });
+}
 get('/admin/users', function() {
     if (!ADMIN) redirect('~/unauthorized');
     $view = new view(DIR . '/views/admin.users.phtml');
@@ -206,10 +202,13 @@ post('/admin/users', function() {
     }
     die();
 });
-get('/admin/config', function() {
+get('/admin/email', function() {
     if (!ADMIN) redirect('~/unauthorized');
-    $view = new view(DIR . '/views/admin.config.phtml');
-    $view->title = 'Konfiguraatio';
-    $view->menu = 'admin/config';
+    $view = new view(DIR . '/views/admin.email.phtml');
+    $view->title = 'Sähköpostiosoitteet';
+    $view->menu = 'admin/email';
+    $view->team_emails = db\users\teams_not_betted();
+    $view->game_emails = db\users\games_not_betted();
+    $view->emails = db\users\emails();
     die($view);
 });

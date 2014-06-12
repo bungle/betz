@@ -1,0 +1,10 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<h1><?php echo $title; ?> <small>nämä keskustelut ovat julkisia</small></h1>
+<hr />
+<a class="moot" href="https://api.moot.it/mm2013?mm2013"></a>
+<?php block($css); ?>
+<link rel="stylesheet" href="https://cdn.moot.it/latest/moot.css"/>
+<?php block(); ?>
+<?php block($scripts); ?>
+<script src="https://cdn.moot.it/latest/moot.min.js"></script>
+<?php block(); ?>

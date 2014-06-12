@@ -6,92 +6,90 @@
 <?php if (isset($meta)) echo $meta; ?>
 <title><?php echo isset($title) ? $title . ' - ' . TOURNAMENT_NAME . ' -hupilyönti' : TOURNAMENT_NAME . ' -hupilyönti'; ?></title>
 <link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/dark-hive/jquery-ui.css">
+<link rel="stylesheet" href="<?php echo url('~/css/typography.css'); ?>">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.22//themes/dark-hive/jquery-ui.css">
 <link rel="stylesheet" href="<?php echo url('~/css/jquery.pnotify.css'); ?>">
 <link rel="stylesheet" href="<?php echo url('~/css/flags.css'); ?>">
-<link rel="stylesheet" href="<?php echo url('~/css/style.css'); ?>">
-<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo url('~/css/960.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/menu.css'); ?>">
+<link rel="stylesheet" href="<?php echo url('~/css/main.css?') . md5_file('css/main.css'); ?>">
 <?php if (isset($css)) echo $css; ?>
 </head>
-<body id="default" style="padding-top: 40px;">
-        <div class="topbar" id="navigation">
-            <div id="menu" class="topbar-inner">
-	        <div class="container">
-                    <ul class="nav">
-                        <li<?php if ($menu == 'main') echo ' class="active"' ?>><a href="<?php echo url('~/'); ?>" class="parent"><span>Etusivu</span></a></li>
-                        <li<?php if ($menu == 'bets/games') echo ' class="active"' ?>><a href="<?php echo url('~/bets/games'); ?>"><span>Otteluveikkaus</span></a></li>
-                        <li<?php if ($menu == 'bets/teams') echo ' class="active"' ?>><a href="<?php echo url('~/bets/teams'); ?>"><span>Kolmen kärki &trade;</span></a></li>
-                        <li<?php if ($menu == 'bets/scorer') echo ' class="active"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
-                        <li<?php if ($menu == 'points') echo ' class="active"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
-                        <li<?php if ($menu == 'stats') echo ' class="active"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
-                        <li<?php if ($menu == 'program') echo ' class="active"' ?>><a href="<?php echo url('~/program'); ?>"><span>Otteluohjelma</span></a></li>
-                        <li<?php if ($menu == 'rules') echo ' class="active"' ?>><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
-                        <li<?php if ($menu == 'chat') echo ' class="active"' ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
-                        <?php if (ADMIN): ?>
-                            <li class="dropdown">
-                                <a href="<?php echo url('~/admin'); ?>" class="dropdown-toggle"><span>Ylläpito</span></a>
-                                  <ul class="dropdown-menu">
-                                    <li<?php if ($menu == 'admin/news') echo ' class="active"' ?>><a href="<?php echo url('~/admin/news'); ?>"><span>Uutiset</span></a></li>
-                                    <li<?php if ($menu == 'admin/games') echo ' class="active"' ?>><a href="<?php echo url('~/admin/games'); ?>"><span>Ottelut</span></a></li>
-                                    <li<?php if ($menu == 'admin/teams') echo ' class="active"' ?>><a href="<?php echo url('~/admin/teams'); ?>"><span>Joukkueet</span></a></li>
-                                    <li<?php if ($menu == 'admin/scorers') echo ' class="active"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
-                                    <li<?php if ($menu == 'admin/users') echo ' class="active"' ?>><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
-			            <li class="divider"></li>
-                                    <li class="<?php if ($menu == 'admin/config') echo 'active"' ?>"><a href="<?php echo url('~/admin/config'); ?>"><span>Konfiguraatio</span></a></li>
-                                  </ul>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-	        </div>
-            </div>
-	</div>
-    <header class="header" style="background-color: #68b05c;background-image: -moz-linear-gradient(#61a059, #68b05c);background-repeat: no-repeat;">
-        <div class="inner" style="background: url('../img/test-header.gif') repeat scroll center top transparent;padding: 45px 0;">
-            <div class="container">
-		<h1>Betz betting platform</h1>
-		<p class="lead">Tournament betting platform</p>
-		<p>Some general shit about everything</p>
-<?php /*
+<body id="default">
+<div id="container" class="container_12">
+<div id="container-top">
+    <div id="header">
+        <div id="user-buttons" style="float: right; text-align: center;">
             <button id="user-profile"><?php echo username; ?></button>
             <button id="user-logoff">Kirjaudu ulos</button>
+            <br>
             <div id="pot" class="success ui-corner-top ui-corner-bottom">
                 <h4><?php echo isset($pot) ? $pot : 0; ?> &euro;</h4>
             </div>
-            </div>
-*/ ?>
         </div>
-    </header>
-<div id="container" class="container">   
-<div id="container-main" class="span16">
-    <div id="main" style="padding-top:60px;">
-        <div id="main-left" class="span16">
+        <div class="clear"></div>
+    </div>
+    <div id="navigation">
+        <div id="menu">
+            <ul class="menu">
+                <li<?php if ($menu == 'chat') echo ' class="current' . (ADMIN ?  '"' : ' last"'); ?>><a href="<?php echo url('~/chat'); ?>"><span>Kisachat</span></a></li>
+                <li<?php if ($menu == 'bets/games') echo ' class="current"' ?>><a href="<?php echo url('~/bets/games'); ?>"><span>Otteluveikkaus</span></a></li>
+                <li<?php if ($menu == 'bets/teams') echo ' class="current"' ?>><a href="<?php echo url('~/bets/teams'); ?>"><span>Kolmen kärki &trade;</span></a></li>
+                <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+                    <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
+                <?php endif; ?>
+                <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
+                <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
+                <li class="<?php if ($menu == 'rules') echo 'current'; ?><?php if (!ADMIN): ?> last<?php endif; ?>"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
+                <?php if (ADMIN): ?>
+                    <li class="<?php if ($menu == 'admin' || substr($menu, 0, 5) == 'admin') echo 'current'; ?> parent last">
+                        <a name="admin"><span>Ylläpito</span></a>
+                        <div>
+                            <ul>
+                                <li<?php if ($menu == 'admin/games') echo ' class="current"' ?>><a href="<?php echo url('~/admin/games'); ?>"><span>Ottelut</span></a></li>
+                                <li<?php if ($menu == 'admin/teams') echo ' class="current"' ?>><a href="<?php echo url('~/admin/teams'); ?>"><span>Joukkueet</span></a></li>
+                                <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+                                    <li<?php if ($menu == 'admin/scorers') echo ' class="current"' ?>><a href="<?php echo url('~/admin/scorers'); ?>"><span>Maalintekijät</span></a></li>
+                                <?php endif; ?>
+                                <li class="<?php if ($menu == 'admin/users') echo 'current"' ?>"><a href="<?php echo url('~/admin/users'); ?>"><span>Käyttäjät</span></a></li>
+                                <li class="<?php if ($menu == 'admin/email') echo 'current"' ?> last"><a href="<?php echo url('~/admin/email'); ?>"><span>Sähköpostiosoitteet</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="container-main">
+    <div id="main">
+        <div id="main-left" class="grid_12">
             <?php echo $view; ?>
         </div>
     </div>
 </div>
-
 <div class="clear bottom-spacer"></div>
-</div>
-<footer class="footer" style="height: 100%;">
-        <div class="container">
+<div id="container-bottom">
+    <div id="footer">
+        <div class="grid_12">
             <span>
-                Tekninen toteutus: <a href="http://www.php.net/" target="_blank">PHP</a>, <a href="http://code.google.com/p/web-dot-php/" target="_blank">web.php</a>, <a href="http://www.sqlite.org/" target="_blank">SQLite</a>, <a href="http://jquery.com/" target="_blank">jQuery</a> <a href="http://jqueryui.com/" target="_blank">UI</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>, <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>
+                Tekninen toteutus: <a href="http://www.php.net/" target="_blank">PHP</a>, <a href="http://bungle.github.com/web.php/" target="_blank">web.php</a>, <a href="http://www.sqlite.org/" target="_blank">SQLite</a>, <a href="http://jquery.com/" target="_blank">jQuery</a> <a href="http://jqueryui.com/" target="_blank">UI</a>, <a href="http://960.gs/" target="_blank">960 Grid System</a>, <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>, <a href="http://apycom.com/" target="_blank">Apycom Menus</a>
             </span>
             <span style="float: right;">
                 Sivun suoritusaika: <span class="time"><?php echo number_format((microtime(true) - START_TIME), 2, ',', ' '); ?></span> sekuntia.
             </span>
         </div>
-</footer>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    </div>
+</div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="<?php echo url('~/js/jquery.menu.js'); ?>"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/i18n/jquery.ui.datepicker-fi.min.js"></script>
 <script src="<?php echo url('~/js/jquery.pnotify.js'); ?>"></script>
 <script src="<?php echo url('~/js/jquery.qtip.js'); ?>"></script>
 <script src="<?php echo url('~/js/main.js?') . md5_file('js/main.js'); ?>"></script>
-<script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
 <script>
-$('#navigation').dropdown();
-
 $("#user-profile").button({
     icons: {
         primary: "profile-ui-img"

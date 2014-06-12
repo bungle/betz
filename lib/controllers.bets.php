@@ -52,44 +52,46 @@ post('/bets/teams/%d', function($position) {
     }
     die();
 });
-get('/bets/scorer', function() {
-    if (!AUTHENTICATED) redirect('~/unauthorized');
-    $view = new view(DIR . '/views/bets.scorer.phtml');
-    if (isset($_SESSION['saved'])) {
-        $view->saved = true;
-    }
-    $view->title = 'Maalikuninkuus';
-    $view->form = new form();
-    $view->menu = 'bets/scorer';
-    $view->start = db\games\start();
-    $view->online = db\users\visited(username, 'Maalikuninkuus');
-    die($view);
-});
-post('/bets/scorer', function() {
-    if (!AUTHENTICATED) redirect('~/unauthorized');
-    $form = new form($_POST);
-    $form->scorer->filter('trim', specialchars(), minlength(3));
-    $view = new view(DIR . '/views/bets.scorer.phtml');
-    $view->start = db\games\start();
-    if ($form->validate()) {
-        if (!STARTED) {
-            db\bets\scorer(username, $form->scorer);
-            cache_delete(TOURNAMENT_ID . ':points');
-            cache_delete(TOURNAMENT_ID . ':points:history');
-            db\users\visited(username, 'Maalikuninkuus');
-            flash('saved', true);
-            redirect('~/bets/scorer');
-        } else {
-            $view->title = 'Maalikuninkuus';
-            $view->menu = 'bets/scorer';
-            $view->form = $form;
-            $view->closed = true;
-            die($view);
+if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
+    get('/bets/scorer', function() {
+        if (!AUTHENTICATED) redirect('~/unauthorized');
+        $view = new view(DIR . '/views/bets.scorer.phtml');
+        if (isset($_SESSION['saved'])) {
+            $view->saved = true;
         }
-    } 
-    $view->title = 'Maalikuninkuus';
-    $view->menu = 'bets/scorer';
-    $view->form = $form;
-    $view->error = true;
-    die($view);
-});
+        $view->title = 'Maalikuninkuus';
+        $view->form = new form();
+        $view->menu = 'bets/scorer';
+        $view->start = db\games\start();
+        $view->online = db\users\visited(username, 'Maalikuninkuus');
+        die($view);
+    });
+    post('/bets/scorer', function() {
+        if (!AUTHENTICATED) redirect('~/unauthorized');
+        $form = new form($_POST);
+        $form->scorer->filter('trim', specialchars(), minlength(3));
+        $view = new view(DIR . '/views/bets.scorer.phtml');
+        $view->start = db\games\start();
+        if ($form->validate()) {
+            if (!STARTED) {
+                db\bets\scorer(username, $form->scorer);
+                cache_delete(TOURNAMENT_ID . ':points');
+                cache_delete(TOURNAMENT_ID . ':points:history');
+                db\users\visited(username, 'Maalikuninkuus');
+                flash('saved', true);
+                redirect('~/bets/scorer');
+            } else {
+                $view->title = 'Maalikuninkuus';
+                $view->menu = 'bets/scorer';
+                $view->form = $form;
+                $view->closed = true;
+                die($view);
+            }
+        } 
+        $view->title = 'Maalikuninkuus';
+        $view->menu = 'bets/scorer';
+        $view->form = $form;
+        $view->error = true;
+        die($view);
+    });
+}

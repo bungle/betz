@@ -56,21 +56,21 @@ SQL;
         $points = array();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             $points[$i] = $row;
-            if ($total != $row['total_points']) {
+            if ($total !== $row['total_points']) {
                 $total = $row['total_points'];
                 $points[$j]['keyrow'] = true;
                 $points[$j]['rowspan'] = $rowspan;
                 $points[$i]['position'] = $position;
                 $j = $i;
                 $rowspan = 1;
-                $position++;
             } else {
-                $points[$i]['position'] = $position - 1;
+                $points[$i]['position'] = $position - $rowspan;
                 $points[$i]['rowspan'] = $rowspan;
                 $points[$i]['keyrow'] = false;
                 $rowspan++;
             }
             $i++;
+            $position++;
         }
         $points[$j]['rowspan'] = $rowspan;
         $points[$j]['keyrow'] = true;
@@ -211,13 +211,13 @@ SQL;
         FROM
             games g
         INNER JOIN
-            users u
-        ON
-            b.user = u.username
-        INNER JOIN
             gamebets b
         ON
             g.id = b.game
+        INNER JOIN
+            users u
+        ON
+            b.user = u.username
         WHERE
             DATE(g.time) <= :day
             AND
@@ -225,52 +225,48 @@ SQL;
         GROUP BY
             user
         ORDER BY
-            LOWER(user) ASC
+            points DESC
 SQL;
         $stm = $db->prepare($sql);
         $data = new \stdClass();
         $data->categories = array();
         $data->series = array();
-        $points = array();
-        $j = 0;
-        
         foreach($days as $day) {
-            $points[$j] = array();
-            
-            $i = 0;
-           
-            
             $data->categories[] = date_format(date_create($day), 'j.n.');
             $stm->bindValue(':day', $day, SQLITE3_TEXT);
             $res = $stm->execute();
-            
+            $i = 1;
+            $position = 1;
+            $prev = -1;
             while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
-                if (!isset($data->series[$i])) {
-                    $data->series[$i] = new \stdClass();
-                    $data->series[$i]->name = $row['user'];
-                    $data->series[$i]->data = array();
+                if ($prev !== $row['points']) $position = $i;
+                $user = mb_strtolower($row['user'], 'UTF-8');
+                if (!isset($data->series[$user])) {
+                    $data->series[$user] = new \stdClass();
+                    $data->series[$user]->name = $row['user'];
+                    $data->series[$user]->data = array();
                 }
-                $point = round($row['points'], 2);
-                $points[$j][] = $point;
-                $data->series[$i]->data[] = $point;
+                $data->series[$user]->data[] = $position;
+                $prev = $row['points'];
                 $i++;
             }
-            
             $res->finalize();
-            $p = $points[$j];
-            $p = array_unique($p, SORT_NUMERIC);
-            rsort($p, SORT_NUMERIC);
-            $points[$j] = $p;
-            $j++;
         }
- 
-        $stm->close();
-
-        foreach ($data->series as &$serie) {
-            for ($i = 0; $i < count($serie->data); $i++) {
-               $serie->data[$i] = (int)array_search($serie->data[$i], $points[$i], true) + 1;
-            }
-        }
+        ksort($data->series);
+        $data->series = array_values($data->series);
         return $data;
+    }
+    function leaders($max = 1) {
+        $points = cache_fetch(TOURNAMENT_ID . ':points');
+        if ($points === false) {
+            $points = points();
+            cache_store(TOURNAMENT_ID . ':points', $points);
+        }
+        $leaders = array();
+        foreach($points as $point) {
+            if ($point['position'] > $max) break;
+            $leaders[$point['username']] = $point['position'];
+        }
+        return $leaders;
     }
 }
