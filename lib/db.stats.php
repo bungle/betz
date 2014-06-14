@@ -65,8 +65,8 @@ SQL;
         $points = array();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             $points[$i] = $row;
-            if ($total !== $row['total_points']) {
-                $total = $row['total_points'];
+            if ($total !== $row[$order]) {
+                $total = $row[$order];
                 $points[$j]['keyrow'] = true;
                 $points[$j]['rowspan'] = $rowspan;
                 $points[$i]['position'] = $position;
