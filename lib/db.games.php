@@ -13,7 +13,7 @@ namespace db\games {
     function bets($id) {
         $bets = array();
         $db = \db\connect();
-        $stm = $db->prepare('SELECT * FROM gamebets WHERE game = :id ORDER BY LOWER(user)');
+        $stm = $db->prepare('SELECT b.* FROM gamebets b INNER JOIN users u ON b.user = u.username WHERE game = :id AND u.active = 1 ORDER BY LOWER(user)');
         $stm->bindValue(':id', $id, SQLITE3_INTEGER);
         $res = $stm->execute();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) $bets[] = $row;
