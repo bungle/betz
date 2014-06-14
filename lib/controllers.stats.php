@@ -6,7 +6,7 @@ get('/points', function() {
     $view->menu = 'points';
     $points = cache_fetch(TOURNAMENT_ID . ':points');
     if ($points === false) {
-        $points = db\stats\points();
+        $points = db\stats\points(isset($_GET['order']) ? $_GET['order'] : 'total');
         cache_store(TOURNAMENT_ID . ':points', $points);
     }
     $view->points = $points;
@@ -28,7 +28,7 @@ get('/points/%p', function($username) {
     $view->menu = 'points';
     $points = cache_fetch(TOURNAMENT_ID . ':points');
     if ($points === false) {
-        $points = db\stats\points();
+        $points = db\stats\points(isset($_GET['order']) ? $_GET['order'] : 'total');
         cache_store(TOURNAMENT_ID . ':points', $points);
     }
     $points = array_filter($points, function($point) use ($username) {

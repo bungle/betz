@@ -20,17 +20,17 @@
         <th>Maalikuningas</th>
         <?php endif; ?>
         <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
-        <th><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
         <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
-        <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
         <?php else: ?>
-        <th><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></th>
+        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
         <?php endif; ?>
-        <th><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></th>
+        <th><a href="?order=team"><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></a></th>
         <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-        <th><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></th>
+        <th><a href="?order=scorer"><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></a></th>
         <?php endif; ?>
-        <th><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></th>
+        <th><a href="?order=total"><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></a></th>
     </tr>
 </thead>
 <tbody>

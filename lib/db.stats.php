@@ -1,7 +1,16 @@
 <?php
 namespace db\stats {
-    function points() {
-        $sql =<<< 'SQL'
+    function points($order = 'total') {
+        if ($order === 'game') {
+            $order = 'game_points';
+        } elseif ($order === 'team') {
+            $order = 'team_points';
+        } elseif ($order === 'scorer') {
+            $order = 'scorer_points';
+        } else {
+            $order = 'total_points';
+        }
+        $sql =<<< "SQL"
         SELECT
             u.username               AS username,
             u.paid                   AS paid,
@@ -43,7 +52,7 @@ namespace db\stats {
             HAVING
                 u.active = 1
             ORDER BY
-                total_points DESC,
+                {$order} DESC,
                 LOWER(username) ASC
 SQL;
         $db = \db\connect();
