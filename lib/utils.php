@@ -94,7 +94,7 @@ function portlets() {
     $pot = \db\users\paid() * ENTRY_FEE;
     if (defined('POT_ADJUSTMENT')) $pot += POT_ADJUSTMENT;
     view::register('pot', $pot);
-    view::register('upcoming', \db\bets\games(username, 2));
+    view::register('upcoming', \db\bets\games(username, 4));
     view::register('played', \db\games\played());
 }
 function notify($title, $text = null, $type = 'notice') {
