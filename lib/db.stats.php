@@ -135,18 +135,18 @@ SQL;
             teams t
         ON
             s.team = t.name
-        LEFT OUTER JOIN
+        INNER JOIN
             scorermap m
         ON
             s.name = m.scorer
-        LEFT OUTER JOIN
+        INNER JOIN
             users u
         ON
-            u.scorer = m.betted
+            u.scorer = m.betted AND u.active = 1
         GROUP BY
             s.name
         HAVING
-            goals > 0
+            goals > -1
         ORDER BY
             goals DESC, team, scorer
 
