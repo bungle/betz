@@ -34,6 +34,8 @@ get('/chat', function() {
     $view->menu = 'chat';
     $view->smileys = smileys_array();
     $view->online = db\users\visited(username, 'Kisachat');
+    $view->hide_teams = true;
+    $view->hide_scorer = true;
     $_SESSION['last-chat-message-id'] = $last;
     if (count($messages) > 0) {
         $chat = new view(DIR . '/views/chat.messages.phtml');

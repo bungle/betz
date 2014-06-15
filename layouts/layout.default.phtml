@@ -138,7 +138,7 @@
                     </div>
                 </div>
                 <?php endif; ?>
-                <?php if ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0)): ?>
+                <?php if (!isset($hide_scorer) && ((isset($user['scorer']) && strlen($user['scorer']) > 0) || (isset($user['scorer_betted']) && strlen($user['scorer_betted']) > 0))): ?>
                 <div class="block-spacer"></div>
                 <div class="block">
                     <h3 class="ui-corner-top">Maalikuningas</h3>
