@@ -163,7 +163,7 @@
                                     <?php if (isset($game['score'])): ?>
                                     <td nowrap="nowrap"><div style="font-size: 0.85em; padding: 0;"><?php echo $game['home_goals_total'] . '&ndash;' . $game['road_goals_total'];?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></div></td>
                                     <?php else: ?>
-                                    <td nowrap="nowrap"><div style="font-size: 0.85em; padding: 0;">(<?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%)</div></td>
+                                    <td nowrap="nowrap"><div style="font-size: 0.65em; padding: 0;"><?php echo number_format($game['home_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['draw_percent'], 0, ',', '') . '%,&nbsp;' . number_format($game['road_percent'], 0, ',', ''); ?>%</div></td>
                                     <?php endif; ?>
                                     <td width="100%" style="text-align: right;"><a href="<?= url('~/bets/games/' . $game['id']) ?>"><img src="/img/ranking.png" width="16" height="16" title="Veikkaukset" alt="Veikkaukset"></a>&nbsp;&nbsp;</td>
                                 </tr>
