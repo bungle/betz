@@ -109,11 +109,11 @@
 <tr>
     <td class="<?php echo $clazz; ?> f32"><?php echo weekday($date, 2) . '&nbsp;' . date_format($date, 'j.n.\&\n\b\s\p\;H:i'); ?></td>
     <td class="<?php echo $clazz; ?> f32" style="width: 390px;" nowrap>
-        <div style="width: 154px; float: left; text-align: right"><?php echo $game['home'] . '&nbsp;(' . number_format($game['home_percent'], 2, ',', '') . '&nbsp;%)'; ?>&nbsp;</div>
+        <div style="width: 154px; float: left; text-align: right"><?php echo ($game['home'] === 'Bosnia ja Hertsegovina' ? 'Bosnia ja H.' : $game['home']) . '&nbsp;(' . number_format($game['home_percent'], 2, ',', '') . '&nbsp;%)'; ?>&nbsp;</div>
         <div style="width: 32px; float: left;" class="flag <?php echo $game['home_abbr']; ?>">&nbsp;</div>
         <div style="width: 16px; float: left; text-align: center">&ndash;</div>
         <div style="width: 32px; float: left;" class="flag  <?php echo $game['road_abbr']; ?>">&nbsp;</div>
-        <div style="width: 154px; float: left; text-align: left">&nbsp;<?php echo '(' . number_format($game['road_percent'], 2, ',', '') . '&nbsp;%)&nbsp;' . $game['road'];  ?></div>
+        <div style="width: 154px; float: left; text-align: left">&nbsp;<?php echo '(' . number_format($game['road_percent'], 2, ',', '') . '&nbsp;%)&nbsp;' . ($game['road'] === 'Bosnia ja Hertsegovina' ? 'Bosnia ja H.' : $game['road']);  ?></div>
         <div class="clear"></div>
     </td>
     <td class="<?php echo $clazz; ?>" nowrap><?php echo $game['home_goals_total'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals_total']; ?><?php if($game['home_goals'] != $game['home_goals_total'] || $game['road_goals'] != $game['road_goals_total']): ?>&nbsp;&nbsp;(<?php echo $game['home_goals'] . '&nbsp;&ndash;&nbsp;' . $game['road_goals']; ?>)<?php endif; ?></td>
