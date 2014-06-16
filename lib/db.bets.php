@@ -82,6 +82,11 @@ SQL;
         $stm->close();
         return $row !== false;
     }
+    function ended() {
+        $db = \db\connect();
+        $ended = $db->querySingle('SELECT 1 FROM teams WHERE ranking = 1 LIMIT 1', false);
+        return $ended !== false && $ended !== null;
+    }
     function notbetted($username) {
         $sql =<<< 'SQL'
         SELECT

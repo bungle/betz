@@ -7,8 +7,10 @@ namespace db\stats {
             $order = 'team_points';
         } elseif ($order === 'scorer') {
             $order = 'scorer_points';
-        } else {
+        } elseif ($order === 'total') {
             $order = 'total_points';
+        } else {
+            $order = \db\bets\ended() ? 'total_points' : 'game_points';
         }
         $sql =<<< "SQL"
         SELECT
@@ -268,7 +270,7 @@ SQL;
     function leaders($max = 1) {
         $points = cache_fetch(TOURNAMENT_ID . ':points');
         if ($points === false) {
-            $points = points();
+            $points = points((\db\bets\ended() ? 'total' : 'game'));
             cache_store(TOURNAMENT_ID . ':points', $points);
         }
         $leaders = array();

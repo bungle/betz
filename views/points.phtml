@@ -64,7 +64,9 @@
     <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
     <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo $point['team_points']; ?></td>
     <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-    <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo $point['scorer_points']; ?></td>
+    <td<?php echo ($point['username'] === username) ? (' class="current-user' . ($point['scorer_points'] > 0 ? ' success' : '') . '"') : ($point['scorer_points'] > 0 ? ' class="current-user"' : ''); ?>>
+        <?php echo $point['scorer_points']; ?>
+    </td>
     <?php endif; ?>
     <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['total_points'], 2, ',', ''); ?></td>
 </tr>
