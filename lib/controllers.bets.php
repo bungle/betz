@@ -25,7 +25,9 @@ post('/bets/games/%d', function($game) {
     $form = new form($_POST);
     $form->score->filter(choice('1', 'X', '2'));
     if ($form->validate() && !db\games\started($game)) {
-        db\bets\game($game, username, $form->score->value);
+        if (db\bets\game($game, username, $form->score->value) === false) {
+            status(500);
+        }
     } else {
         status(500);
     }

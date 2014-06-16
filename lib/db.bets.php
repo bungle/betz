@@ -33,8 +33,9 @@ SQL;
         $stm->bindValue(':game', $game, SQLITE3_INTEGER);
         $stm->bindValue(':user', $user, SQLITE3_TEXT);
         $stm->bindValue(':score', $score, SQLITE3_TEXT);
-        $stm->execute();
+        $ok = $stm->execute();
         $stm->close();
+        return $ok !== false;
     }
     function winner($user, $team) {
         team($user, $team, 'winner');
