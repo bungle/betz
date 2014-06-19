@@ -24,7 +24,10 @@ post('/registration', function() {
             if (db\users\username_taken($form->username->value)) $view->username_taken = true;
             if (db\users\email_taken($form->email->value)) $view->email_taken = true;
         } else {
-            cache_delete(TOURNAMENT_ID . ':points');
+            cache_delete(TOURNAMENT_ID . ':points:total');
+            cache_delete(TOURNAMENT_ID . ':points:game');
+            cache_delete(TOURNAMENT_ID . ':points:scorer');
+            cache_delete(TOURNAMENT_ID . ':points:team');
             cache_delete(TOURNAMENT_ID . ':points:history');
             login($form->username->value, true);
             redirect('~/');
@@ -72,7 +75,10 @@ post('/registration/google/confirm', function() {
             if (db\users\email_taken($form->email->value)) $view->email_taken = true;
         } else {
             unset($_SESSION['google-claim'], $_SESSION['google-email']);
-            cache_delete(TOURNAMENT_ID . ':points');
+            cache_delete(TOURNAMENT_ID . ':points:total');
+            cache_delete(TOURNAMENT_ID . ':points:game');
+            cache_delete(TOURNAMENT_ID . ':points:scorer');
+            cache_delete(TOURNAMENT_ID . ':points:team');
             cache_delete(TOURNAMENT_ID . ':points:history');
             login($form->username->value, true);
             redirect('~/');

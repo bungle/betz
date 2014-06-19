@@ -4,12 +4,17 @@ get('/points', function() {
     $view = new view(DIR . '/views/points.phtml');
     $view->title = 'Pistetilanne';
     $view->menu = 'points';
-    $points = cache_fetch(TOURNAMENT_ID . ':points');
+    $order = isset($_GET['order']) ? $_GET['order'] : '';
+    if ($order !== 'game' && $order !== 'team' && $order !== 'scorer' && $order !== 'total') {
+        $order = \db\bets\ended() ? 'total' : 'game';
+    }
+    $points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
     if ($points === false) {
-        $points = db\stats\points(isset($_GET['order']) ? $_GET['order'] : (db\bets\ended() ? 'total' : 'game'));
-        cache_store(TOURNAMENT_ID . ':points', $points);
+        $points = db\stats\points($order);
+        cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
     }
     $view->points = $points;
+    $view->gamepoints = \db\stats\gamepoints();
     $scorers = cache_fetch(TOURNAMENT_ID . ':scorers');
     if ($scorers === false) {
         $scorers = db\stats\scorers();
@@ -26,10 +31,14 @@ get('/points/%p', function($username) {
     $view->title = username === $username ? 'Omat pisteet' : "Pistetilanne ($username)";
     $view->title_games = username === $username ? 'Omat otteluveikkaukset' : "Otteluveikkaukset";
     $view->menu = 'points';
-    $points = cache_fetch(TOURNAMENT_ID . ':points');
+    $order = isset($_GET['order']) ? $_GET['order'] : '';
+    if ($order !== 'game' && $order !== 'team' && $order !== 'scorer' && $order !== 'total') {
+        $order = \db\bets\ended() ? 'total' : 'game';
+    }
+    $points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
     if ($points === false) {
-        $points = db\stats\points(isset($_GET['order']) ? $_GET['order'] : (db\bets\ended() ? 'total' : 'game'));
-        cache_store(TOURNAMENT_ID . ':points', $points);
+        $points = db\stats\points($order);
+        cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
     }
     $points = array_filter($points, function($point) use ($username) {
         return $point['username'] === $username;

@@ -2,7 +2,13 @@
 <?php block($css); ?>
 <link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
 <?php block(); ?>
-<h1><?php echo $title; ?></h1>
+<div class="grid_4 alpha">
+    <h1><?php echo $title; ?></h1>
+</div>
+<div class="grid_5 omega team-bet" style="text-align: right;">
+    <h4>Ottelupisteitä jaossa yhteensä <?php echo number_format($gamepoints, 2, ',', ''); ?></h4>
+</div>
+<div class="clear"></div>
 <hr>
 <?php if (!STARTED): ?>
 <div class="notice">Turnaus ei ole vielä alkanut, joten pistetaulukkoa ei vielä näytetä.</div>
@@ -49,13 +55,13 @@
         &nbsp;
         <?php endif; ?>
     </td>
-    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?>">
+    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?><?php echo $point['winner_ranking'] !== null && $point['winner_ranking'] !== '' && ($point['winner_ranking'] < 1 || $point['winner_ranking'] > 3) ? ' wrong' : ''?>">
         <div class="<?php echo isset($point['winner_abbr']) ? "flag " . $point['winner_abbr'] : ''; ?>" title="<?php echo isset($point['winner']) ? $point['winner'] : ''; ?>">&nbsp;</div>
     </td>
-    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?>">
+    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?><?php echo $point['second_ranking'] !== null && $point['second_ranking'] !== '' && ($point['second_ranking'] < 1 || $point['second_ranking'] > 3) ? ' wrong' : ''?>">
         <div class="<?php echo isset($point['second_abbr']) ? "flag " . $point['second_abbr'] : ''; ?>" title="<?php echo isset($point['second']) ? $point['second'] : ''; ?>">&nbsp;</div>
     </td>
-    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?>">
+    <td class="f32<?php echo ($point['username'] === username) ? ' current-user' : ''; ?><?php echo $point['third_ranking'] !== null && $point['third_ranking'] !== '' && ($point['third_ranking'] < 1 || $point['third_ranking'] > 3) ? ' wrong' : ''?>">
         <div class="<?php echo isset($point['third_abbr']) ? "flag " . $point['third_abbr'] : ''; ?>" title="<?php echo isset($point['third']) ? $point['third'] : ''; ?>">&nbsp;</div>
     </td>
     <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>

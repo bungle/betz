@@ -16,21 +16,24 @@ namespace db\stats {
         SELECT
             u.username               AS username,
             u.paid                   AS paid,
-            COALESCE(SUM(points), 0) AS game_points,
+            COALESCE(SUM(ROUND(points, 2)), 0) AS game_points,
             u.winner                 AS winner,
             u.winner_abbr            AS winner_abbr,
             u.winner_points          AS winner_points,
+            u.winner_ranking         AS winner_ranking,
             u.second                 AS second,
             u.second_abbr            AS second_abbr,
             u.second_points          AS second_points,
+            u.second_ranking         AS second_ranking,
             u.third                  AS third,
             u.third_abbr             AS third_abbr,
             u.third_points           AS third_points,
+            u.third_ranking          AS third_ranking,
             u.winner_points + u.second_points + u.third_points AS team_points,
             u.scorer                 AS scorer,
             u.scorer_betted          AS scorer_betted,
             u.scorer_points          AS scorer_points,
-            COALESCE(ROUND(SUM(points), 2), 0) + u.winner_points + u.second_points + u.third_points + u.scorer_points AS total_points
+            COALESCE(SUM(ROUND(points, 2)), 0) + u.winner_points + u.second_points + u.third_points + u.scorer_points AS total_points
             FROM
                 view_users u
             LEFT OUTER JOIN
@@ -268,10 +271,11 @@ SQL;
         return $data;
     }
     function leaders($max = 1) {
-        $points = cache_fetch(TOURNAMENT_ID . ':points');
+        $order = \db\bets\ended() ? 'total' : 'game';
+        $points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
         if ($points === false) {
-            $points = points((\db\bets\ended() ? 'total' : 'game'));
-            cache_store(TOURNAMENT_ID . ':points', $points);
+            $points = points();
+            cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
         }
         $leaders = array();
         foreach($points as $point) {
@@ -279,5 +283,9 @@ SQL;
             $leaders[$point['username']] = $point['position'];
         }
         return $leaders;
+    }
+    function gamepoints() {
+        $db = \db\connect();
+        return $db->querySingle('SELECT SUM(ROUND(points, 2)) FROM games', false);
     }
 }
