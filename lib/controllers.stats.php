@@ -63,7 +63,6 @@ get('/stats', function() {
     $view->online = db\users\visited(username, 'Tilastot');
     die($view);
 });
-
 get('/stats/history', function() {
     if (!AUTHENTICATED) redirect('~/unauthorized');
     header("Content-type: text/json");
@@ -73,4 +72,13 @@ get('/stats/history', function() {
         cache_store(TOURNAMENT_ID . ':points:history', $points);
     }    
     die(json_encode($points));
+});
+get('/teams', function() {
+    if (!AUTHENTICATED) redirect('~/unauthorized');
+    $view = new view(DIR . '/views/teams.phtml');
+    $view->title = 'Turnaustaulukko';
+    $view->menu = 'teams';
+    $view->teampoints = \db\stats\teampoints();
+    $view->online = db\users\visited(username, 'Turnaustaulukko');
+    die($view);
 });

@@ -1,0 +1,42 @@
+<?php $layout = 'layouts/layout.default.phtml'; ?>
+<?php block($css); ?>
+<link rel="stylesheet" href="<?php echo url('~/css/tablesorter.css'); ?>">
+<?php block(); ?>
+<h1><?php echo $title; ?></h1>
+<hr>
+<?php if (!STARTED): ?>
+<div class="notice">Turnaus ei ole vielä alkanut, joten turnaustaulukkoa ei vielä näytetä.</div>
+<?php else: ?>
+<table id="points" class="tablesorter">
+    <thead>
+    <tr>
+        <th style="text-align: left; line-height: 32px;">&nbsp; Joukkue</th>
+        <th>O</th>
+        <th>V</th>
+        <th>T</th>
+        <th>H</th>
+        <th>TM</th>
+        <th>PM</th>
+        <th>ME</th>
+        <th>P</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($teampoints as $tp): ?>
+        <tr>
+            <td class="f32" style="width: 125px; text-align: left;">
+                <div style="padding-left: 40px;" class="flag <?php echo $tp['abbr']; ?>"><?php echo $tp['name'] === "Bosnia ja Hertsegovina" ? "Bosnia ja H." : $tp['name']; ?></div>
+            </td>
+            <td><?php echo $tp['gp'] ?></td>
+            <td><?php echo $tp['w'] ?></td>
+            <td><?php echo $tp['d'] ?></td>
+            <td><?php echo $tp['l'] ?></td>
+            <td><?php echo $tp['gf'] ?></td>
+            <td><?php echo $tp['ga'] ?></td>
+            <td><?php echo $tp['gd'] ?></td>
+            <td><?php echo $tp['pts'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

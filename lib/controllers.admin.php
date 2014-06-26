@@ -74,7 +74,7 @@ get('/admin/games', function() {
     $view->title = 'Ottelut';
     $view->menu = 'admin/games';
     $view->form = new form;
-    $view->teams = db\teams\all();
+    $view->teams = db\teams\all(false);
     $view->games = db\games\all();
     die($view);
 });

@@ -39,6 +39,7 @@
                     <li<?php if ($menu == 'bets/scorer') echo ' class="current"' ?>><a href="<?php echo url('~/bets/scorer'); ?>"><span>Maalikuninkuus</span></a></li>
                 <?php endif; ?>
                 <li<?php if ($menu == 'points') echo ' class="current"' ?>><a href="<?php echo url('~/points'); ?>"><span>Pistetilanne</span></a></li>
+                <li<?php if ($menu == 'teams') echo ' class="current"' ?>><a href="<?php echo url('~/teams'); ?>"><span>Turnaustaulukko</span></a></li>
                 <li<?php if ($menu == 'stats') echo ' class="current"' ?>><a href="<?php echo url('~/stats'); ?>"><span>Tilastot</span></a></li>
                 <li class="<?php if ($menu == 'rules') echo 'current'; ?><?php if (!ADMIN): ?> last<?php endif; ?>"><a href="<?php echo url('~/rules'); ?>"><span>Säännöt</span></a></li>
                 <?php if (ADMIN): ?>

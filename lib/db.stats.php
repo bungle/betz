@@ -288,4 +288,34 @@ SQL;
         $db = \db\connect();
         return $db->querySingle('SELECT SUM(ROUND(points, 2)) FROM games', false);
     }
+    function teampoints() {
+        $sql =<<<'SQL'
+SELECT
+t.name,
+t.abbr,
+CASE t.ranking WHEN 0 THEN '-' ELSE t.ranking END AS ranking,
+(SELECT COUNT(1) FROM games WHERE (home = t.name AND score IS NOT NULL) OR (road = t.name AND score IS NOT NULL)) AS gp,
+(SELECT COUNT(1) FROM games WHERE (home = t.name AND score = '1') OR (road = t.name AND score = '2')) AS w,
+(SELECT COUNT(1) FROM games WHERE (home = t.name AND score = 'X') OR (road = t.name AND score = 'X')) AS d,
+(SELECT COUNT(1) FROM games WHERE (home = t.name AND score = '2') OR (road = t.name AND score = '1')) AS l,
+(SELECT COALESCE(SUM(home_goals), 0) FROM games WHERE home = t.name AND score IS NOT NULL) +
+(SELECT COALESCE(SUM(road_goals), 0) FROM games WHERE road = t.name AND score IS NOT NULL) AS gf,
+(SELECT COALESCE(SUM(home_goals), 0) FROM games WHERE road = t.name AND score IS NOT NULL) +
+(SELECT COALESCE(SUM(road_goals), 0) FROM games WHERE home = t.name AND score IS NOT NULL) AS ga,
+(SELECT COALESCE(SUM(home_goals), 0) FROM games WHERE home = t.name AND score IS NOT NULL) +
+(SELECT COALESCE(SUM(road_goals), 0) FROM games WHERE road = t.name AND score IS NOT NULL) -
+(SELECT COALESCE(SUM(home_goals), 0) FROM games WHERE road = t.name AND score IS NOT NULL) -
+(SELECT COALESCE(SUM(road_goals), 0) FROM games WHERE home = t.name AND score IS NOT NULL) AS gd,
+(SELECT COUNT(1) * 3 FROM games WHERE (home = t.name AND score = '1') OR (road = t.name AND score = '2')) +
+(SELECT COUNT(1)     FROM games WHERE (home = t.name AND score = 'X') OR (road = t.name AND score = 'X')) AS pts
+FROM teams AS t
+ORDER BY pts DESC, gd DESC, gf DESC, ga, name
+SQL;
+        $tp = array();
+        $db = \db\connect();
+        $res = $db->query($sql);
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $tp[] = $row;
+        $res->finalize();
+        return $tp;
+    }
 }

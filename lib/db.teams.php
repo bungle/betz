@@ -1,11 +1,17 @@
 <?php
 namespace db\teams {
-    function all() {
+    function all($idropped = true) {
         $teams = array();
         $db = \db\connect();
-        $res = $db->query('SELECT * FROM teams ORDER BY LOWER(name)');
-        while ($row = $res->fetchArray(SQLITE3_ASSOC)) $teams[] = $row;
-        $res->finalize();
+        if ($idropped) {
+            $res = $db->query('SELECT * FROM teams ORDER BY LOWER(name)');
+            while ($row = $res->fetchArray(SQLITE3_ASSOC)) $teams[] = $row;
+            $res->finalize();
+        } else {
+            $res = $db->query('SELECT * FROM teams WHERE ranking IS NULL OR ranking < 0 ORDER BY LOWER(name)');
+            while ($row = $res->fetchArray(SQLITE3_ASSOC)) $teams[] = $row;
+            $res->finalize();
+        }
         return $teams;
     }
     function add($name, $abbr) {
