@@ -1,0 +1,5 @@
+<?php
+define('BANK_ACCOUNT', 'XXXXXX-XXXXX');
+define('BANK_ACCOUNT_IBAN', 'XXXX XXXX XXXX XXXX X');
+define('BANK_ACCOUNT_HOLDER', 'Xxxx Xxxx');
+define('GOOGLE_ANALYTICS_ID', 'XX-XXXXXXXX-X');
