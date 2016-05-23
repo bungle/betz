@@ -52,14 +52,9 @@
             <input type="submit" value="Rekisteröidy"> <a href="<?php echo url('~/') ?>">Takaisin</a>
         </form>
     </div>
-    <div id="login-google-wrapper" style="float: right;">
-        <form id="login-form-google" action="<?php echo url('~/registration/google'); ?>" method="post">
-            <input class="tip-google" title="Rekisteröidy Google-tunnuksellasi" type="image" src="<?php echo url('~/img/google-openid.png'); ?>">
-        </form>
-    </div>
     <div class="clear"></div>
 </div>
-<h3 class="ui-corner-bottom">Voit rekisteröityä Google-tunnuksellasi klikkaamalla Googlen logoa.</h3>
+<h3 class="ui-corner-bottom">Käyttäjätunnus näkyy myös muille veikkaajille.</h3>
 <?php block($scripts); ?>
 <script>
 $(document).ready(function() {

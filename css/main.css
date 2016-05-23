@@ -2,7 +2,7 @@ html, body {
     margin:0;
     padding:0;
     height:100%;    
-    background: url('../img/bg-login-mm2014-6.jpg') no-repeat center center fixed;
+    background: url('../img/skates.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -28,7 +28,7 @@ box-shadow: 0 0 5px #888;
     color: #E5E5E5;
 }
 #header {
-    background: url(../img/header-bg-mm2014.png) #0C0203;
+    background: url(../img/bg-header-mm2016.jpg) #0C0203;
     padding: 10px 10px;
     height: 105px;
     color: white;

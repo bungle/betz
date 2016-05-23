@@ -18,14 +18,9 @@
             <input type="submit" value="Kirjaudu sisään"><?php if (!STARTED): ?> <a href="<?php echo url('~/registration'); ?>">Rekisteröidy</a><?php endif; ?>
         </form>
     </div>
-    <div id="login-google-wrapper" style="float: right;">
-        <form id="login-form-google" action="<?php echo url('~/login/google'); ?>" method="post">
-            <input class="tip-google" title="Kirjaudu sisään Google-tunnuksellasi" type="image" src="<?php echo url('~/img/google-openid.png'); ?>">
-        </form>
-    </div>
     <div class="clear"></div>
 </div>
-<h3 class="ui-corner-bottom">"m" = muista minut | Voit kirjautua Google-tunnuksellasi klikkaamalla logoa.</h3>
+<h3 class="ui-corner-bottom">"m" = muista minut</h3>
 <?php block($scripts); ?>
 <script>
 $(document).ready(function() {

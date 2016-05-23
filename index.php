@@ -7,13 +7,13 @@ setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
-define('TOURNAMENT_ID', 'mm2014');
-define('TOURNAMENT_NAME', 'Jalkapallon MM-kisat 2014');
-define('TOURNAMENT_TYPE', 'soccer'); //hockey or soccer
+define('TOURNAMENT_ID', 'mm2016');
+define('TOURNAMENT_NAME', 'Jääkiekon MM-kisat 2016');
+define('TOURNAMENT_TYPE', 'hockey'); //hockey or soccer
 define('EMAIL_SUPPORT', 'info@betz.io');
-define('ENABLE_SCORER', true);
+define('ENABLE_SCORER', false);
 define('GAME_POINTS_STRATEGY', 'exp');
-define('ENTRY_FEE', 15);
+define('ENTRY_FEE', 10);
 define('POT_ADJUSTMENT', 0);
 
 // Automatic configuration
@@ -57,7 +57,6 @@ require './lib/utils.php';
 require './lib/web.php';
 require './lib/log.php';
 require './lib/password.php';
-require './lib/openid.php';
 
 if (ENV === 'dev') {
     require './lib/ext/ChromePhp.php';
