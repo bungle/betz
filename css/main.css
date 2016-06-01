@@ -43,6 +43,7 @@ box-shadow: 0 0 5px #888;
 
 #user-buttons {
     padding: 0 0 0 0;
+    margin-right: 0;
 }
 .logoff-ui-img {
     background-image: url(../img/logoff.png) !important;
@@ -52,6 +53,18 @@ box-shadow: 0 0 5px #888;
 }
 #navigation {
     background: #4A5155;
+}
+div#menu span {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 41px;
+    margin: 0;
+}
+div#menu ul ul span {
+    text-transform: none;
+    line-height: 31px;
+    font-size: 12px;
 }
 #main {
     margin: 10px 0;
@@ -63,7 +76,7 @@ box-shadow: 0 0 5px #888;
     line-height: 41px;
     font-size: 0.85em;
     color: #495054;
-    bottom: 0px;
+    bottom: 0;
     background: url(../img/main-bg.png) top repeat-x #e5e5e5;
 }
 #footer a {
@@ -91,18 +104,32 @@ box-shadow: 0 0 5px #888;
 #chat img {
     margin-bottom: -4px;
 }
+.ui-button {
+    display: block;
+}
+label.ui-button,
+.ui-buttonset .ui-button,
+.ui-buttonset .ui-button .ui-button-text {
+    display: inline-block;
+}
+#user-logoff,
+#user-profile {
+    display: inline-block;
+}
+.ui-button .ui-button-text,
+input.ui-button {
+    line-height: 17px;
+}
+input.ui-button {
+}
 input#message, input#scorer, input.large {
-    margin-top: 2px;
-    line-height: 23px;
-    font-size: 1.25em;
-    height: 23px;
+    line-height: 24px;
 }
 input.large {
     width: 25px;
 }
 select.large {
     width: 150px;
-    height: 29px;
 }
 .bottom-spacer {
     height: 51px;
@@ -279,7 +306,7 @@ hr.thin {
     line-height: 32px;
 }
 div#pot.success {
-    margin: 16px 12px 0 0;
+    margin: 18px 0 0 0;
     float: right;
     padding: 5px;
 }
@@ -293,6 +320,9 @@ div#pot.success h4 {
 #seadragon {
 	width: 700px;
 	height: 450px;
+}
+.ugly {
+    display: none;
 }
 .file {
     padding-left: 40px;

@@ -1,7 +1,7 @@
 <?php $layout = 'layouts/layout.admin.phtml'; ?>
 <h1>Joukkueet</h1>
 <hr>
-<table id="bets" class="tablesorter">
+<table id="bets" class="tablesorter ugly">
 <tr>
     <th style="text-align: left;">Joukkue</th>
     <th style="text-align: center;">Lyhenne</th>
@@ -9,7 +9,7 @@
 </tr>
 <form method="post" action="<?php echo url('~/admin/teams'); ?>">
 <tr>
-    <td>
+    <td style="line-height: 32px;">
         <input type="text" name="name" class="large" style="width: 365px;">
     </td>
     <td style="text-align: center;">
@@ -22,7 +22,7 @@
 </form>
 <?php foreach($teams as $team): ?>
 <tr>
-    <td class="f32" style="width: 132px; line-height: 32px; ">
+    <td class="f32" style="width: 132px; line-height: 32px;">
         <div class="flag <?php echo $team['abbr']; ?>" style="padding-left: 40px;"><?php echo $team['name']; ?></div>
     </td>
     <td style="text-align: center;"><?php echo $team['abbr']; ?></td>

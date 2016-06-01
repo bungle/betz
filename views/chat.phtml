@@ -5,13 +5,13 @@
 <div class="backlog"><a href="<?php echo url('~/chat/backlog'); ?>">Kaikki viestit</a></div>
 <h1><?php echo $title; ?></h1>
 <hr>
-<div id="chat-wrapper">
+<div id="chat-wrapper" class="ugly">
     <div id="chat" style="height: 356px;">
         <?php if (isset($chat)) echo $chat; ?>
     </div>
 </div>
 <br>
-<div class="ui-widget">
+<div class="ui-widget ugly">
     <form id="form" method="POST" action="<?php echo url('~/chat'); ?>" autocomplete="off">
         <div class="grid_7 alpha"><input id="message" name="message" type="text" style="display: block; width: 100%;" autocomplete="off"></div>
         <div class="grid_2 omega"><input id="send" type="submit" value="Lähetä viesti" /></div>

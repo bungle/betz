@@ -8,7 +8,7 @@ $gcount = count($games);
 <h1><?php echo $title; ?></h1>
 <hr>
 <div class="notice">Muistathan, että jatkopelejä lisätään järjestelmään, kun otteluparit selviävät. Onnea veikkauksiin!</div>
-<table id="bets" style="display: none;">
+<table id="bets" class="ugly">
 <tr>
     <th style="text-align: left;">Päivämäärä</th>
     <th colspan="5">Ottelu</th>
@@ -45,94 +45,66 @@ $gcount = count($games);
 </table>
 <?php if ($gcount > 0): ?>
 <?php block($scripts); ?>
-<?php if ($gcount > 100): ?>
-<script src="<?php echo url('~/js/jquery.blockui.js'); ?>"></script>
-<?php endif; ?>
 <script src="<?php echo url('~/js/jquery.countdown.js'); ?>"></script>
 <script>
-<?php if ($gcount > 100): ?>
-$.blockUI({
-    message: '<h2>Ladataan otteluita...</h2>(jQuery UI:n bugi hidastaa lataamista)',
-    css: {
-        border: 'none',
-        padding: '15px',
-        backgroundColor: '#000',
-        '-webkit-border-radius': '10px',
-        '-moz-border-radius': '10px',
-        opacity: .5,
-        color: '#fff'
-    },
-    fadeIn: 0,
-    fadeOut: 200
-});
-setTimeout(initialize, 50);
-<?php else: ?>
-initialize();
-<?php endif; ?>
-function initialize() {
-    $('input:radio').each(function() {
-        var input = $(this);
-        if (input.hasClass('flag')) {
-            input.button({
-                icons: {
-                    primary: input.attr('class')
-                },
-                text: false
-            });
-        } else {
-            input.button({
-                icons: {
-                    primary: 'ui-icon-close'
-                },
-                text: false
-            });
-        }
-        var form = $(this.form);
-        input.click(function(e) {
-            e.preventDefault()
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: form.serialize(),
-                success: function() {
-                    input.prop('checked', true).button("refresh");
-                    $.pnotify({
-                        pnotify_title: 'Veikkaus tallennettu',
-                        pnotify_text: 'Veikkaus tallennettiin onnistuneesti.',
-                        pnotify_delay: 3000
-                    });
-                },
-                error: function() {
-                    input.prop('checked', false).button("refresh");
-                    $.pnotify({
-                        pnotify_title: 'Virhe veikkauksen tallennuksessa',
-                        pnotify_text: 'Veikkauksen tallennuksessa tapahtui virhe.',
-                        pnotify_type: 'error',
-                        pnotify_delay: 3000
-                    });
-                }
-            });
-            return false;
+$('input:radio').each(function() {
+    var input = $(this);
+    if (input.hasClass('flag')) {
+        input.button({
+            icons: {
+                primary: input.attr('class')
+            },
+            text: false
         });
-    });
-    $('form').buttonset();
-    $('.counter').each(function() {
-        var time = new Date(parseInt($(this).html()));
-        $(this).countdown({
-            until: time,
-            format: 'DHM',
-            tickInterval: 10,
-            onExpiry: function() {
-                $(this).html('<div style="font-weight: normal; text-align: center;">Ottelu on alkanut</div>');
-                $(this).parent().next().find('input:radio').button('disable');
+    } else {
+        input.button({
+            icons: {
+                primary: 'ui-icon-close'
+            },
+            text: false
+        });
+    }
+    var form = $(this.form);
+    input.click(function(e) {
+        e.preventDefault()
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: form.serialize(),
+            success: function() {
+                input.prop('checked', true).button("refresh");
+                $.pnotify({
+                    pnotify_title: 'Veikkaus tallennettu',
+                    pnotify_text: 'Veikkaus tallennettiin onnistuneesti.',
+                    pnotify_delay: 3000
+                });
+            },
+            error: function() {
+                input.prop('checked', false).button("refresh");
+                $.pnotify({
+                    pnotify_title: 'Virhe veikkauksen tallennuksessa',
+                    pnotify_text: 'Veikkauksen tallennuksessa tapahtui virhe.',
+                    pnotify_type: 'error',
+                    pnotify_delay: 3000
+                });
             }
         });
+        return false;
     });
-    $('#bets').toggle();
-    <?php if ($gcount > 100): ?>
-    $.unblockUI();
-    <?php endif; ?>
-}
+});
+$('form').buttonset();
+$('.counter').each(function() {
+    var time = new Date(parseInt($(this).html()));
+    $(this).countdown({
+        until: time,
+        format: 'DHM',
+        tickInterval: 10,
+        onExpiry: function() {
+            $(this).html('<div style="font-weight: normal; text-align: center;">Ottelu on alkanut</div>');
+            $(this).parent().next().find('input:radio').button('disable');
+        }
+    });
+});
 </script>
 <?php block(); ?>
 <?php endif ?>

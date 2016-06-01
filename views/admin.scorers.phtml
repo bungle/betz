@@ -4,15 +4,15 @@
 <?php block(); ?>
 <h1><?php echo $title; ?></h1>
 <hr>
-<table id="bets" class="tablesorter">
+<table id="bets" class="tablesorter ugly">
 <tr>
     <th style="text-align: left;">Pelaaja</th>
-    <th style="text-align: center;">Joukkue</th>
-    <th style="text-align: center;">Maalit</th>
+    <th style="text-align: left;">Joukkue</th>
+    <th style="text-align: left; padding-left: 6px;">Maalit</th>
 </tr>
 <form method="post" action="<?php echo url('~/admin/scorers'); ?>">
 <tr>
-    <td><input type="text" name="scorer" class="large" style="width: 365px;"></td>
+    <td class="ui-widget"><input type="text" name="scorer" class="large" style="width: 365px;"></td>
     <td>
         <select name="team" style="width: 180px;">
             <?php foreach ($teams as $team): ?>
@@ -24,9 +24,9 @@
         <table width="100%">
         <tr style="border: none;">
             <td>&nbsp;</td>
-            <td><input type="text" name="goals" class="large"></td>
+            <td class="ui-widget"><input type="text" name="goals" class="large"></td>
             <td>&nbsp;</td>
-            <td style="text-align: right;"><input style="width: 87px;" type="submit" value="Lisää"></td>
+            <td class="ui-widget" style="text-align: right;"><input style="width: 87px;" type="submit" value="Lisää"></td>
         </tr>
         </table>
     </td>
@@ -42,9 +42,9 @@
         <table>
         <tr style="border: none;">
             <td>&nbsp;</td>
-            <td><input type="text" name="goals" class="large" value="<?php echo $scorer['goals']; ?>"></td>
+            <td class="ui-widget"><input type="text" name="goals" class="large" value="<?php echo $scorer['goals']; ?>"></td>
             <td>&nbsp;</td>
-            <td><input class="goal" type="submit" value="Tallenna"></td>
+            <td class="ui-widget"><input class="goal" type="submit" value="Tallenna"></td>
         </tr>
         </table>
         </form>
@@ -55,7 +55,7 @@
 <br>
 <h2>Veikkaajien maalintekijät</h2>
 <hr class="thin">
-<table id="bets" class="tablesorter">
+<table id="bets" class="tablesorter ugly">
 <tr>
     <th style="text-align: left;">Veikkaus</th>
     <th style="text-align: center;">Pelaaja</th>

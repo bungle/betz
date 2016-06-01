@@ -6,6 +6,7 @@
 <?php else: ?>
 <div class="notice">Kolmen kärki &trade; veikkaus on sulkeutunut, koska turnaus on alkanut. Alla näet veikkauksesi.</div>
 <?php endif; ?>
+<br>
 <div class="grid_6 alpha">
     <h2>Turnauksen voittaja</h2>
     <?php if (!STARTED): ?>
@@ -23,7 +24,7 @@
 </div>
 <div class="clear"></div>
 <?php if (!STARTED):?>
-<form id="winner" method="post" action="<?php echo url('~/bets/teams/1'); ?>" style="display: none;" class="f32">
+<form id="winner" method="post" action="<?php echo url('~/bets/teams/1'); ?>" class="f32 ugly">
     <?php foreach($teams as $team): ?>
     <input  id="winner-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['winner'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
     <label for="winner-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
@@ -49,7 +50,7 @@
 </div>
 <div class="clear"></div>
 <?php if(!STARTED): ?>
-<form id="second" method="post" action="<?php echo url('~/bets/teams/2'); ?>" style="display: none;" class="f32">
+<form id="second" method="post" action="<?php echo url('~/bets/teams/2'); ?>" class="f32 ugly">
     <?php foreach($teams as $team): ?>
     <input  id="second-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['second'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
     <label for="second-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
@@ -75,7 +76,7 @@
 </div>
 <div class="clear"></div>
 <?php if(!STARTED): ?>
-<form id="third" method="post" action="<?php echo url('~/bets/teams/3'); ?>" style="display: none;" class="f32">
+<form id="third" method="post" action="<?php echo url('~/bets/teams/3'); ?>" class="f32 ugly">
     <?php foreach($teams as $team): ?>
     <input  id="third-<?php echo $team['abbr']; ?>" title="<?php echo $team['abbr']; ?>" type="radio" name="team" value="<?php echo $team['name']; ?>" <?php if ($user['third'] === $team['name']) echo 'checked'; ?> class="flag <?php echo $team['abbr']; ?>">
     <label for="third-<?php echo $team['abbr']; ?>" title="<?php echo $team['name']; ?>" class="<?php echo $team['abbr']; ?>"><?php echo $team['name']; ?></label>
@@ -99,7 +100,7 @@ $('input:radio').each(function() {
             primary: input.attr('class')
         },
         text: false
-    });
+    })
     var form = $(this.form);
     input.click(function() {
         $.ajax({
@@ -137,9 +138,6 @@ $('form:not(#third) input:radio[value=\'<?php echo $user['third']; ?>\']').butto
 $('#winner').data('value', '<?php echo $user['winner']; ?>');
 $('#second').data('value', '<?php echo $user['second']; ?>');
 $('#third').data('value', '<?php echo $user['third']; ?>');
-$('#winner').toggle();
-$('#second').toggle();
-$('#third').toggle();
 $('#counter').countdown({
     until: new Date(parseInt('<?php echo date_format(date_create($start), 'U'); ?>000')),
     format: 'dhm',

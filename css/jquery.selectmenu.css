@@ -1,6 +1,6 @@
 /* Selectmenu
 ----------------------------------*/
-.ui-selectmenu { display: block; display: inline-block; position: relative; top: 1px; height: 29px; text-decoration: none; overflow: hidden; zoom: 1; }
+.ui-selectmenu { display: block; display: block; position: relative; text-decoration: none; overflow: hidden; zoom: 1; text-align: left; }
 .ui-selectmenu-icon { position:absolute; right:6px; top: 25%; }
 .ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; z-index: 1005;} /* z-index: 1005 to make selectmenu work with dialog */
 .ui-selectmenu-open { visibility: visible; }
@@ -14,7 +14,7 @@
 .ui-selectmenu-status { line-height: 1em; }
 .ui-selectmenu-open li.ui-selectmenu-item-focus a { }
 .ui-selectmenu-open li.ui-selectmenu-item-selected { }
-.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .0; }
+.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: 0; }
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
 .ui-selectmenu-menu li .ui-selectmenu-item-content { }
 .ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }

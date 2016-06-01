@@ -19,7 +19,7 @@
 <div id="container" class="container_12">
 <div id="container-top">
     <div id="header">
-        <div id="user-buttons" style="float: right; text-align: center;">
+        <div id="user-buttons" class="ugly" style="float: right; text-align: center;">
             <button id="user-profile"><?php echo username; ?></button>
             <button id="user-logoff">Kirjaudu ulos</button>
             <br>
@@ -104,5 +104,8 @@ $("#user-logoff").button({
 $("#user-buttons").buttonset();
 </script>
 <?php if (isset($scripts)) echo $scripts; ?>
+<script>
+$(".ugly").show();
+</script>
 </body>
 </html>

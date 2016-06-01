@@ -3,6 +3,7 @@ var poll = href + '/poll';
 var chat = $('#chat');
 var form = $('#form');
 var message = $('#message');
+var smiley = $('.smiley');
 
 message.focus();
 chat.jScrollPane();
@@ -25,12 +26,12 @@ form.submit(function() {
     return false;
 });
 
-$('.smiley').click(function() {
+smiley.click(function() {
     message.val($.trim(message.val().rtrim() + ' ' + $(this).attr('title')) + ' ').focus();
     return false;
 });
 
-$('.smiley').qtip({
+smiley.qtip({
     show: 'mouseover',
     hide: 'mouseout',
     position: {
