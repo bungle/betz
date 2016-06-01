@@ -82,6 +82,10 @@ box-shadow: 0 0 5px #888;
 #login-form.registration input[type=password]{
     width: 270px;
 }
+.ui-button-text-only .ui-button-text {
+    margin-top: 2px;
+    line-height: 16px;
+}
 #login-form a {
     padding: 7px 30px;
     color: #154fbd;

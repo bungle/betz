@@ -13,14 +13,14 @@
             <label for="username" class="normal example">Sallitut merkit: a-ö, 0-9, _ ja - (esim. ninja_3)</label><br>
             <label for="password" class="normal">Salasana:</label><br>
             <input id="password" name="password" maxlength="20" type="password">
-            <input id="remember" name="remember" type="checkbox" checked="checked"><label for="remember" class="tip" title="Muista minut">m</label>
+            <input id="remember" name="remember" type="checkbox" checked="checked"><label for="remember" class="tip" title="Muista minut">M</label>
             <br><br>
             <input type="submit" value="Kirjaudu sisään"><?php if (!STARTED): ?> <a href="<?php echo url('~/registration'); ?>">Rekisteröidy</a><?php endif; ?>
         </form>
     </div>
     <div class="clear"></div>
 </div>
-<h3 class="ui-corner-bottom">"m" = muista minut</h3>
+<h3 class="ui-corner-bottom">"M" = muista minut</h3>
 <?php block($scripts); ?>
 <script>
 $(document).ready(function() {
