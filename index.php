@@ -7,11 +7,11 @@ setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
-define('TOURNAMENT_ID', 'mm2016');
-define('TOURNAMENT_NAME', 'Jääkiekon MM-kisat 2016');
-define('TOURNAMENT_TYPE', 'hockey'); //hockey or soccer
+define('TOURNAMENT_ID', 'euro2016');
+define('TOURNAMENT_NAME', 'Jalkapallon EM-kisat 2016');
+define('TOURNAMENT_TYPE', 'soccer'); //hockey or soccer
 define('EMAIL_SUPPORT', 'info@betz.io');
-define('ENABLE_SCORER', false);
+define('ENABLE_SCORER', true);
 define('GAME_POINTS_STRATEGY', 'exp');
 define('ENTRY_FEE', 10);
 define('POT_ADJUSTMENT', 0);

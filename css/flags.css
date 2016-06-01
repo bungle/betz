@@ -12,7 +12,7 @@
 .f16 ._Kosovo{background-position:0 -144px;}
 .f16 ._NATO{background-position:0 -160px;}
 .f16 ._Northern_Cyprus{background-position:0 -176px;}
-.f16 ._Northern_Ireland{background-position:0 -192px;}
+.f16 ._Northern_Ireland, .f16 .NIR{background-position:0 -192px;}
 .f16 ._Olimpic_Movement{background-position:0 -208px;}
 .f16 ._OPEC{background-position:0 -224px;}
 .f16 ._Red_Cross{background-position:0 -240px;}
@@ -20,13 +20,13 @@
 .f16 ._Somaliland{background-position:0 -272px;}
 .f16 ._Tibet{background-position:0 -288px;}
 .f16 ._United_Nations{background-position:0 -304px;}
-.f16 ._Wales{background-position:0 -320px;}
+.f16 ._Wales,.f16 .WLS{background-position:0 -320px;}
 .f16 .ad{background-position:0 -336px;}
 .f16 .ae{background-position:0 -352px;}
 .f16 .af{background-position:0 -368px;}
 .f16 .ag{background-position:0 -384px;}
 .f16 .ai{background-position:0 -400px;}
-.f16 .al{background-position:0 -416px;}
+.f16 .al,.f16 .ALB{background-position:0 -416px;}
 .f16 .am{background-position:0 -432px;}
 .f16 .an{background-position:0 -448px;}
 .f16 .ao{background-position:0 -464px;}
@@ -119,7 +119,7 @@
 .f16 .in{background-position:0 -1840px;}
 .f16 .iq{background-position:0 -1856px;}
 .f16 .ir,.f16 .IRN{background-position:0 -1872px;}
-.f16 .is{background-position:0 -1888px;}
+.f16 .is,.f16 .ISL{background-position:0 -1888px;}
 .f16 .it,.f16 .ITA{background-position:0 -1904px;}
 .f16 .je{background-position:0 -1920px;}
 .f16 .jm{background-position:0 -1936px;}
@@ -192,7 +192,7 @@
 .f16 .py,.f16 .PAR{background-position:0 -3008px;}
 .f16 .qa{background-position:0 -3024px;}
 .f16 .re{background-position:0 -3040px;}
-.f16 .ro{background-position:0 -3056px;}
+.f16 .ro,.f16 .ROU{background-position:0 -3056px;}
 .f16 .rs,.f16 .SRB{background-position:0 -3072px;}
 .f16 .ru,.f16 .RUS{background-position:0 -3088px;}
 .f16 .rw{background-position:0 -3104px;}
@@ -222,7 +222,7 @@
 .f16 .tm{background-position:0 -3488px;}
 .f16 .tn{background-position:0 -3504px;}
 .f16 .to{background-position:0 -3520px;}
-.f16 .tr{background-position:0 -3536px;}
+.f16 .tr,.f16 .TUR{background-position:0 -3536px;}
 .f16 .tt{background-position:0 -3552px;}
 .f16 .tv{background-position:0 -3568px;}
 .f16 .tw{background-position:0 -3584px;}
@@ -256,7 +256,7 @@
 .f32 ._Kosovo{background-position:0 -288px;}
 .f32 ._NATO{background-position:0 -320px;}
 .f32 ._Northern_Cyprus{background-position:0 -352px;}
-.f32 ._Northern_Ireland{background-position:0 -384px;}
+.f32 ._Northern_Ireland,.f32 .NIR{background-position:0 -384px;}
 .f32 ._Olimpic_Movement{background-position:0 -416px;}
 .f32 ._OPEC{background-position:0 -448px;}
 .f32 ._Red_Cross{background-position:0 -480px;}
@@ -264,13 +264,13 @@
 .f32 ._Somaliland{background-position:0 -544px;}
 .f32 ._Tibet{background-position:0 -576px;}
 .f32 ._United_Nations{background-position:0 -608px;}
-.f32 ._Wales{background-position:0 -640px;}
+.f32 ._Wales,.f32 .WLS{background-position:0 -640px;}
 .f32 .ad{background-position:0 -672px;}
 .f32 .ae{background-position:0 -704px;}
 .f32 .af{background-position:0 -736px;}
 .f32 .ag{background-position:0 -768px;}
 .f32 .ai{background-position:0 -800px;}
-.f32 .al{background-position:0 -832px;}
+.f32 .al,.f32 .ALB{background-position:0 -832px;}
 .f32 .am{background-position:0 -864px;}
 .f32 .an{background-position:0 -896px;}
 .f32 .ao{background-position:0 -928px;}
@@ -363,7 +363,7 @@
 .f32 .in{background-position:0 -3680px;}
 .f32 .iq{background-position:0 -3712px;}
 .f32 .ir,.f32 .IRN{background-position:0 -3744px;}
-.f32 .is{background-position:0 -3776px;}
+.f32 .is,.f32 .ISL{background-position:0 -3776px;}
 .f32 .it,.f32 .ITA{background-position:0 -3808px;}
 .f32 .je{background-position:0 -3840px;}
 .f32 .jm{background-position:0 -3872px;}
@@ -436,7 +436,7 @@
 .f32 .py,.f32 .PAR{background-position:0 -6016px;}
 .f32 .qa{background-position:0 -6048px;}
 .f32 .re{background-position:0 -6080px;}
-.f32 .ro{background-position:0 -6112px;}
+.f32 .ro,.f32 .ROU{background-position:0 -6112px;}
 .f32 .rs,.f32 .SRB{background-position:0 -6144px;}
 .f32 .ru,.f32 .RUS{background-position:0 -6176px;}
 .f32 .rw{background-position:0 -6208px;}
@@ -466,7 +466,7 @@
 .f32 .tm{background-position:0 -6976px;}
 .f32 .tn{background-position:0 -7008px;}
 .f32 .to{background-position:0 -7040px;}
-.f32 .tr{background-position:0 -7072px;}
+.f32 .tr,.f32 .TUR{background-position:0 -7072px;}
 .f32 .tt{background-position:0 -7104px;}
 .f32 .tv{background-position:0 -7136px;}
 .f32 .tw{background-position:0 -7168px;}
