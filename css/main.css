@@ -194,13 +194,22 @@ table#bets {
 }
 table#bets tr {
     border-bottom: 1px solid #e5e5e5;
+    margin: 5px 0;
+}
+table#bets tr:last-child {
+    border-bottom: none;
+    margin: 0;
 }
 table#bets tr td {
     line-height: 32px;
     height: 32px;
+    padding: 5px 0;
 }
 table#bets tr td.f32 {
     width: 32px;
+}
+table#bets tr td.bet .ui-buttonset {
+    margin-right: 0;
 }
 table#bets tr td.weekday {
     text-align: right;
@@ -223,13 +232,13 @@ table#bets tr td.road {
     padding: 0 1em 0 1em;
 }
 table#bets tr td.bet {
-    width: 112px;
+    width: 102px;
     text-align: right;
-    padding-top: 3px;
 }
 table#bets tr td.countdown {
     width: 125px;
-    line-height: 18px;
+    line-height: 13px;
+    padding-top: 9px;
 }
 #scorer-form div label {
     line-height: 32px;
@@ -274,6 +283,9 @@ h4.scorer {
     background: url(../img/scorer-big.png) no-repeat;
     padding-left: 40px;
     line-height: 32px;
+}
+.ui-button {
+    margin-right: 0;
 }
 #winner .ui-button,
 #second .ui-button,

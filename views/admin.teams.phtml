@@ -9,10 +9,10 @@
 </tr>
 <form method="post" action="<?php echo url('~/admin/teams'); ?>">
 <tr>
-    <td style="line-height: 32px;">
+    <td style="line-height: 32px;" class="ui-widget">
         <input type="text" name="name" class="large" style="width: 365px;">
     </td>
-    <td style="text-align: center;">
+    <td style="text-align: center;" class="ui-widget">
         <input type="text" name="abbr" class="large" maxlength="3" style="width: 30px;">
     </td>
     <td style="text-align: center;">
@@ -30,7 +30,7 @@
         <form method="post" action="<?php echo url('~/admin/teams/' . urlencode($team['name'])); ?>">
         <table>
         <tr style="border: none;">
-            <td><input type="text" name="ranking" class="large" value="<?php echo $team['ranking']; ?>"></td>
+            <td class="ui-widget"><input type="text" name="ranking" class="large" value="<?php echo $team['ranking']; ?>"></td>
             <td>&nbsp;</td>
             <td><input type="submit" class="team" value="Tallenna"></td>
         </tr>
