@@ -139,6 +139,16 @@ namespace db\users {
         $stm->close();
         return ($row) ? $row[0] : 0;
     }
+    function active() {
+        $db = \db\connect();
+        $stm = $db->prepare('SELECT COUNT(paid) FROM users WHERE active = :active');
+        $stm->bindValue(':active', 1, SQLITE3_INTEGER);
+        $res = $stm->execute();
+        $row = $res->fetchArray(SQLITE3_NUM);
+        $res->finalize();
+        $stm->close();
+        return ($row) ? $row[0] : 0;
+    }
     function visited($username, $page) {
         $db = \db\connect();
         $stm = $db->prepare('UPDATE users SET visited_time = :time, visited_page = :page WHERE username = :username');

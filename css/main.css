@@ -305,10 +305,21 @@ hr.thin {
     padding-left: 40px;
     line-height: 32px;
 }
+div#betters.success,
 div#pot.success {
     margin: 18px 0 0 0;
     float: right;
     padding: 5px;
+}
+div#betters.success {
+    margin-right: 10px;
+}
+div#betters.success h4 {
+    background: url(../img/users.png) no-repeat !important;
+    padding: 0 0 0 40px;
+    height: 32px;
+    line-height: 28px;
+    margin: 0;
 }
 div#pot.success h4 {
     background: url(../img/coins.png) no-repeat !important;
