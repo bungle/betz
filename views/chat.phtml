@@ -40,18 +40,21 @@ var form = $('#form');
 var message = $('#message');
 
 message.focus();
-//
+
 chat.jScrollPane({ stickToBottom: true });
 
 var api = chat.data('jsp');
 
 api.scrollToBottom(false);
-//chat[0].scrollTo(chat.data('jScrollPaneMaxScroll'));
 
 $.ajaxSetup({cache: false});
 
+var last = '<?php echo $last; ?>';
+
 setInterval(function() {
-    $.get('<?php echo url('~/chat/poll'); ?>', function(data) {
+    var url = '<?php echo url("~/chat/poll/"); ?>';
+    url = url + last;
+    $.get(url, function(data) {
         if (data == undefined || data.length == 0) return;
         $('#chat .jspPane').append(data);
         api.reinitialise();

@@ -1,9 +1,9 @@
 <?php
 $layout = 'layouts/layout.admin.phtml';
 $times  = array(
-    '16:00:00',
-    '19:00:00',
-    '22:00:00'
+    '17:00:00',
+    '18:00:00',
+    '21:00:00',
 );
 ?>
 <?php block($css); ?>
@@ -90,7 +90,7 @@ $times  = array(
             <td>&ndash;</td>
             <td>&nbsp;</td>
             <td class="ui-widget"><input type="text" class="large" name="road_goals" value="<?php echo $game['road_goals']; ?>"<?php if ($now < $date) echo ' disabled'; ?>></td>
-            <td>)&nbsp;</td>            
+            <td>)&nbsp;</td>
             <td style="text-align: right;"><input type="submit" class="game" value="Tallenna" style="width: 90px;"<?php if ($now < $date) echo ' disabled'; ?></td>
         </tr>
         </table>

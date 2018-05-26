@@ -24,7 +24,10 @@
             75,00 % veikkaajista veikkasi oikein, joten he saavat 1,28 pistettä.<br />
             95,00 % veikkaajista veikkasi oikein, joten he saavat 1,05 pistettä.<br />
             99,99 % veikkaajista veikkasi oikein, joten he saavat 1,01 pistettä.<br />
-            100,00 % veikkaajista veikkasi oikein, joten he saavat 1,00 pistettä.
+            100,00 % veikkaajista veikkasi oikein, joten he saavat 1,00 pistettä.<br />
+            <br />
+            <strong>HUOM! jatko-ottelut lisätään järjestelmään, kun otteluparit ovat selvillä. Muista siis tulla veikkaamaan myös jatko-otteluita.</strong>
+
         <?php else: ?>
             Kaikissa otteluissa voi veikata voittajaa tai tasapeliä (1X2-periaatteella).
             Veikkaus koskee varsinaisella peliajalla pelattua tulosta (ei siis mahdollista jatko-aikaa tai rangaistuslaukauskilpailua).
@@ -44,14 +47,13 @@
     <h3 class="ui-corner-top rules">Kolmen kärki&trade;</h3>
     <div class="ui-corner-bottom">
         Kolmen kärjessä pelaaja veikkaa turnauksen kolmea parasta maata. Pisteet jaetaan sen mukaan onko kyseinen maa kolmen parhaan joukossa turnauksen loputtua.
-        Lisäpisteitä saa oikeasta sijoituksesta. Samaa maata ei voi veikata kuin kerran. Jos veikattu maa on kolmen joukossa, saa pelaaja pisteen. Jos se on myös 
-        oikealla sijalla, saa pelaaja pisteitä seuraavasti: voittajamaa oikein on kolmen pisteen, hopeamaa kahden pisteen ja pronssimaa pisteen arvoinen. 
-        Kolmen kärkeä voi veikata ennen turnauksen ensimmäistä peliä.<br /><br />
+        Lisäpisteitä saa oikeasta sijoituksesta. Samaa maata ei voi veikata kuin kerran. Jos veikattu maa on kolmen joukossa, saa pelaaja yhden pisteen.
+        Jos veikatun maan sijoitus on myös oikein, saa pelaaja kaksi lisäpistettä jokaisesta oikein menneestä.<br /><br />
         Jaossa on siis enintään yhdeksän pistettä.<br /><br />
         <span style="font-weight: bold;">Esimerkki:</span><br />
-        Pelaaja A veikkaa Kolmen kärkeen Venäjää, Kanadaa sekä Suomea tässä järjestyksessä. Näistä maista Venäjä sekä Suomi ovat kolmen joukossa. Pelaaja A saa
-        pisteen per oikea joukkue eli yhteensä kaksi pistettä. Venäjä voitti mestaruuden ja Suomi oli hopealla eli pelaaja A saa kolme lisäpistettä Venäjän oikeasta
-        sijoituksesta. Yhteensä pelaaja A saa siis viisi pistettä.<br /><br />
+        Pelaaja veikkaa Kolmen kärkeen Venäjää, Kanadaa ja Suomea tässä järjestyksessä. Näistä maista Venäjä ja Suomi ovat kolmen joukossa. Pelaaja saa
+        pisteen per oikea joukkue eli yhteensä kaksi pistettä. Venäjä voitti mestaruuden eli pelaaja saa kaksi lisäpistettä Venäjän oikeasta
+        sijoituksesta. Suomi oli toinen, joten tästä ei tule lisäpisteitä. Yhteensä pelaaja saa siis neljä pistettä.<br /><br />
         Jos turnauksessa ei pelata pronssipeliä, oikeaksi vastaukseksi pronssijoukkueeksi käy finaalipelistä pudonneet joukkueet.
     </div>
 </div>
@@ -74,10 +76,10 @@
            <td>Saaja:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT_HOLDER') ? BANK_ACCOUNT_HOLDER : 'Xxx Xxx'; ?></td>
          </tr>
          <tr>
-           <td>Tilinumero:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT') ? BANK_ACCOUNT : 'XXX'; ?> (IBAN: <?php echo defined('BANK_ACCOUNT_IBAN') ? BANK_ACCOUNT_IBAN : 'XXX'; ?>)</td>
+           <td>Tilinumero:&nbsp;</td><td><?php echo defined('BANK_ACCOUNT_IBAN') ? BANK_ACCOUNT_IBAN : 'XXX'; ?></td>
          </tr>
          <tr>
-           <td>Summa:&nbsp;</td><td><?php echo defined('ENTRY_FEE') ? ENTRY_FEE : '15'; ?> &euro;</td>
+           <td>Summa:&nbsp;</td><td><?php echo defined('ENTRY_FEE') ? ENTRY_FEE : '10'; ?> &euro;</td>
          </tr>
          <tr>
            <td>Eräpäivä:&nbsp;</td><td>Ennen turnauksen alkua (<?php echo date_format(date_create($start), 'j.n.Y \k\l\o G.i'); ?>)</td>
@@ -94,7 +96,7 @@
     <div class="ui-corner-bottom">
         Jaossa on siis yhdeksän pistettä Kolmen kärjestä&trade;<?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>, kolme pistettä Maalikuninkuudesta<?php endif; ?> ja otteluveikkauksista omansa.
         <br /><br />
-        Kymmenen euron osallistumismaksusta menee 80% voittajalle ja 20% toiseksi tulleelle. Jos voittajia on useampi kuin yksi jaetaan koko potti (100%) heidän kesken.
+        Kymmenen euron osallistumismaksusta menee 70% voittajalle, 20% toiseksi tulleelle ja 10% kolmanneksi tulleelle. Jos voittajia (tasapistein) on useampi kuin yksi jaetaan koko potti (100%) heidän kesken.
         <br><br>
         Jos järjestelmässä esiintyy teknisiä ongelmia pyrimme lähtökohtaisesti ratkaisemaan ne mahdollisimman nopeasti, mutta jos veikkaus joudutaan teknisten ongelmien takia
         keskeyttämään palautetaan rahat takaisin maksaneille.

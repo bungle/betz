@@ -144,7 +144,7 @@ SQL;
         CREATE TRIGGER trigger_teams AFTER UPDATE OF ranking ON teams
         BEGIN
             UPDATE users SET winner_points = 0 WHERE winner IS NOT NULL AND winner = new.name;
-            UPDATE users SET winner_points = 4 WHERE winner IS NOT NULL AND winner = new.name AND new.ranking = 1;
+            UPDATE users SET winner_points = 3 WHERE winner IS NOT NULL AND winner = new.name AND new.ranking = 1;
             UPDATE users SET winner_points = 1 WHERE winner IS NOT NULL AND winner = new.name AND (new.ranking = 2 OR new.ranking = 3);
 
             UPDATE users SET second_points = 0 WHERE second IS NOT NULL AND second = new.name;
@@ -152,7 +152,7 @@ SQL;
             UPDATE users SET second_points = 1 WHERE second IS NOT NULL AND second = new.name AND (new.ranking = 1 OR new.ranking = 3);
 
             UPDATE users SET third_points = 0  WHERE third  IS NOT NULL AND third = new.name;
-            UPDATE users SET third_points = 2  WHERE third  IS NOT NULL AND third = new.name  AND new.ranking = 3;
+            UPDATE users SET third_points = 3  WHERE third  IS NOT NULL AND third = new.name AND new.ranking = 3;
             UPDATE users SET third_points = 1  WHERE third  IS NOT NULL AND third = new.name  AND (new.ranking = 1 OR new.ranking = 2);
         END;
 

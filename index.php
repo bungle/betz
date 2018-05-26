@@ -7,8 +7,8 @@ setlocale(LC_ALL, 'fi_FI.utf8');
 date_default_timezone_set('Europe/Helsinki');
 
 // TODO: Should these be database configurable?
-define('TOURNAMENT_ID', 'euro2016');
-define('TOURNAMENT_NAME', 'Jalkapallon EM-kisat 2016');
+define('TOURNAMENT_ID', 'worldcup2018');
+define('TOURNAMENT_NAME', 'Jalkapallon MM-kisat 2018');
 define('TOURNAMENT_TYPE', 'soccer'); //hockey or soccer
 define('EMAIL_SUPPORT', 'info@betz.io');
 define('ENABLE_SCORER', true);
@@ -58,14 +58,7 @@ require './lib/web.php';
 require './lib/log.php';
 require './lib/password.php';
 
-if (ENV === 'dev') {
-    require './lib/ext/ChromePhp.php';
-    \log\appenders(
-        \log\chromephp(LOG_DEBUG),
-        \log\file(__DIR__ . '/data/' . date_create()->format('Y-m-d') . '.log', LOG_DEBUG));
-} else {
-    \log\appenders(\log\file(__DIR__ . '/data/' . date_create()->format('Y-m-d') . '.log', LOG_WARNING));
-}
+\log\appenders(\log\file(__DIR__ . '/data/' . date_create()->format('Y-m-d') . '.log', LOG_WARNING));
 
 if (!file_exists(DATABASE)) {
     require './lib/db.connect.php';

@@ -1,7 +1,7 @@
 html, body {
     margin:0;
     padding:0;
-    height:100%;    
+    height:100%;
     background: url('../img/bg-login-euro2016.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -9,7 +9,7 @@ html, body {
     background-size: cover;
 }
 body {
-    
+
 }
 #container {
 -moz-box-shadow: 0 0 5px #888;
@@ -28,7 +28,7 @@ box-shadow: 0 0 5px #888;
     color: #E5E5E5;
 }
 #header {
-    background: url(../img/bg-header-euro2016.png) #0C0203;
+    background: url(../img/bg-header-worldcup2018.png) #8d0808;
     padding: 10px 10px;
     height: 105px;
     color: white;

@@ -1,9 +1,12 @@
 <?php $fmt = isset($backlog) && $backlog ? 'j.n. \k\l\o H:i' : 'H:i'; ?>
-<?php foreach($messages as $message): ?>
+<?php foreach($messages as $message): $last = $message['id']; ?>
 <div>
-    <div class="time""><span class="date">[<?php echo date_format(date_create($message['time']), $fmt); ?>]</span></div>
+    <div class="time"><span class="date">[<?php echo date_format(date_create($message['time']), $fmt); ?>]</span></div>
     <div class="user<?php echo STARTED && isset($leaders[$message['user']]) ? ' leader' : ''; ?>">&lt;<span class="<?php echo username == $message['user'] ? "mynick" : "nick"; ?>"><a href="<?php echo url('~/points') . '/' . urlencode($message['user']); ?>"><?php echo $message['user']; ?></a></span>&gt;</div>
     <div class="message"><?php echo $message['message']; ?></div>
 </div>
 <div class="clear"></div>
 <?php endforeach; ?>
+<script>
+    last = '<?php echo $last; ?>';
+</script>

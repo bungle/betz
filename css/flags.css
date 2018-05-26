@@ -66,7 +66,7 @@
 .f16 .cm,.f16 .CMR{background-position:0 -1008px;}
 .f16 .cn{background-position:0 -1024px;}
 .f16 .co,.f16 .COL{background-position:0 -1040px;}
-.f16 .cr,.f16 .CRI{background-position:0 -1056px;}
+.f16 .cr,.f16 .CRI,.f16 .CRC{background-position:0 -1056px;}
 .f16 .cu{background-position:0 -1072px;}
 .f16 .cv{background-position:0 -1088px;}
 .f16 .cy{background-position:0 -1104px;}
@@ -79,7 +79,7 @@
 .f16 .dz,.f16 .ALG,.f16 .DZA{background-position:0 -1216px;}
 .f16 .ec,.f16 .ECU{background-position:0 -1232px;}
 .f16 .ee{background-position:0 -1248px;}
-.f16 .eg{background-position:0 -1264px;}
+.f16 .eg,.f16 .EGY{background-position:0 -1264px;}
 .f16 .eh{background-position:0 -1280px;}
 .f16 .er{background-position:0 -1296px;}
 .f16 .es,.f16 .ESP{background-position:0 -1312px;}
@@ -108,7 +108,7 @@
 .f16 .gy{background-position:0 -1680px;}
 .f16 .hk{background-position:0 -1696px;}
 .f16 .hn,.f16 .HON,.f16 .HND{background-position:0 -1712px;}
-.f16 .hr,.f16 .HRV{background-position:0 -1728px;}
+.f16 .hr,.f16 .HRV,.f16 .CRO{background-position:0 -1728px;}
 .f16 .ht{background-position:0 -1744px;}
 .f16 .hu,.f16 .HUN{background-position:0 -1760px;}
 .f16 .id{background-position:0 -1776px;}
@@ -147,7 +147,7 @@
 .f16 .lu{background-position:0 -2288px;}
 .f16 .lv,.f16 .LVA{background-position:0 -2304px;}
 .f16 .ly{background-position:0 -2320px;}
-.f16 .ma{background-position:0 -2336px;}
+.f16 .ma,.f16 .MAR{background-position:0 -2336px;}
 .f16 .md{background-position:0 -2352px;}
 .f16 .me{background-position:0 -2368px;}
 .f16 .mg{background-position:0 -2384px;}
@@ -178,8 +178,8 @@
 .f16 .nr{background-position:0 -2784px;}
 .f16 .nz,.f16 .NZL{background-position:0 -2800px;}
 .f16 .om{background-position:0 -2816px;}
-.f16 .pa{background-position:0 -2832px;}
-.f16 .pe{background-position:0 -2848px;}
+.f16 .pa,.f16 .PAN{background-position:0 -2832px;}
+.f16 .pe,.f16 .PER{background-position:0 -2848px;}
 .f16 .pf{background-position:0 -2864px;}
 .f16 .pg{background-position:0 -2880px;}
 .f16 .ph{background-position:0 -2896px;}
@@ -196,7 +196,7 @@
 .f16 .rs,.f16 .SRB{background-position:0 -3072px;}
 .f16 .ru,.f16 .RUS{background-position:0 -3088px;}
 .f16 .rw{background-position:0 -3104px;}
-.f16 .sa{background-position:0 -3120px;}
+.f16 .sa,.f16 .KSA{background-position:0 -3120px;}
 .f16 .sb{background-position:0 -3136px;}
 .f16 .sc{background-position:0 -3152px;}
 .f16 .sd{background-position:0 -3168px;}
@@ -206,7 +206,7 @@
 .f16 .sk,.f16 .SVK{background-position:0 -3232px;}
 .f16 .sl{background-position:0 -3248px;}
 .f16 .sm{background-position:0 -3264px;}
-.f16 .sn{background-position:0 -3280px;}
+.f16 .sn,.f16 .SEN{background-position:0 -3280px;}
 .f16 .so{background-position:0 -3296px;}
 .f16 .sr{background-position:0 -3312px;}
 .f16 .st{background-position:0 -3328px;}
@@ -220,7 +220,7 @@
 .f16 .tj{background-position:0 -3456px;}
 .f16 .tl{background-position:0 -3472px;}
 .f16 .tm{background-position:0 -3488px;}
-.f16 .tn{background-position:0 -3504px;}
+.f16 .tn,.f16 .TUN{background-position:0 -3504px;}
 .f16 .to{background-position:0 -3520px;}
 .f16 .tr,.f16 .TUR{background-position:0 -3536px;}
 .f16 .tt{background-position:0 -3552px;}
@@ -310,7 +310,7 @@
 .f32 .cm,.f32 .CMR{background-position:0 -2016px;}
 .f32 .cn{background-position:0 -2048px;}
 .f32 .co,.f32 .COL{background-position:0 -2080px;}
-.f32 .cr,.f32 .CRI{background-position:0 -2112px;}
+.f32 .cr,.f32 .CRI,.f32 .CRC{background-position:0 -2112px;}
 .f32 .cu{background-position:0 -2144px;}
 .f32 .cv{background-position:0 -2176px;}
 .f32 .cy{background-position:0 -2208px;}
@@ -323,7 +323,7 @@
 .f32 .dz,.f32 .ALG,.f32 .DZA{background-position:0 -2432px;}
 .f32 .ec,.f32 .ECU{background-position:0 -2464px;}
 .f32 .ee{background-position:0 -2496px;}
-.f32 .eg{background-position:0 -2528px;}
+.f32 .eg,.f32 .EGY{background-position:0 -2528px;}
 .f32 .eh{background-position:0 -2560px;}
 .f32 .er{background-position:0 -2592px;}
 .f32 .es,.f32 .ESP{background-position:0 -2624px;}
@@ -352,7 +352,7 @@
 .f32 .gy{background-position:0 -3360px;}
 .f32 .hk{background-position:0 -3392px;}
 .f32 .hn,.f32 .HON,.f32 .HND{background-position:0 -3424px;}
-.f32 .hr,.f32 .HRV{background-position:0 -3456px;}
+.f32 .hr,.f32 .HRV,.f32 .CRO{background-position:0 -3456px;}
 .f32 .ht{background-position:0 -3488px;}
 .f32 .hu,.f32 .HUN{background-position:0 -3520px;}
 .f32 .id{background-position:0 -3552px;}
@@ -391,7 +391,7 @@
 .f32 .lu{background-position:0 -4576px;}
 .f32 .lv,.f32 .LVA{background-position:0 -4608px;}
 .f32 .ly{background-position:0 -4640px;}
-.f32 .ma{background-position:0 -4672px;}
+.f32 .ma,.f32 .MAR{background-position:0 -4672px;}
 .f32 .md{background-position:0 -4704px;}
 .f32 .me{background-position:0 -4736px;}
 .f32 .mg{background-position:0 -4768px;}
@@ -422,8 +422,8 @@
 .f32 .nr{background-position:0 -5568px;}
 .f32 .nz,.f32 .NZL{background-position:0 -5600px;}
 .f32 .om{background-position:0 -5632px;}
-.f32 .pa{background-position:0 -5664px;}
-.f32 .pe{background-position:0 -5696px;}
+.f32 .pa,.f32 .PAN{background-position:0 -5664px;}
+.f32 .pe,.f32 .PER{background-position:0 -5696px;}
 .f32 .pf{background-position:0 -5728px;}
 .f32 .pg{background-position:0 -5760px;}
 .f32 .ph{background-position:0 -5792px;}
@@ -440,7 +440,7 @@
 .f32 .rs,.f32 .SRB{background-position:0 -6144px;}
 .f32 .ru,.f32 .RUS{background-position:0 -6176px;}
 .f32 .rw{background-position:0 -6208px;}
-.f32 .sa{background-position:0 -6240px;}
+.f32 .sa,.f32 .KSA{background-position:0 -6240px;}
 .f32 .sb{background-position:0 -6272px;}
 .f32 .sc{background-position:0 -6304px;}
 .f32 .sd{background-position:0 -6336px;}
@@ -450,7 +450,7 @@
 .f32 .sk,.f32 .SVK{background-position:0 -6464px;}
 .f32 .sl{background-position:0 -6496px;}
 .f32 .sm{background-position:0 -6528px;}
-.f32 .sn{background-position:0 -6560px;}
+.f32 .sn,.f32 .SEN{background-position:0 -6560px;}
 .f32 .so{background-position:0 -6592px;}
 .f32 .sr{background-position:0 -6624px;}
 .f32 .st{background-position:0 -6656px;}
@@ -464,7 +464,7 @@
 .f32 .tj{background-position:0 -6912px;}
 .f32 .tl{background-position:0 -6944px;}
 .f32 .tm{background-position:0 -6976px;}
-.f32 .tn{background-position:0 -7008px;}
+.f32 .tn,.f32 .TUN{background-position:0 -7008px;}
 .f32 .to{background-position:0 -7040px;}
 .f32 .tr,.f32 .TUR{background-position:0 -7072px;}
 .f32 .tt{background-position:0 -7104px;}

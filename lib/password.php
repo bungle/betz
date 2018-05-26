@@ -2,7 +2,9 @@
 namespace password;
 function hash($password, $iterations = 8) {
   // Password (PHP >= 5.3 version of http://www.openwall.com/phpass/)
-	if (function_exists('mcrypt_create_iv')) {
+    if (function_exists('random_bytes')) {
+        $random = random_bytes(16);
+    } elseif (function_exists('mcrypt_create_iv')) {
 		$random = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
 	} else {
 		if (is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb'))) {

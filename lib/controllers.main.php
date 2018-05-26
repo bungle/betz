@@ -36,7 +36,7 @@ get('/chat', function() {
     $view->online = db\users\visited(username, 'Kisachat');
     $view->hide_teams = true;
     $view->hide_scorer = true;
-    $_SESSION['last-chat-message-id'] = $last;
+    $view->last = $last;
     if (count($messages) > 0) {
         $chat = new view(DIR . '/views/chat.messages.phtml');
         $chat->messages = $messages;
@@ -57,15 +57,13 @@ post('/chat', function() {
     }
     die();
 });
-get('/chat/poll', function() {
+get('/chat/poll/%d', function($last) {
     if (!AUTHENTICATED) return;
-    $last = isset($_SESSION['last-chat-message-id']) ? $_SESSION['last-chat-message-id'] : 0;
     $messages = db\chat\poll($last);
     if (count($messages) === 0) {
         status(304);
         die;
     }
-    $_SESSION['last-chat-message-id'] = $last;
     $view = new view(DIR . '/views/chat.messages.phtml');
     $view->messages = $messages;
     $view->leaders = db\stats\leaders();

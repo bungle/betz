@@ -2,7 +2,7 @@
 <html lang="fi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <?php if (isset($meta)) echo $meta; ?>
 <title><?php echo isset($title) ? $title . ' - ' . TOURNAMENT_NAME . ' -hupilyönti' : TOURNAMENT_NAME . ' -hupilyönti'; ?></title>
 <link rel="shortcut icon" href="<?php echo url('~/favicon.ico', true); ?>">
@@ -98,12 +98,12 @@ $("#user-profile").button({
     icons: {
         primary: "profile-ui-img"
     }
-}).click( function() { window.location.href = '<?php echo url('~/points') . '/' . username; ?>'; });
+}).click( function() { window.location.href = '<?php echo url("~/points") . "/" . username; ?>'; });
 $("#user-logoff").button({
     icons: {
         primary: "logoff-ui-img"
     }
-}).click( function() { window.location.href = '<?php echo url('~/logoff'); ?>'; });
+}).click( function() { window.location.href = '<?php echo url("~/logoff"); ?>'; });
 $("#user-buttons").buttonset();
 </script>
 <?php if (isset($scripts)) echo $scripts; ?>
