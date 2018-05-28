@@ -5,47 +5,52 @@
 <div class="grid_4 alpha">
     <h1><?php echo $title; ?></h1>
 </div>
+<?php if (STARTED): ?>
 <div class="grid_5 omega team-bet" style="text-align: right;">
     <h4>Ottelupisteitä jaossa yhteensä <?php echo number_format($gamepoints, 2, ',', ''); ?></h4>
 </div>
+<?php endif; ?>
 <div class="clear"></div>
 <hr>
-<?php if (!STARTED): ?>
-<div class="notice">Turnaus ei ole vielä alkanut, joten pistetaulukkoa ei vielä näytetä.</div>
-<?php else: ?>
 <table id="points" class="tablesorter">
  <thead>
    <tr>
-        <th><img src="<?php echo url('~/img/ranking.png'); ?>" width="16" height="16" title="Sijoitus" alt="Sijoitus"></th>
+        <?php if (STARTED): ?>
+            <th><img src="<?php echo url('~/img/ranking.png'); ?>" width="16" height="16" title="Sijoitus" alt="Sijoitus"></th>
+        <?php endif; ?>
         <th>Nimi</th>
         <th><img src="<?php echo url('~/img/coins-small.png'); ?>" width="16" height="16" title="Maksu vastaanotettu" alt="Maksu vastaanotettu"></th>
-        <th><img src="<?php echo url('~/img/medal-gold.png'); ?>" width="16" height="16" title="Voittaja" alt="Voittaja"></th>
-        <th><img src="<?php echo url('~/img/medal-silver.png'); ?>" width="16" height="16" title="Hopeamitalisti" alt="Hopeamitalisti"></th>
-        <th><img src="<?php echo url('~/img/medal-bronze.png'); ?>" width="16" height="16" title="Pronssimitalisti" alt="Pronssimitalisti"></th>
-        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-        <th>Maalikuningas</th>
+        <?php if (STARTED): ?>
+            <th><img src="<?php echo url('~/img/medal-gold.png'); ?>" width="16" height="16" title="Voittaja" alt="Voittaja"></th>
+            <th><img src="<?php echo url('~/img/medal-silver.png'); ?>" width="16" height="16" title="Hopeamitalisti" alt="Hopeamitalisti"></th>
+            <th><img src="<?php echo url('~/img/medal-bronze.png'); ?>" width="16" height="16" title="Pronssimitalisti" alt="Pronssimitalisti"></th>
+            <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+            <th>Maalikuningas</th>
+            <?php endif; ?>
+            <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
+            <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
+            <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
+            <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
+            <?php else: ?>
+            <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
+            <?php endif; ?>
+            <th><a href="?order=team"><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></a></th>
+            <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+            <th><a href="?order=scorer"><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></a></th>
+            <?php endif; ?>
+            <th><a href="?order=total"><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></a></th>
         <?php endif; ?>
-        <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
-        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
-        <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
-        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
-        <?php else: ?>
-        <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/blank.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
-        <?php endif; ?>
-        <th><a href="?order=team"><img src="<?php echo url('~/img/teams.png'); ?>" width="48" height="16" title="Kolmen kärki &trade; pisteet" alt="Kolmen kärki &trade; pisteet"></a></th>
-        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-        <th><a href="?order=scorer"><img src="<?php echo url('~/img/scorer.png'); ?>" width="16" height="16" title="Maalikuninkuuspisteet" alt="Maalikuninkuuspisteet"></a></th>
-        <?php endif; ?>
-        <th><a href="?order=total"><img src="<?php echo url('~/img/sum.png'); ?>" width="16" height="16" title="Pisteet yhteensä" alt="Pisteet yhteensä"></a></th>
     </tr>
 </thead>
 <tbody>
 <?php foreach ($points as $point): ?>
 <tr>
-    <?php if ($point['rowspan'] === 0): ?>
-    <td class="position"><h3><?php echo $point['position']; ?>.</h3></td>
-    <?php elseif ($point['rowspan'] > 0 && $point['keyrow']): ?>
-    <td class="position" rowspan="<?php echo $point['rowspan']; ?>"><h3><?php echo $point['position']; ?>.</h3></td>
+    <?php if (STARTED): ?>
+        <?php if ($point['rowspan'] === 0): ?>
+        <td class="position"><h3><?php echo $point['position']; ?>.</h3></td>
+        <?php elseif ($point['rowspan'] > 0 && $point['keyrow']): ?>
+        <td class="position" rowspan="<?php echo $point['rowspan']; ?>"><h3><?php echo $point['position']; ?>.</h3></td>
+        <?php endif; ?>
     <?php endif; ?>
     <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><a href="<?php echo url('~/points') . '/' . urlencode($point['username']); ?>"><?php echo $point['username']; ?></a></td>
     <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>>
@@ -55,26 +60,28 @@
         &nbsp;
         <?php endif; ?>
     </td>
-    <td class="f32<?php echo $point['winner_ranking'] !== null && $point['winner_ranking'] !== '' && ($point['winner_ranking'] < 1 || $point['winner_ranking'] > 3) ? ' wrong' : ($point['winner_ranking'] !== null && $point['winner_ranking'] === 1 ? ' correct' : '') ?>">
-        <div class="<?php echo isset($point['winner_abbr']) ? "flag " . $point['winner_abbr'] : ''; ?>" title="<?php echo isset($point['winner']) ? $point['winner'] : ''; ?>">&nbsp;</div>
-    </td>
-    <td class="f32<?php echo $point['second_ranking'] !== null && $point['second_ranking'] !== '' && ($point['second_ranking'] < 1 || $point['second_ranking'] > 3) ? ' wrong' : ($point['second_ranking'] !== null && $point['second_ranking'] === 2 ? ' correct' : '')?>">
-        <div class="<?php echo isset($point['second_abbr']) ? "flag " . $point['second_abbr'] : ''; ?>" title="<?php echo isset($point['second']) ? $point['second'] : ''; ?>">&nbsp;</div>
-    </td>
-    <td class="f32<?php echo $point['third_ranking'] !== null && $point['third_ranking'] !== '' && ($point['third_ranking'] < 1 || $point['third_ranking'] > 3) ? ' wrong' : ($point['third_ranking'] !== null && $point['third_ranking'] === 3 ? ' correct' : '')?>">
-        <div class="<?php echo isset($point['third_abbr']) ? "flag " . $point['third_abbr'] : ''; ?>" title="<?php echo isset($point['third']) ? $point['third'] : ''; ?>">&nbsp;</div>
-    </td>
-    <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-    <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo isset($point['scorer']) ? $point['scorer'] : (isset($point['scorer_betted']) ? $point['scorer_betted'] : '&nbsp;') ?></td>
+    <?php if (STARTED): ?>
+        <td class="f32<?php echo $point['winner_ranking'] !== null && $point['winner_ranking'] !== '' && ($point['winner_ranking'] < 1 || $point['winner_ranking'] > 3) ? ' wrong' : ($point['winner_ranking'] !== null && $point['winner_ranking'] === 1 ? ' correct' : '') ?>">
+            <div class="<?php echo isset($point['winner_abbr']) ? "flag " . $point['winner_abbr'] : ''; ?>" title="<?php echo isset($point['winner']) ? $point['winner'] : ''; ?>">&nbsp;</div>
+        </td>
+        <td class="f32<?php echo $point['second_ranking'] !== null && $point['second_ranking'] !== '' && ($point['second_ranking'] < 1 || $point['second_ranking'] > 3) ? ' wrong' : ($point['second_ranking'] !== null && $point['second_ranking'] === 2 ? ' correct' : '')?>">
+            <div class="<?php echo isset($point['second_abbr']) ? "flag " . $point['second_abbr'] : ''; ?>" title="<?php echo isset($point['second']) ? $point['second'] : ''; ?>">&nbsp;</div>
+        </td>
+        <td class="f32<?php echo $point['third_ranking'] !== null && $point['third_ranking'] !== '' && ($point['third_ranking'] < 1 || $point['third_ranking'] > 3) ? ' wrong' : ($point['third_ranking'] !== null && $point['third_ranking'] === 3 ? ' correct' : '')?>">
+            <div class="<?php echo isset($point['third_abbr']) ? "flag " . $point['third_abbr'] : ''; ?>" title="<?php echo isset($point['third']) ? $point['third'] : ''; ?>">&nbsp;</div>
+        </td>
+        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+        <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo isset($point['scorer']) ? $point['scorer'] : (isset($point['scorer_betted']) ? $point['scorer_betted'] : '&nbsp;') ?></td>
+        <?php endif; ?>
+        <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
+        <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo $point['team_points']; ?></td>
+        <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
+        <td<?php echo ($point['username'] === username) ? (' class="current-user' . ($point['scorer_points'] > 0 ? ' success' : '') . '"') : ($point['scorer_points'] > 0 ? ' class="current-user"' : ''); ?>>
+            <?php echo $point['scorer_points']; ?>
+        </td>
+        <?php endif; ?>
+        <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['total_points'], 2, ',', ''); ?></td>
     <?php endif; ?>
-    <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
-    <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo $point['team_points']; ?></td>
-    <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
-    <td<?php echo ($point['username'] === username) ? (' class="current-user' . ($point['scorer_points'] > 0 ? ' success' : '') . '"') : ($point['scorer_points'] > 0 ? ' class="current-user"' : ''); ?>>
-        <?php echo $point['scorer_points']; ?>
-    </td>
-    <?php endif; ?>
-    <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['total_points'], 2, ',', ''); ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>
@@ -111,5 +118,4 @@
 <?php endforeach; ?>
 </tbody>
 </table>
-<?php endif; ?>
 <?php endif; ?>
