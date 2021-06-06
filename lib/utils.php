@@ -191,7 +191,8 @@ function smileys_array() {
     $smileys[] = array('src' => 'stars.gif', 'title' => 'stars', 'keys' => array(':*:'));
     $smileys[] = array('src' => 'rose.png', 'title' => 'rose', 'keys' => array(':rose:'));
     $smileys[] = array('src' => 'money.png', 'title' => 'money', 'keys' => array(':money:'));
-    
+    $smileys[] = array('src' => 'theking.png', 'title' => 'theking', 'keys' => array(':theking:'));
+    $smileys[] = array('src' => 'littipeukku.png', 'title' => 'littipeukku', 'keys' => array(':littipeukku:'));
     return $smileys;
 }
 function smileys($value) {

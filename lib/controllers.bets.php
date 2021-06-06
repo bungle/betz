@@ -56,11 +56,11 @@ post('/bets/teams/%d', function($position) {
                 case 2: db\bets\second(username, $form->team->value); break;
                 case 3: db\bets\third(username, $form->team->value); break;
             }
-            cache_delete(TOURNAMENT_ID . ':points:total');
-            cache_delete(TOURNAMENT_ID . ':points:game');
-            cache_delete(TOURNAMENT_ID . ':points:scorer');
-            cache_delete(TOURNAMENT_ID . ':points:team');
-            cache_delete(TOURNAMENT_ID . ':points:history');
+            //cache_delete(TOURNAMENT_ID . ':points:total');
+            //cache_delete(TOURNAMENT_ID . ':points:game');
+            //cache_delete(TOURNAMENT_ID . ':points:scorer');
+            //cache_delete(TOURNAMENT_ID . ':points:team');
+            //cache_delete(TOURNAMENT_ID . ':points:history');
         } else {
             status(500);
         }
@@ -92,11 +92,11 @@ if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
         if ($form->validate()) {
             if (!STARTED) {
                 db\bets\scorer(username, $form->scorer);
-                cache_delete(TOURNAMENT_ID . ':points:total');
-                cache_delete(TOURNAMENT_ID . ':points:game');
-                cache_delete(TOURNAMENT_ID . ':points:scorer');
-                cache_delete(TOURNAMENT_ID . ':points:team');
-                cache_delete(TOURNAMENT_ID . ':points:history');
+                //cache_delete(TOURNAMENT_ID . ':points:total');
+                //cache_delete(TOURNAMENT_ID . ':points:game');
+                //cache_delete(TOURNAMENT_ID . ':points:scorer');
+                //cache_delete(TOURNAMENT_ID . ':points:team');
+                //cache_delete(TOURNAMENT_ID . ':points:history');
                 db\users\visited(username, 'Maalikuninkuus');
                 flash('saved', true);
                 redirect('~/bets/scorer');

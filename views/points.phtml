@@ -27,6 +27,9 @@
             <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
             <th>Maalikuningas</th>
             <?php endif; ?>
+            <?php if ($nextbets): ?>
+            <th><img src="<?php echo url('~/img/smileys/soccer.gif'); ?>" width="16" height="16" title="Viimeisimmän pelin veikkaus" alt="Viimeisimmän pelin veikkaus"></th>
+            <?php endif; ?>
             <?php if (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'hockey'): ?>
             <th><a href="?order=game"><img src="<?php echo url('~/img/smileys/puck.gif'); ?>" width="16" height="16" title="Ottelupisteet" alt="Ottelupisteet"></a></th>
             <?php elseif (defined('TOURNAMENT_TYPE') && TOURNAMENT_TYPE === 'soccer'): ?>
@@ -73,6 +76,17 @@
         <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
         <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo isset($point['scorer']) ? $point['scorer'] : (isset($point['scorer_betted']) ? $point['scorer_betted'] : '&nbsp;') ?></td>
         <?php endif; ?>
+        <?php if ($nextbets): ?>
+            <?php if (isset($nextbets[$point['username']])): ?>
+                <?php if ($nextbets[$point['username']] === 'X'): ?>
+                    <td><strong>X</strong></td>
+                <?php else: ?>
+                    <td class="f32"><div class="flag <?php echo $nextbets[$point['username']]; ?>">&nbsp;</div></td>
+                <?php endif; ?>
+            <?php else: ?>
+                <td class="wrong">&nbsp;</td>
+            <?php endif; ?>
+        <?php endif; ?>
         <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo number_format($point['game_points'], 2, ',', ''); ?></td>
         <td<?php echo ($point['username'] === username) ? ' class="current-user"' : ''; ?>><?php echo $point['team_points']; ?></td>
         <?php if (defined('ENABLE_SCORER') && ENABLE_SCORER): ?>
@@ -86,6 +100,7 @@
 <?php endforeach; ?>
 </tbody>
 </table>
+<?php if (STARTED): ?>
 <?php if (count($scorers) > 0): ?>
 <br>
 <h2>Turnauksen veikatut maalintekijät</h2>
@@ -118,4 +133,5 @@
 <?php endforeach; ?>
 </tbody>
 </table>
+<?php endif; ?>
 <?php endif; ?>

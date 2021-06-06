@@ -70,7 +70,7 @@ SQL;
         $points = array();
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             $points[$i] = $row;
-            if ($total !== $row[$order]) {
+            if (round($total, 2) !== round($row[$order], 2)) {
                 $total = $row[$order];
                 $points[$j]['keyrow'] = true;
                 $points[$j]['rowspan'] = $rowspan;

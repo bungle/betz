@@ -115,4 +115,34 @@ SQL;
         $stm->close();
         return $row !== false;
     }
+
+    function nextbets() {
+        $sql = <<< 'SQL'
+    SELECT DISTINCT b.user AS user,
+           CASE b.score
+             WHEN '1' THEN g.home_abbr
+             WHEN '2' THEN g.road_abbr
+		     ELSE 'X'
+		   END AS bet
+      FROM view_games AS g
+INNER JOIN gamebets AS b
+        ON g.id = b.game
+     WHERE g.id = (SELECT id FROM games WHERE time < :time AND home_goals IS NULL LIMIT 1);
+SQL;
+
+        $db = \db\connect();
+        $stm = $db->prepare($sql);
+        $stm->bindValue(':time', date_format(date_create(), DATE_SQLITE), SQLITE3_TEXT);
+        $res = $stm->execute();
+        $bets = false;
+        while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
+            if ($bets === false) {
+                $bets = array();
+            }
+
+            $bets[$row['user']] = $row['bet'];
+        }
+
+        return $bets;
+    }
 }

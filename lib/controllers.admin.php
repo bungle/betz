@@ -58,11 +58,11 @@ post('/admin/teams/%p', function($team) {
     $form->ranking->filter('int', 'intval');
     if ($form->validate()) {
         db\teams\ranking($team, $form->ranking->value);
-        cache_delete(TOURNAMENT_ID . ':points:total');
-        cache_delete(TOURNAMENT_ID . ':points:game');
-        cache_delete(TOURNAMENT_ID . ':points:scorer');
-        cache_delete(TOURNAMENT_ID . ':points:team');
-        cache_delete(TOURNAMENT_ID . ':points:history');
+        //cache_delete(TOURNAMENT_ID . ':points:total');
+        //cache_delete(TOURNAMENT_ID . ':points:game');
+        //cache_delete(TOURNAMENT_ID . ':points:scorer');
+        //cache_delete(TOURNAMENT_ID . ':points:team');
+        //cache_delete(TOURNAMENT_ID . ':points:history');
     } else {
         status(500);
     }
@@ -109,11 +109,11 @@ post('/admin/games/%d', function($id) {
     $form->road_goals_total->filter('int', 'intval');
     if ($form->validate()) {
         db\games\score($id, $form->home_goals->value, $form->road_goals->value, $form->home_goals_total->value, $form->road_goals_total->value);
-        cache_delete(TOURNAMENT_ID . ':points:total');
-        cache_delete(TOURNAMENT_ID . ':points:game');
-        cache_delete(TOURNAMENT_ID . ':points:scorer');
-        cache_delete(TOURNAMENT_ID . ':points:team');
-        cache_delete(TOURNAMENT_ID . ':points:history');
+        //cache_delete(TOURNAMENT_ID . ':points:total');
+        //cache_delete(TOURNAMENT_ID . ':points:game');
+        //cache_delete(TOURNAMENT_ID . ':points:scorer');
+        //cache_delete(TOURNAMENT_ID . ':points:team');
+        //cache_delete(TOURNAMENT_ID . ':points:history');
     } else {
         status(500);
     }
@@ -139,12 +139,12 @@ if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
         if ($form->validate()) {
             $changes = db\scorers\add($form->scorer->value, $form->team->value, $form->goals->value);
             if ($changes > 0) {
-                cache_delete(TOURNAMENT_ID . ':points:total');
-                cache_delete(TOURNAMENT_ID . ':points:game');
-                cache_delete(TOURNAMENT_ID . ':points:scorer');
-                cache_delete(TOURNAMENT_ID . ':points:team');
-                cache_delete(TOURNAMENT_ID . ':points:history');
-                cache_delete(TOURNAMENT_ID . ':scorers');
+                //cache_delete(TOURNAMENT_ID . ':points:total');
+                //cache_delete(TOURNAMENT_ID . ':points:game');
+                //cache_delete(TOURNAMENT_ID . ':points:scorer');
+                //cache_delete(TOURNAMENT_ID . ':points:team');
+                //cache_delete(TOURNAMENT_ID . ':points:history');
+                //cache_delete(TOURNAMENT_ID . ':scorers');
                 redirect('~/admin/scorers');
             }
         }
@@ -164,12 +164,12 @@ if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
         $form->betted->filter('trim', specialchars(), minlength(3));
         if ($form->validate()) {
             db\scorers\map($form->scorer->value, $form->betted->value);
-            cache_delete(TOURNAMENT_ID . ':points:total');
-            cache_delete(TOURNAMENT_ID . ':points:game');
-            cache_delete(TOURNAMENT_ID . ':points:scorer');
-            cache_delete(TOURNAMENT_ID . ':points:team');
-            cache_delete(TOURNAMENT_ID . ':points:history');
-            cache_delete(TOURNAMENT_ID . ':scorers');
+            //cache_delete(TOURNAMENT_ID . ':points:total');
+            //cache_delete(TOURNAMENT_ID . ':points:game');
+            //cache_delete(TOURNAMENT_ID . ':points:scorer');
+            //cache_delete(TOURNAMENT_ID . ':points:team');
+            //cache_delete(TOURNAMENT_ID . ':points:history');
+            //cache_delete(TOURNAMENT_ID . ':scorers');
         } else {
             status(500);
         }
@@ -182,12 +182,12 @@ if (defined('ENABLE_SCORER') && ENABLE_SCORER) {
         $form->goals->filter('int', 'intval');
         if ($form->validate()) {
             db\scorers\goals($scorer, $form->goals->value);
-            cache_delete(TOURNAMENT_ID . ':points:total');
-            cache_delete(TOURNAMENT_ID . ':points:game');
-            cache_delete(TOURNAMENT_ID . ':points:scorer');
-            cache_delete(TOURNAMENT_ID . ':points:team');
-            cache_delete(TOURNAMENT_ID . ':points:history');
-            cache_delete(TOURNAMENT_ID . ':scorers');
+            //cache_delete(TOURNAMENT_ID . ':points:total');
+            //cache_delete(TOURNAMENT_ID . ':points:game');
+            //cache_delete(TOURNAMENT_ID . ':points:scorer');
+            //cache_delete(TOURNAMENT_ID . ':points:team');
+            //cache_delete(TOURNAMENT_ID . ':points:history');
+            //cache_delete(TOURNAMENT_ID . ':scorers');
         } else {
             status(500);
         }
@@ -210,11 +210,11 @@ post('/admin/users', function() {
     $form->admin = new field(isset($_POST['admin']));
     if ($form->validate()) {
         db\users\update($form->user, $form->active->value || $form->paid->value || username == $form->user, $form->paid->value, $form->admin->value || username == $form->user);
-        cache_delete(TOURNAMENT_ID . ':points:total');
-        cache_delete(TOURNAMENT_ID . ':points:game');
-        cache_delete(TOURNAMENT_ID . ':points:scorer');
-        cache_delete(TOURNAMENT_ID . ':points:team');
-        cache_delete(TOURNAMENT_ID . ':points:history');
+        //cache_delete(TOURNAMENT_ID . ':points:total');
+        //cache_delete(TOURNAMENT_ID . ':points:game');
+        //cache_delete(TOURNAMENT_ID . ':points:scorer');
+        //cache_delete(TOURNAMENT_ID . ':points:team');
+        //cache_delete(TOURNAMENT_ID . ':points:history');
     } else {
         status(500);
     }

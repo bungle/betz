@@ -8,18 +8,19 @@ get('/points', function() {
     if ($order !== 'game' && $order !== 'team' && $order !== 'scorer' && $order !== 'total') {
         $order = \db\bets\ended() ? 'total' : 'game';
     }
-    $points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
-    if ($points === false) {
+    //$points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
+    //if ($points === false) {
         $points = db\stats\points($order);
-        cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
-    }
+    //    cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
+    //}
     $view->points = $points;
     $view->gamepoints = \db\stats\gamepoints();
-    $scorers = cache_fetch(TOURNAMENT_ID . ':scorers');
-    if ($scorers === false) {
+    //$scorers = cache_fetch(TOURNAMENT_ID . ':scorers');
+    //if ($scorers === false) {
         $scorers = db\stats\scorers();
-        cache_store(TOURNAMENT_ID . ':scorers', $scorers);
-    }
+    //    cache_store(TOURNAMENT_ID . ':scorers', $scorers);
+    //}
+    $view->nextbets = \db\bets\nextbets();
     $view->scorers = $scorers;
     $view->online = db\users\visited(username, 'Pistetilanne');
     die($view);
@@ -35,20 +36,20 @@ get('/points/%p', function($username) {
     if ($order !== 'game' && $order !== 'team' && $order !== 'scorer' && $order !== 'total') {
         $order = \db\bets\ended() ? 'total' : 'game';
     }
-    $points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
-    if ($points === false) {
+    //$points = cache_fetch(TOURNAMENT_ID . ":points:{$order}");
+    //if ($points === false) {
         $points = db\stats\points($order);
-        cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
-    }
+    //    cache_store(TOURNAMENT_ID . ":points:{$order}", $points);
+    //}
     $points = array_filter($points, function($point) use ($username) {
         return $point['username'] === $username;
     });
     $view->points = $points;
-    $scorers = cache_fetch(TOURNAMENT_ID . ':scorers');
-    if ($scorers === false) {
+    //$scorers = cache_fetch(TOURNAMENT_ID . ':scorers');
+    //if ($scorers === false) {
         $scorers = db\stats\scorers();
-        cache_store(TOURNAMENT_ID . ':scorers', $scorers);
-    }
+    //    cache_store(TOURNAMENT_ID . ':scorers', $scorers);
+    //}
     $view->scorers = $scorers;
     $view->pointsuser = $username;
     $view->games = db\stats\games($username);
@@ -66,11 +67,11 @@ get('/stats', function() {
 get('/stats/history', function() {
     if (!AUTHENTICATED) redirect('~/unauthorized');
     header("Content-type: text/json");
-    $points = cache_fetch(TOURNAMENT_ID . ':points:history');
-    if ($points === false) {
+    //$points = cache_fetch(TOURNAMENT_ID . ':points:history');
+    //if ($points === false) {
         $points = \db\stats\points_history();
-        cache_store(TOURNAMENT_ID . ':points:history', $points);
-    }    
+    //    cache_store(TOURNAMENT_ID . ':points:history', $points);
+    //}
     die(json_encode($points));
 });
 get('/teams', function() {
