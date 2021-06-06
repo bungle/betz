@@ -11,21 +11,21 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;            
+    background-size: cover;
     text-align: center;
 }
 #wrapper {
     width: 500px; /* container width to be same as that of the target element*/
     margin: 0 auto; /* horizontal aligned center*/
-    
+
 }
 #content {
     width: 500px; /* width of target element */
     margin: 100px 0; /* Important: HALF the height of target element */
 }
 #login {
--moz-box-shadow: 0 0 5px #888;                                                          
--webkit-box-shadow: 0 0 5px#888;                                                        
+-moz-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px#888;
 box-shadow: 0 0 5px #888;
     text-align: left;
 }
@@ -70,14 +70,14 @@ box-shadow: 0 0 5px #888;
     height: 23px;
     line-height: 23px;
     margin-top: 2px;
-    width: 270px;
+    width: 260px;
 }
 #login-form input[type=password]{
     font-size: 1.25em;
     height: 23px;
     line-height: 23px;
     margin-top: 2px;
-    width: 222px;
+    width: 210px;
 }
 .ui-button-text-only .ui-button-text {
     margin-top: 2px;
