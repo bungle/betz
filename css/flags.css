@@ -16,11 +16,11 @@
 .f16 ._Olimpic_Movement{background-position:0 -208px;}
 .f16 ._OPEC{background-position:0 -224px;}
 .f16 ._Red_Cross{background-position:0 -240px;}
-.f16 ._Scotland{background-position:0 -256px;}
+.f16 ._Scotland,.f16 .SCO{background-position:0 -256px;}
 .f16 ._Somaliland{background-position:0 -272px;}
 .f16 ._Tibet{background-position:0 -288px;}
 .f16 ._United_Nations{background-position:0 -304px;}
-.f16 ._Wales,.f16 .WLS{background-position:0 -320px;}
+.f16 ._Wales,.f16 .WLS,.f16 .WAL{background-position:0 -320px;}
 .f16 .ad{background-position:0 -336px;}
 .f16 .ae{background-position:0 -352px;}
 .f16 .af{background-position:0 -368px;}
@@ -152,7 +152,7 @@
 .f16 .me{background-position:0 -2368px;}
 .f16 .mg{background-position:0 -2384px;}
 .f16 .mh{background-position:0 -2400px;}
-.f16 .mk{background-position:0 -2416px;}
+.f16 .mk, .f16 .mkd {background-position:0 -2416px;}
 .f16 .ml{background-position:0 -2432px;}
 .f16 .mm{background-position:0 -2448px;}
 .f16 .mn{background-position:0 -2464px;}
@@ -260,11 +260,11 @@
 .f32 ._Olimpic_Movement{background-position:0 -416px;}
 .f32 ._OPEC{background-position:0 -448px;}
 .f32 ._Red_Cross{background-position:0 -480px;}
-.f32 ._Scotland{background-position:0 -512px;}
+.f32 ._Scotland,.f32 .SCO{background-position:0 -512px;}
 .f32 ._Somaliland{background-position:0 -544px;}
 .f32 ._Tibet{background-position:0 -576px;}
 .f32 ._United_Nations{background-position:0 -608px;}
-.f32 ._Wales,.f32 .WLS{background-position:0 -640px;}
+.f32 ._Wales,.f32 .WLS,.f32 .WAL{background-position:0 -640px;}
 .f32 .ad{background-position:0 -672px;}
 .f32 .ae{background-position:0 -704px;}
 .f32 .af{background-position:0 -736px;}
@@ -396,7 +396,7 @@
 .f32 .me{background-position:0 -4736px;}
 .f32 .mg{background-position:0 -4768px;}
 .f32 .mh{background-position:0 -4800px;}
-.f32 .mk{background-position:0 -4832px;}
+.f32 .mk, .f32 .mkd {background-position:0 -4832px;}
 .f32 .ml{background-position:0 -4864px;}
 .f32 .mm{background-position:0 -4896px;}
 .f32 .mn{background-position:0 -4928px;}
